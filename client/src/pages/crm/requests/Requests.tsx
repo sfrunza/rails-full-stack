@@ -1,7 +1,12 @@
-import { Card, CardContent, CardFooter, CardHeader } from "components/ui/card";
-import { useSelector } from "store";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { useSelector } from "@/store";
 import useSWR from "swr";
-import { TFullRequest } from "types/request";
+import { TFullRequest } from "@/types/request";
 import { RequestsTable } from "./_components/RequestsTable";
 import { StatusTabs } from "./_components/StatusTabs";
 import { TablePagination } from "./_components/TablePagination";

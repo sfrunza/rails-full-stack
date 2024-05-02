@@ -1,15 +1,15 @@
-import cable from "api/WebSocketConnection";
-import Spinner from "components/Spinner";
-import { Card, CardContent } from "components/ui/card";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { fetchRequest, setRequest } from "slices/request";
-import { useDispatch, useSelector } from "store";
-import DateTimeAddressesCard from "./_components/DateTimeAddressesCard";
-import MoveSizeCard from "./_components/MoveSizeCard";
-import PackingCard from "./_components/PackingCard";
-import QuoteDetailsCard from "./_components/QuoteDetailsCard";
-import QuoteDetailsCardFlatRate from "./_components/QuoteDetailsCardFlatRate";
+import cable from '@/api/WebSocketConnection';
+import Spinner from '@/components/Spinner';
+import { Card, CardContent } from '@/components/ui/card';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchRequest, setRequest } from '@/slices/request';
+import { useDispatch, useSelector } from '@/store';
+import DateTimeAddressesCard from './_components/DateTimeAddressesCard';
+import MoveSizeCard from './_components/MoveSizeCard';
+import PackingCard from './_components/PackingCard';
+import QuoteDetailsCard from './_components/QuoteDetailsCard';
+import QuoteDetailsCardFlatRate from './_components/QuoteDetailsCardFlatRate';
 
 export default function AccountRequest() {
   const { id } = useParams<{ id: string }>();
@@ -23,19 +23,19 @@ export default function AccountRequest() {
     dispatch(fetchRequest(id));
     // Subscribe to channel
     const channel = cable.subscriptions.create(
-      { channel: "RequestChannel", request_id: id },
+      { channel: 'RequestChannel', request_id: id },
       {
         connected() {
-          console.log("Connected to RequestChannel");
+          console.log('Connected to RequestChannel');
         },
         disconnected() {
-          console.log("Disconnected from RequestChannel");
+          console.log('Disconnected from RequestChannel');
         },
         received(data) {
-          console.log("Customer view received:", data);
+          console.log('Customer view received:', data);
           dispatch(setRequest(data));
         },
-      },
+      }
     );
 
     return () => {
@@ -62,7 +62,7 @@ export default function AccountRequest() {
       </Card>
     );
 
-  console.log("Request:", request);
+  console.log('Request:', request);
 
   const { service_id } = request!;
   const service = services.find((s) => s.id === service_id);
@@ -80,7 +80,7 @@ export default function AccountRequest() {
         <PackingCard />
       </div>
       <div className="col-span-12">
-        {service && service?.name === "Flat Rate" ? (
+        {service && service?.name === 'Flat Rate' ? (
           <QuoteDetailsCardFlatRate />
         ) : (
           <QuoteDetailsCard />

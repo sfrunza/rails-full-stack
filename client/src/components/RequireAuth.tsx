@@ -1,6 +1,6 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "store";
-import Spinner from "./Spinner";
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from '@/store';
+import Spinner from './Spinner';
 
 export default function RequireAuth({
   allowedRoles,

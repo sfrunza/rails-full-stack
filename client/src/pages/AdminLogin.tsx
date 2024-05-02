@@ -1,7 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { z } from 'zod';
 
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "components/ui/card";
+} from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -17,12 +17,12 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "components/ui/form";
-import { Input } from "components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 // import { useSelector, useDispatch } from 'store';
-import FormSubmitButton from "components/FormSubmitButton";
-import { loginUser } from "slices/auth";
-import { useDispatch, useSelector } from "store";
+import FormSubmitButton from '@/components/FormSubmitButton';
+import { loginUser } from '@/slices/auth';
+import { useDispatch, useSelector } from '@/store';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,17 +30,14 @@ const formSchema = z.object({
 });
 
 export default function AdminLogin() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
-  let { isLoggingIn, error } = useSelector((state) => state.auth);
+  let { isLoggingIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 

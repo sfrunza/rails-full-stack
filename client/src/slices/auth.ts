@@ -123,7 +123,7 @@ export const loginUser = (user: {
       body: JSON.stringify({ session: user }),
     })
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
     if (data.user && data.jwt) {
       localStorage.setItem('token', data.jwt);
       dispatch(slice.actions.loginSuccess(data.user));

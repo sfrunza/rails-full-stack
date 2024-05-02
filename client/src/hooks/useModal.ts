@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'store';
-import { _openModal, _closeModal, ModalType, ModalData } from 'slices/modal';
+import { useDispatch, useSelector } from '@/store';
+import { _openModal, _closeModal, ModalType, ModalData } from '@/slices/modal';
 
 
 export const useModal = () => {

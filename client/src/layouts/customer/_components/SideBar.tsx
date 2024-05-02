@@ -2,11 +2,11 @@ import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
-} from "components/ui/accordion";
-import { Button, buttonVariants } from "components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
-import { Separator } from "components/ui/separator";
-import { cn } from "lib/utils";
+} from '@/components/ui/accordion';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 import {
   FileTextIcon,
   HistoryIcon,
@@ -15,10 +15,10 @@ import {
   PhoneIcon,
   SettingsIcon,
   UmbrellaIcon,
-} from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "store";
-import JobsMenu from "./JobsMenu";
+} from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from '@/store';
+import JobsMenu from './JobsMenu';
 
 export default function SideBar({ requests }: { requests: any[] }) {
   const { user } = useSelector((state) => state.auth);
@@ -27,7 +27,7 @@ export default function SideBar({ requests }: { requests: any[] }) {
   return (
     <Card className="relative">
       <CardHeader className="border-b p-4">
-        <CardTitle className="rounded-md bg-slate-100 p-6">
+        <CardTitle className="rounded-md bg-muted p-6">
           Welcome, {user?.first_name}
         </CardTitle>
       </CardHeader>
@@ -35,8 +35,8 @@ export default function SideBar({ requests }: { requests: any[] }) {
         <Button
           variant="ghost"
           className={cn(
-            "justify-start",
-            pathname === "/account" && "bg-slate-100",
+            'justify-start',
+            pathname === '/account' && 'bg-muted'
           )}
           asChild
         >
@@ -49,8 +49,8 @@ export default function SideBar({ requests }: { requests: any[] }) {
           <AccordionItem value="1" className="border-b-0">
             <AccordionTrigger
               className={cn(
-                buttonVariants({ variant: "ghost" }),
-                "justify-between hover:no-underline",
+                buttonVariants({ variant: 'ghost' }),
+                'justify-between hover:no-underline'
               )}
             >
               <span className="flex items-center justify-start">
@@ -65,8 +65,8 @@ export default function SideBar({ requests }: { requests: any[] }) {
         <Button
           variant="ghost"
           className={cn(
-            "justify-start",
-            pathname === "/account/profile" && "bg-slate-100",
+            'justify-start',
+            pathname === '/account/profile' && 'bg-muted'
           )}
           asChild
         >

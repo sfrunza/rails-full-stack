@@ -1,4 +1,4 @@
-import { TStatus } from "types/request";
+import { TStatus } from "@/types/request";
 
 export const statusOptions = [
   "Pending",

@@ -1,12 +1,12 @@
-import useSWR from "swr";
-import { LogOutIcon } from "lucide-react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { logoutUser } from "slices/auth";
-import { useDispatch, useSelector } from "store";
-import { Button } from "components/ui/button";
-import SideBar from "./_components/SideBar";
-import { SideBarMobile } from "./_components/SideBarMobile";
-import logo from "assets/logos/mono-logo.png";
+import useSWR from 'swr';
+import { LogOutIcon } from 'lucide-react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { logoutUser } from '@/slices/auth';
+import { useDispatch, useSelector } from '@/store';
+import { Button } from '@/components/ui/button';
+import SideBar from './_components/SideBar';
+import { SideBarMobile } from './_components/SideBarMobile';
+import logo from '@/assets/logos/mono-logo.png';
 
 export default function CustomerLayout() {
   let location = useLocation();
@@ -23,12 +23,12 @@ export default function CustomerLayout() {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (user && user.role !== "customer") {
+  if (user && user.role !== 'customer') {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return (
-    <div className="from min-h-screen bg-slate-100">
+    <div className="from min-h-screen bg-muted">
       <header className="h-48 bg-slate-900 lg:h-56">
         <nav className="container flex max-w-6xl items-center justify-between px-4 py-4 lg:px-8">
           <ul className="flex w-full items-center justify-between text-sm font-medium">

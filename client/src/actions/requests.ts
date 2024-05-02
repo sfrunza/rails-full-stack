@@ -1,4 +1,4 @@
-import { TFullRequest, TNewData } from "types/request";
+import { TNewData } from "@/types/request";
 
 export async function createRequest(serviceId: number) {
   try {

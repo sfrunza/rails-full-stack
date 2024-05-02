@@ -1,13 +1,13 @@
 // RequestChannelSubscription.js
-import cable from 'api/WebSocketConnection';
-import { useEffect, useState } from 'react';
+import cable from '@/api/WebSocketConnection';
+import { useEffect } from 'react';
 
 const RequestChannelSubscription = ({ requestId, onUpdateRequest }: {
   requestId: number;
   onUpdateRequest?: (request: any) => void;
 
 }) => {
-  const [request, setRequest] = useState(null);
+  // const [request, setRequest] = useState(null);
 
   useEffect(() => {
     const channel = cable.subscriptions.create({ channel: 'RequestChannel', request_id: requestId }, {
@@ -20,7 +20,7 @@ const RequestChannelSubscription = ({ requestId, onUpdateRequest }: {
       received(data) {
         console.log('Received data from RequestChannel:', data);
         if (data.action === 'update' && data.request.id === requestId) {
-          setRequest(data.request);
+          // setRequest(data.request);
           onUpdateRequest && onUpdateRequest(data.request);
         }
       },

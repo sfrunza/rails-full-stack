@@ -1,7 +1,7 @@
-import { Button } from "components/ui/button";
-import { PhoneCallIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useSelector } from "store";
+import { Button } from '@/components/ui/button';
+import { PhoneCallIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useSelector } from '@/store';
 
 export default function StatusMessage() {
   const { request } = useSelector((state) => state.request);
@@ -10,7 +10,7 @@ export default function StatusMessage() {
 
   const { id, status, service_id } = request;
   const service = services.find((s) => s.id === service_id);
-  const isFlatRate = service?.name === "Flat Rate";
+  const isFlatRate = service?.name === 'Flat Rate';
   return (
     <div className="grid grid-cols-2 gap-4 border-b p-4">
       <div className="col-span-2 flex h-full w-full items-center justify-center lg:col-span-1">
@@ -37,8 +37,8 @@ export default function StatusMessage() {
       </div>
 
       <div className="col-span-2 flex w-full gap-2 text-left text-sm lg:col-span-1">
-        {isFlatRate && status === "Pending" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {isFlatRate && status === 'Pending' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold text-primary">
               This is a Flat Rate request. We need the following information in
               order to start working on your quote.
@@ -58,10 +58,10 @@ export default function StatusMessage() {
             </ol>
           </div>
         )}
-        {status === "Completed" && null}
-        {status === "Confirmed" && (
+        {status === 'Completed' && null}
+        {status === 'Confirmed' && (
           <>
-            <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+            <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
               <p className="font-semibold">
                 Your move is now booked and confirmed.
               </p>
@@ -73,8 +73,8 @@ export default function StatusMessage() {
             </div>
           </>
         )}
-        {!isFlatRate && status === "Pending" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {!isFlatRate && status === 'Pending' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               We&apos;re currently checking if we&apos;re available for your
               upcoming move.
@@ -86,8 +86,8 @@ export default function StatusMessage() {
           </div>
         )}
 
-        {status === "Canceled" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {status === 'Canceled' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">Your move is now canceled.</p>
             <p>
               Please feel free to give us a call at +1 (617) 991-3552 with any
@@ -95,8 +95,8 @@ export default function StatusMessage() {
             </p>
           </div>
         )}
-        {status === "Expired" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {status === 'Expired' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               It looks like you move plan has EXPIRED.
             </p>
@@ -115,17 +115,17 @@ export default function StatusMessage() {
             </p>
           </div>
         )}
-        {status === "Not Confirmed" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {status === 'Not Confirmed' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               We have checked our schedule and it looks like we can make your
               move happen.
             </p>
             <p>
-              Click the{" "}
+              Click the{' '}
               <span className="font-semibold">
                 Proceed to Confirmation Page
-              </span>{" "}
+              </span>{' '}
               if you wish to confirm your move.
             </p>
             <p>
@@ -140,13 +140,13 @@ export default function StatusMessage() {
             </Button>
           </div>
         )}
-        {status === "Not Available" && (
-          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl border-slate-200 bg-slate-100 p-4 dark:bg-slate-700">
+        {status === 'Not Available' && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               Sorry... It looks we are not available for this move on this day.
             </p>
             <p>
-              Please give us a call at{" "}
+              Please give us a call at{' '}
               <span className="font-semibold">(617) 991-3552</span> to explore
               alternative dates for your move.
             </p>

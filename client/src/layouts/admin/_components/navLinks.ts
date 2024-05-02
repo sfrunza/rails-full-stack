@@ -3,7 +3,6 @@ import {
   CalendarDaysIcon,
   FileIcon,
   LayoutGridIcon,
-  MenuIcon,
   SettingsIcon,
   TruckIcon,
 } from "lucide-react";

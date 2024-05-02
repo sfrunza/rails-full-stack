@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import axios from "axios";
-import { set } from "date-fns";
-import { Button } from "./ui/button";
-import { CloudUploadIcon, ImageIcon } from "lucide-react";
+import React, { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+// import axios from "axios";
+// import { set } from "date-fns";
+import { Button } from './ui/button';
+import { CloudUploadIcon } from 'lucide-react';
 
 type TFile = File & { preview: string };
 
@@ -21,20 +21,22 @@ export default function FileUpload() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/*": [],
+      'image/*': [],
     },
     multiple: false,
     onDrop,
   });
 
-  console.log("file:", file);
+  console.log('file:', file);
   return (
     <div className="h-48 p-4 pt-0 sm:p-6 sm:pt-0">
       <div className="h-full rounded-lg border border-dashed">
         {!file && (
           <div
             {...getRootProps()}
-            className={`dropzone ${isDragActive ? "drag-active" : ""} flex h-full w-full flex-col items-center justify-center`}
+            className={`dropzone ${
+              isDragActive ? 'drag-active' : ''
+            } flex h-full w-full flex-col items-center justify-center`}
           >
             <input {...getInputProps()} />
             <CloudUploadIcon

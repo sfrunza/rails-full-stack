@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface User {
   id: number;
@@ -13,11 +13,11 @@ export default function UserList(): JSX.Element {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await fetch("/api/v1/users", {
-          method: "GET",
+        const response = await fetch('/api/v1/users', {
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token")!,
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token')!,
             // Add any authentication headers if needed (e.g., JWT token)
           },
         });
@@ -25,12 +25,12 @@ export default function UserList(): JSX.Element {
         if (response.ok) {
           const data: User[] = await response.json();
           setUsers(data);
-          console.log("Fetched users:", data);
+          console.log('Fetched users:', data);
         } else {
-          console.error("Failed to fetch users:", response.status);
+          console.error('Failed to fetch users:', response.status);
         }
       } catch (error) {
-        console.error("Failed to fetch users:", error);
+        console.error('Failed to fetch users:', error);
       }
     };
 

@@ -1,6 +1,6 @@
-import { updateServicesOrder } from "actions/services";
-import BackButton from "components/BackButton";
-import { Button } from "components/ui/button";
+import { updateServicesOrder } from '@/actions/services';
+import BackButton from '@/components/BackButton';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,14 +8,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "components/ui/card";
-import { deepCopy } from "lib/utils";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { setServices } from "slices/globalSetting";
-import { useDispatch, useSelector } from "store";
-import ServiceForm from "./_components/ServiceForm";
-import ServiceList from "./_components/ServiceList";
+} from '@/components/ui/card';
+import { deepCopy } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { setServices } from '@/slices/globalSetting';
+import { useDispatch, useSelector } from '@/store';
+import ServiceForm from './_components/ServiceForm';
+import ServiceList from './_components/ServiceList';
 
 export default function ServicesSettings() {
   const { services } = useSelector((state) => state.globalSettings);

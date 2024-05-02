@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TAddress } from 'types/request';
+import { TAddress } from '@/types/request';
 
 export type ModalType = "editTime" | "editDate" | "editMoveSize" | "editPacking" | "editDetails" | "editLocations" | "editPhotos";
 

@@ -1,22 +1,22 @@
-import { Button } from "components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "components/ui/card";
-import { Drawer, DrawerContent, DrawerTrigger } from "components/ui/drawer";
-import { ScrollArea } from "components/ui/scroll-area";
-import { Separator } from "components/ui/separator";
+} from '@/components/ui/card';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 import {
   convertMinutesToHoursAndMinutes,
   formatDate,
   formatMoney,
-} from "lib/utils";
-import { ChevronRightIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useSelector } from "store";
+} from '@/lib/utils';
+import { ChevronRightIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useSelector } from '@/store';
 
 export default function QuoteDetailsCard() {
   const { services, packings } = useSelector((state) => state.globalSettings);
@@ -57,7 +57,7 @@ export default function QuoteDetailsCard() {
 
           <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
             <p className="col-span-4">Start time</p>
-            <p className="font-medium lg:col-span-8">{"8AM"}</p>
+            <p className="font-medium lg:col-span-8">{'8AM'}</p>
           </div>
 
           {moving_date && (
@@ -72,7 +72,7 @@ export default function QuoteDetailsCard() {
           {moving_date && (
             <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
               <p className="col-span-4">Delivery time</p>
-              <p className="font-medium lg:col-span-8">{"8AM"}</p>
+              <p className="font-medium lg:col-span-8">{'8AM'}</p>
             </div>
           )}
         </div>
@@ -82,17 +82,17 @@ export default function QuoteDetailsCard() {
         <div className="space-y-1">
           <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
             <p className="col-span-4">Service</p>
-            <p className="font-medium lg:col-span-8">{service?.name || ""}</p>
+            <p className="font-medium lg:col-span-8">{service?.name || ''}</p>
           </div>
 
           <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
             <p className="col-span-4">Move size</p>
-            <p className="font-medium lg:col-span-8">{"1 Berdoom apartment"}</p>
+            <p className="font-medium lg:col-span-8">{'1 Berdoom apartment'}</p>
           </div>
 
           <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
             <p className="col-span-4">Packing</p>
-            <p className="font-medium lg:col-span-8">{packing?.name || ""}</p>
+            <p className="font-medium lg:col-span-8">{packing?.name || ''}</p>
           </div>
         </div>
 
@@ -143,11 +143,11 @@ export default function QuoteDetailsCard() {
         </div>
         <Separator className="my-4" />
         <p className="text-sm">
-          <b className="text-red-600">NOTE:</b>{" "}
+          <b className="text-red-600">NOTE:</b>{' '}
           <strong>
             This quote is just an estimate and provided for your convinience
             only.
-          </strong>{" "}
+          </strong>{' '}
           We give you a database average for generally similar moves. However,
           your final cost is based on hourly rate and actual time your move will
           take. Additional time may be required if your move involves long
@@ -160,7 +160,7 @@ export default function QuoteDetailsCard() {
             <Button variant="edit">Learn More</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <ScrollArea className="h-[90vh]">
+            <ScrollArea className="h-[70vh]">
               <div className="mx-auto mb-10 max-w-2xl space-y-4 p-6 text-sm">
                 <p className="font-bold uppercase">How quote is calculated?</p>
                 <p>
@@ -198,7 +198,7 @@ export default function QuoteDetailsCard() {
         </Drawer>
       </CardContent>
       <CardFooter className="flex-col items-start p-4">
-        {status === "Not Confirmed" && (
+        {status === 'Not Confirmed' && (
           <Button
             size="lg"
             className="w-full rounded-xl py-8 text-base font-semibold"

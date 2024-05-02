@@ -1,28 +1,28 @@
-import { Button } from "components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "components/ui/form";
-import { Label } from "components/ui/label";
-import { RadioGroup, RadioGroupItem } from "components/ui/radio-group";
-import { Textarea } from "components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useModal } from "hooks/useModal";
-import useUpdateRequest from "hooks/useUpdateRequest";
-import { useForm } from "react-hook-form";
-import { useSelector } from "store";
-import { z } from "zod";
-import { ScrollArea } from "../ui/scroll-area";
+} from '@/components/ui/form';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useModal } from '@/hooks/useModal';
+import useUpdateRequest from '@/hooks/useUpdateRequest';
+import { useForm } from 'react-hook-form';
+import { useSelector } from '@/store';
+import { z } from 'zod';
+import { ScrollArea } from '../ui/scroll-area';
 
 const FormDataSchema = z.object({
   delicate_items_question_answer: z.string(),
@@ -38,11 +38,11 @@ export function EditDetailsModal() {
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
 
-  const { details } = getModalData("editDetails");
+  const { details } = getModalData('editDetails');
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: "onChange",
+    reValidateMode: 'onChange',
     defaultValues: {
       delicate_items_question_answer: details?.delicate_items_question_answer,
       bulky_items_question_answer: details?.bulky_items_question_answer,
@@ -58,11 +58,11 @@ export function EditDetailsModal() {
 
   const handleClose = () => {
     form.reset();
-    closeModal("editDetails");
+    closeModal('editDetails');
   };
 
   return (
-    <Dialog open={isModalOpen("editDetails")} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen('editDetails')} onOpenChange={handleClose}>
       <DialogContent
         onOpenAutoFocus={(e) => e.preventDefault()}
         className="flex h-full flex-col overflow-hidden p-0 sm:h-[80vh]"
@@ -91,7 +91,7 @@ export function EditDetailsModal() {
                     render={({ field }) => (
                       <RadioGroup
                         defaultValue={form.getValues(
-                          "delicate_items_question_answer",
+                          'delicate_items_question_answer'
                         )}
                         onValueChange={(val) => {
                           field.onChange(val);
@@ -123,7 +123,7 @@ export function EditDetailsModal() {
                     render={({ field }) => (
                       <RadioGroup
                         defaultValue={form.getValues(
-                          "bulky_items_question_answer",
+                          'bulky_items_question_answer'
                         )}
                         onValueChange={(val) => {
                           field.onChange(val);
@@ -155,7 +155,7 @@ export function EditDetailsModal() {
                     render={({ field }) => (
                       <RadioGroup
                         defaultValue={form.getValues(
-                          "disassemble_items_question_answer",
+                          'disassemble_items_question_answer'
                         )}
                         onValueChange={(val) => {
                           field.onChange(val);
@@ -198,7 +198,7 @@ export function EditDetailsModal() {
                 </div>
               </div>
             </ScrollArea>
-            <DialogFooter className="flex justify-end bg-slate-100 p-6">
+            <DialogFooter className="flex justify-end bg-muted p-6">
               <Button disabled={isSaving}>Save changes</Button>
             </DialogFooter>
           </form>

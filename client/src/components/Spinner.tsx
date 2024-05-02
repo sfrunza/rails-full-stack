@@ -1,5 +1,4 @@
-import React from "react";
-import { cn } from "lib/utils";
+import { cn } from '@/lib/utils';
 
 export default function Spinner({
   withText = false,
@@ -11,7 +10,7 @@ export default function Spinner({
   return (
     <div className="flex flex-col items-center justify-center gap-1">
       <svg
-        className={cn("h-6 w-6 text-slate-700", className)}
+        className={cn('h-6 w-6 text-slate-700', className)}
         viewBox="0 0 2400 2400"
       >
         <g

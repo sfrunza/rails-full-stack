@@ -1,34 +1,38 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import cable from "api/WebSocketConnection";
-import { TFullRequest, TStatus } from "types/request";
-import { centsToDollars, cn, formatDate } from "lib/utils";
-import { Label } from "components/ui/label";
+import cable from '@/api/WebSocketConnection';
+import { TStatus } from '@/types/request';
+import { centsToDollars, cn, formatDate } from '@/lib/utils';
+import { Label } from '@/components/ui/label';
 import {
   CalendarIcon,
   DollarSignIcon,
   MapIcon,
   TruckIcon,
   UserRoundIcon,
-} from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
-import { Button } from "components/ui/button";
-import { Calendar } from "components/ui/calendar";
-import { updateRequest } from "actions/requests";
+} from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { updateRequest } from '@/actions/requests';
 import WorkTimeInput, {
   generateWorkTimeOptions,
-} from "components/WorkTimeInput";
-import { useDispatch, useSelector } from "store";
-import { setRequest, updateStoreRequest } from "slices/request";
+} from '@/components/WorkTimeInput';
+import { useDispatch, useSelector } from '@/store';
+import { setRequest, updateStoreRequest } from '@/slices/request';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "components/ui/select";
-import { Input } from "components/ui/input";
-import { statusColors, statusOptions } from "constants/request";
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { statusColors, statusOptions } from '@/constants/request';
 
 export default function AdminPage({ requestId }: { requestId: number }) {
   // const [request, setRequest] = useState<TFullRequest | null>(null);
@@ -52,44 +56,44 @@ export default function AdminPage({ requestId }: { requestId: number }) {
       try {
         const response = await fetch(`/api/v1/requests/${requestId}`, {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
             Authorization: localStorage.token,
           },
         });
         if (!response.ok) {
-          throw new Error("Failed to fetch request");
+          throw new Error('Failed to fetch request');
         }
         const requestData = await response.json();
         // setRequest(requestData);
         dispatch(setRequest(requestData));
       } catch (error) {
-        console.error("Error fetching request:", error);
+        console.error('Error fetching request:', error);
       }
     };
 
     fetchRequest();
     // Subscribe to channel
     const channel = cable.subscriptions.create(
-      { channel: "RequestChannel", request_id: requestId },
+      { channel: 'RequestChannel', request_id: requestId },
       {
         connected() {
-          console.log("Connected to RequestChannel");
+          console.log('Connected to RequestChannel');
         },
         disconnected() {
-          console.log("Disconnected from RequestChannel");
+          console.log('Disconnected from RequestChannel');
         },
         received(data) {
-          console.log("Admin view received:", data);
+          console.log('Admin view received:', data);
           // Update request state with the received data
           // setRequest(data);
           dispatch(setRequest(data));
           // console.log('Received data from RequestChannel:', data);
-          if (data.action === "update" && data.id === requestId) {
-            console.log("Received data from RequestChannel 2:", data);
+          if (data.action === 'update' && data.id === requestId) {
+            console.log('Received data from RequestChannel 2:', data);
             // onUpdateRequest && onUpdateRequest(data.request);
           }
         },
-      },
+      }
     );
 
     return () => {
@@ -115,8 +119,8 @@ export default function AdminPage({ requestId }: { requestId: number }) {
             >
               <SelectTrigger
                 className={cn(
-                  "h-12 w-full px-4 text-sm font-medium text-white md:w-[14rem]",
-                  statusColors[request?.status as TStatus],
+                  'h-12 w-full px-4 text-sm font-medium text-white md:w-[14rem]',
+                  statusColors[request?.status as TStatus]
                 )}
               >
                 <SelectValue placeholder="select status" />
@@ -132,7 +136,7 @@ export default function AdminPage({ requestId }: { requestId: number }) {
               </SelectContent>
             </Select>
             <Select
-              defaultValue={JSON.stringify(request?.service_id || "")}
+              defaultValue={JSON.stringify(request?.service_id || '')}
               onValueChange={(val: string) => {
                 dispatch(updateStoreRequest({ service_id: val }));
               }}
@@ -160,10 +164,10 @@ export default function AdminPage({ requestId }: { requestId: number }) {
               <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                 <PopoverTrigger asChild>
                   <Button
-                    variant={"outline"}
+                    variant={'outline'}
                     className={cn(
-                      "w-full border border-input text-left font-normal shadow-sm",
-                      !request?.moving_date && "text-muted-foreground",
+                      'w-full border border-input text-left font-normal shadow-sm',
+                      !request?.moving_date && 'text-muted-foreground'
                     )}
                     id="movingDate"
                   >
@@ -209,7 +213,7 @@ export default function AdminPage({ requestId }: { requestId: number }) {
                   onValueChange={(val: string) => {
                     console.log(val);
                     dispatch(
-                      updateStoreRequest({ travel_time: parseInt(val) }),
+                      updateStoreRequest({ travel_time: parseInt(val) })
                     );
                   }}
                 >
@@ -239,13 +243,13 @@ export default function AdminPage({ requestId }: { requestId: number }) {
                   <Input
                     id="crewSize"
                     pattern="[0-9]+"
-                    value={request?.crew_size || ""}
+                    value={request?.crew_size || ''}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (/^\d*$/.test(value)) {
                         // setRate(Number(value));
                         dispatch(
-                          updateStoreRequest({ crew_size: parseInt(value) }),
+                          updateStoreRequest({ crew_size: parseInt(value) })
                         );
                       }
                     }}
@@ -261,7 +265,7 @@ export default function AdminPage({ requestId }: { requestId: number }) {
                   <Input
                     id="rate"
                     pattern="[0-9]+"
-                    value={centsToDollars(request?.rate) || ""}
+                    value={centsToDollars(request?.rate) || ''}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (/^\d*$/.test(value)) {
@@ -269,7 +273,7 @@ export default function AdminPage({ requestId }: { requestId: number }) {
                         dispatch(
                           updateStoreRequest({
                             rate: Math.round(parseFloat(value) * 100),
-                          }),
+                          })
                         );
                       }
                     }}
@@ -310,7 +314,7 @@ export default function AdminPage({ requestId }: { requestId: number }) {
                         dispatch(
                           updateStoreRequest({
                             packing_id: Number(value),
-                          }),
+                          })
                         );
                       }
                     }}

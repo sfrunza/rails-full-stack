@@ -1,20 +1,20 @@
-import { updatePackingsOrder } from "actions/packings";
-import BackButton from "components/BackButton";
-import { Button } from "components/ui/button";
+import { updatePackingsOrder } from '@/actions/packings';
+import BackButton from '@/components/BackButton';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "components/ui/card";
-import { deepCopy } from "lib/utils";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { setPackings } from "slices/globalSetting";
-import { useDispatch, useSelector } from "store";
-import PackingForm from "./_components/PackingForm";
-import PackingList from "./_components/PackingList";
+} from '@/components/ui/card';
+import { deepCopy } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { setPackings } from '@/slices/globalSetting';
+import { useDispatch, useSelector } from '@/store';
+import PackingForm from './_components/PackingForm';
+import PackingList from './_components/PackingList';
 
 export default function PackingSettings() {
   const { packings } = useSelector((state) => state.globalSettings);

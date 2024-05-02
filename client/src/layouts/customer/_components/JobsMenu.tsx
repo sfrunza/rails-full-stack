@@ -1,5 +1,5 @@
-import { AccordionContent } from "components/ui/accordion";
-import JobItem from "./JobItem";
+import { AccordionContent } from '@/components/ui/accordion';
+import JobItem from './JobItem';
 
 export default function JobsMenu({ requests }: { requests: any[] }) {
   return (

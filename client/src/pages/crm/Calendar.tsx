@@ -1,10 +1,10 @@
-import FormSubmitButton from "components/FormSubmitButton";
-import { useNavigate } from "react-router-dom";
-import { logoutUser } from "slices/auth";
-import { useDispatch, useSelector } from "store";
+import FormSubmitButton from '@/components/FormSubmitButton';
+// import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '@/slices/auth';
+import { useDispatch, useSelector } from '@/store';
 
 export default function Calendar() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggingOut } = useSelector((state) => state.auth);
 

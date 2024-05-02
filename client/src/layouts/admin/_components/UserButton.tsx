@@ -1,19 +1,17 @@
-import { Avatar, AvatarFallback, AvatarImage } from "components/ui/avatar";
-import { Button } from "components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "components/ui/dropdown-menu";
-import { LogOutIcon } from "lucide-react";
-import { logoutUser } from "slices/auth";
-import { useDispatch, useSelector } from "store";
+} from '@/components/ui/dropdown-menu';
+import { LogOutIcon } from 'lucide-react';
+import { logoutUser } from '@/slices/auth';
+import { useDispatch, useSelector } from '@/store';
 
 export default function UserButton() {
   const dispatch = useDispatch();
-  const { isLoggingOut, user, isVerifying } = useSelector(
-    (state) => state.auth,
-  );
+  const { isLoggingOut, user } = useSelector((state) => state.auth);
 
   function logOutUser() {
     dispatch(logoutUser());
@@ -21,9 +19,9 @@ export default function UserButton() {
 
   function getInitials(
     firstName: string | undefined,
-    lastName: string | undefined,
+    lastName: string | undefined
   ) {
-    if (!firstName || !lastName) return "";
+    if (!firstName || !lastName) return '';
     return `${firstName[0]}${lastName[0]}`;
   }
   return (

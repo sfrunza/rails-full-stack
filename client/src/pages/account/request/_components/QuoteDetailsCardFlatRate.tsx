@@ -1,35 +1,24 @@
-import { Button } from "components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "components/ui/card";
-import { Drawer, DrawerContent, DrawerTrigger } from "components/ui/drawer";
-import { ScrollArea } from "components/ui/scroll-area";
-import { Separator } from "components/ui/separator";
-import { formatDate, formatMoney } from "lib/utils";
-import { CheckCircleIcon, ChevronRightIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useSelector } from "store";
+} from '@/components/ui/card';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { formatDate, formatMoney } from '@/lib/utils';
+import { CheckCircleIcon, ChevronRightIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useSelector } from '@/store';
 
 export default function QuoteDetailsCardFlatRate() {
   const { request } = useSelector((state) => state.request);
   if (!request) return null;
 
-  const {
-    id,
-    moving_date,
-    status,
-    service,
-    packing,
-    crew_size,
-    travel_time,
-    rate,
-    work_time,
-    total_price,
-  } = request;
+  const { id, moving_date, status, total_price } = request;
 
   return (
     <Card>
@@ -48,7 +37,7 @@ export default function QuoteDetailsCardFlatRate() {
 
             <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
               <p className="col-span-4">Start Time</p>
-              <p className="font-medium lg:col-span-8">{"8AM" || "TBD"}</p>
+              <p className="font-medium lg:col-span-8">{'8AM' || 'TBD'}</p>
             </div>
           </div>
 
@@ -62,7 +51,7 @@ export default function QuoteDetailsCardFlatRate() {
 
             <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
               <p className="col-span-4">Start Time</p>
-              <p className="font-medium lg:col-span-8">{"8AM" || "TBD"}</p>
+              <p className="font-medium lg:col-span-8">{'8AM' || 'TBD'}</p>
             </div>
           </div>
         </div>
@@ -203,7 +192,7 @@ export default function QuoteDetailsCardFlatRate() {
         </Drawer>
       </CardContent>
       <CardFooter className="flex-col items-start p-4">
-        {status === "Not Confirmed" && (
+        {status === 'Not Confirmed' && (
           <Button
             size="lg"
             className="w-full rounded-xl py-8 text-base font-semibold"
@@ -224,12 +213,11 @@ function PriceDisplay({ price }: { price: { min: number; max: number } }) {
   const { min, max } = price;
 
   // Determine the formatted time string based on min and max values
-  const minPrice = formatMoney(min);
   const maxPrice = formatMoney(max);
 
   // Conditionally render based on the max value
   if (max === 0 || min === 0) {
-    return "To be determined";
+    return 'To be determined';
   } else {
     return maxPrice;
   }

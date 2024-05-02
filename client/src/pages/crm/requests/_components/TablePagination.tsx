@@ -6,11 +6,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "components/ui/pagination";
-import { ScrollArea, ScrollBar } from "components/ui/scroll-area";
-import { paginationRange } from "lib/utils";
-import { setPage } from "slices/requests";
-import { useDispatch, useSelector } from "store";
+} from '@/components/ui/pagination';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { paginationRange } from '@/lib/utils';
+import { setPage } from '@/slices/requests';
+import { useDispatch, useSelector } from '@/store';
 
 export function TablePagination({ totalPages }: { totalPages: number }) {
   const { page } = useSelector((state) => state.requests);
@@ -32,7 +32,7 @@ export function TablePagination({ totalPages }: { totalPages: number }) {
             />
           </PaginationItem>
           {pagesArray.map((val, i) => {
-            if (val === "...") {
+            if (val === '...') {
               return (
                 <PaginationItem key={i}>
                   <PaginationEllipsis />

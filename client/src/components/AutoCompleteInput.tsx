@@ -1,7 +1,7 @@
-import { forwardRef, useEffect, useState } from "react";
-import { Autocomplete } from "@react-google-maps/api";
+import { forwardRef, useEffect, useState } from 'react';
+import { Autocomplete } from '@react-google-maps/api';
 
-import { Input } from "components/ui/input";
+import { Input } from '@/components/ui/input';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -21,7 +21,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
 
     function onLoad(autocomplete: google.maps.places.Autocomplete) {
       autocomplete.setComponentRestrictions({
-        country: "us",
+        country: 'us',
       });
       setSearchResult(autocomplete);
     }
@@ -34,28 +34,28 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
         const addressComponents =
           place.address_components as google.maps.GeocoderAddressComponent[];
 
-        let street = "";
-        let city = "";
-        let state = "";
-        let zip = "";
+        let street = '';
+        let city = '';
+        let state = '';
+        let zip = '';
 
         // console.log(addressComponents);
 
         addressComponents.forEach((component) => {
           const types = component.types;
-          if (types.includes("premise")) {
+          if (types.includes('premise')) {
             street = component.long_name;
-          } else if (types.includes("street_number")) {
+          } else if (types.includes('street_number')) {
             street = component.long_name;
-          } else if (types.includes("route")) {
-            street += " " + component.long_name;
+          } else if (types.includes('route')) {
+            street += ' ' + component.long_name;
           } else if (
-            ["locality", "neighborhood"].some((str) => types.includes(str))
+            ['locality', 'neighborhood'].some((str) => types.includes(str))
           ) {
             city = component.long_name;
-          } else if (types.includes("administrative_area_level_1")) {
+          } else if (types.includes('administrative_area_level_1')) {
             state = component.short_name;
-          } else if (types.includes("postal_code")) {
+          } else if (types.includes('postal_code')) {
             zip = component.long_name;
           }
         });
@@ -77,7 +77,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
 
     useEffect(() => {
       // Disable Radix ui dialog pointer events lockout
-      setTimeout(() => (document.body.style.pointerEvents = ""), 0);
+      setTimeout(() => (document.body.style.pointerEvents = ''), 0);
     });
 
     return (
@@ -87,7 +87,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
         </Autocomplete>
       </>
     );
-  },
+  }
 );
 
-AutoCompleteInput.displayName = "AutoComp";
+AutoCompleteInput.displayName = 'AutoComp';

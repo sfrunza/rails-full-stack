@@ -1,23 +1,23 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { addService } from "actions/services";
-import { Button } from "components/ui/button";
-import { Input } from "components/ui/input";
-import { deepCopy } from "lib/utils";
-import { GripVerticalIcon, PlusIcon } from "lucide-react";
-import toast from "react-hot-toast";
-import { setServices } from "slices/globalSetting";
-import { useDispatch, useSelector } from "store";
+import { addService } from '@/actions/services';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { deepCopy } from '@/lib/utils';
+import { PlusIcon } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { setServices } from '@/slices/globalSetting';
+import { useDispatch, useSelector } from '@/store';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "components/ui/form";
+} from '@/components/ui/form';
 
 const FormDataSchema = z.object({
   service: z.string().min(5),
@@ -32,9 +32,9 @@ export default function ServiceForm() {
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: "onChange",
+    reValidateMode: 'onChange',
     defaultValues: {
-      service: "",
+      service: '',
     },
   });
 

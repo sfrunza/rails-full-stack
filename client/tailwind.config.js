@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   prefix: "",
   theme: {
@@ -17,29 +17,6 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: ["Geist", "sans-serif", "-apple-system", "BlinkMacSystemFont"],
-        // sans: [
-        //   "Helvetica Neue",
-        //   "Open Sans",
-        //   "SF Pro Display",
-        //   "sans-serif",
-        //   "Roboto",
-        //   "Inter UI",
-        //   "-apple-system",
-        //   "BlinkMacSystemFont",
-        //   " Segoe UI",
-        //   "Oxygen",
-        //   "Ubuntu",
-        //   "Cantarell",
-        //   "Geist",
-        // ],
-        // sans: ["-apple-system", "BlinkMacSystemFont", "sans-serif"],
-      },
-      boxShadow: {
-        button:
-          "rgba(100, 137, 139, 0) 0px 0px 0px 0px, rgba(100, 117, 139, 0) 0px 0px 0px 0px, rgba(100, 117, 139, 0.34) 0px 1px 1px 0px, rgba(226, 232, 240, 1) 0px 0px 0px 1px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(100, 117, 139, 0.08) 0px 2px 5px 0px",
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -97,4 +74,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+}

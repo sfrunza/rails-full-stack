@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TFullRequest } from 'types/request';
+import { TFullRequest } from '@/types/request';
 
 const initialState: { request: TFullRequest | null } = {
   request: null,

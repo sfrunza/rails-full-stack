@@ -1,4 +1,4 @@
-import { TPacking } from "types/packing";
+import { TPacking } from "@/types/packing";
 
 export async function getPackings(): Promise<TPacking[]> {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -107,7 +107,7 @@ export async function updatePackingsOrder(packings: TPacking[]) {
     id: number;
   }[];
 
-  Object.entries(packings).forEach(([key, value], i) => {
+  Object.entries(packings).forEach(([key, value]) => {
     packingsIds.push({
       droppable_index: key,
       id: value.id,

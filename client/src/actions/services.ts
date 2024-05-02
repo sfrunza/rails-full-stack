@@ -1,4 +1,4 @@
-import { TService } from "types/service";
+import { TService } from "@/types/service";
 
 export async function getServices(): Promise<TService[]> {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -74,7 +74,7 @@ export async function updateServicesOrder(services: TService[]) {
     name: string;
   }[];
 
-  Object.entries(services).forEach(([key, value], i) => {
+  Object.entries(services).forEach(([key, value]) => {
     servicesIds.push({
       droppable_index: key,
       id: value.id,

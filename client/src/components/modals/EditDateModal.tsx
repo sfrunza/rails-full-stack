@@ -1,22 +1,22 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
-import { updateRequest } from "actions/requests";
-import { CalendarWithRates } from "components/CalendarWithRates";
-import { Button } from "components/ui/button";
+// import { updateRequest } from "@/actions/requests";
+import { CalendarWithRates } from '@/components/CalendarWithRates';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "components/ui/dialog";
-import { Form, FormField } from "components/ui/form";
-import { useModal } from "hooks/useModal";
-import { useSelector } from "store";
-import { TFullRequest } from "types/request";
-import useUpdateRequest from "hooks/useUpdateRequest";
+} from '@/components/ui/dialog';
+import { Form, FormField } from '@/components/ui/form';
+import { useModal } from '@/hooks/useModal';
+// import { useSelector } from "store";
+// import { TFullRequest } from "types/request";
+import useUpdateRequest from '@/hooks/useUpdateRequest';
 
 const FormDataSchema = z.record(z.date().nullable());
 
@@ -24,15 +24,15 @@ type Inputs = z.infer<typeof FormDataSchema>;
 
 export const EditDateModal = () => {
   const { isModalOpen, closeModal, getModalData } = useModal();
-  const { isSaving, error, updateRequestHandler } = useUpdateRequest();
+  const { isSaving, updateRequestHandler } = useUpdateRequest();
 
   // const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const { date } = getModalData("editDate");
+  const { date } = getModalData('editDate');
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: "onSubmit",
+    reValidateMode: 'onSubmit',
     defaultValues: {
       [date.field]: new Date(date[date.field]),
     },
@@ -44,11 +44,11 @@ export const EditDateModal = () => {
 
   const handleClose = () => {
     form.reset();
-    closeModal("editDate");
+    closeModal('editDate');
   };
 
   return (
-    <Dialog open={isModalOpen("editDate")} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen('editDate')} onOpenChange={handleClose}>
       <DialogContent className="h-full overflow-hidden p-0 sm:h-auto">
         <DialogHeader className="p-6">
           <DialogTitle>Select move date</DialogTitle>
@@ -77,7 +77,7 @@ export const EditDateModal = () => {
                 }}
               />
             </div>
-            <DialogFooter className="flex justify-end bg-slate-100 p-6">
+            <DialogFooter className="flex justify-end bg-muted p-6">
               <Button disabled={isSaving}>Save changes</Button>
             </DialogFooter>
           </form>

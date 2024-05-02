@@ -1,8 +1,8 @@
-import { updateRequest } from 'actions/requests';
+import { updateRequest } from '@/actions/requests';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useSelector } from 'store';
-import { TNewData } from 'types/request';
+import { useSelector } from '@/store';
+import { TNewData } from '@/types/request';
 
 
 export default function useUpdateRequest() {

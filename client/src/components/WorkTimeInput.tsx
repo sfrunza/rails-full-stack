@@ -4,10 +4,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "components/ui/select";
-import { Separator } from "./ui/separator";
-import { useDispatch } from "store";
-import { updateStoreRequest } from "slices/request";
+} from '@/components/ui/select';
+import { Separator } from './ui/separator';
+import { useDispatch } from '@/store';
+import { updateStoreRequest } from '@/slices/request';
 
 // export function generateWorkTimeOptions() {
 //   const options = [];
@@ -27,7 +27,9 @@ export function generateWorkTimeOptions() {
       const timeInMinutes = hours * 60 + minutes;
       options.push({
         value: timeInMinutes,
-        label: `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`,
+        label: `${hours.toString().padStart(2, '0')}:${minutes
+          .toString()
+          .padStart(2, '0')}`,
       });
     }
   }
@@ -52,7 +54,7 @@ export default function WorkTimeInput({
           dispatch(
             updateStoreRequest({
               work_time: { ...newWorkTime, min: parseInt(val) },
-            }),
+            })
           );
         }}
       >
@@ -82,7 +84,7 @@ export default function WorkTimeInput({
           dispatch(
             updateStoreRequest({
               work_time: { ...newWorkTime, max: parseInt(val) },
-            }),
+            })
           );
         }}
       >

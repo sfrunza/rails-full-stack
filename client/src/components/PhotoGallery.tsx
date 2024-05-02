@@ -1,10 +1,11 @@
-import { Gallery, Item } from "react-photoswipe-gallery";
-import "photoswipe/dist/photoswipe.css";
+// import { Gallery, Item } from "react-photoswipe-gallery";
+// import "photoswipe/dist/photoswipe.css";
 
-export default function PhotoGallery({ photos }: { photos: any[] }) {
+export default function PhotoGallery() {
   return (
     <div>
-      <Gallery>
+      gallery
+      {/* <Gallery>
         <div>
           {photos &&
             photos.map((photo, i) => {
@@ -17,7 +18,7 @@ export default function PhotoGallery({ photos }: { photos: any[] }) {
               );
             })}
         </div>
-      </Gallery>
+      </Gallery> */}
     </div>
   );
 }

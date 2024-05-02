@@ -1,10 +1,10 @@
-import logo from "assets/logos/mono-logo.png";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSelector } from "store";
-import { CreateRequestButton } from "./_components/CreateRequestButton";
-import { MobileMenu } from "./_components/MobileMenu";
-import SideBar from "./_components/SideBar";
-import UserButton from "./_components/UserButton";
+import logo from '@/assets/logos/mono-logo.png';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useSelector } from '@/store';
+import { CreateRequestButton } from './_components/CreateRequestButton';
+import { MobileMenu } from './_components/MobileMenu';
+import SideBar from './_components/SideBar';
+import UserButton from './_components/UserButton';
 
 export default function AdminLayout() {
   let location = useLocation();
@@ -14,7 +14,7 @@ export default function AdminLayout() {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (user && user.role !== "admin") {
+  if (user && user.role !== 'admin') {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -38,7 +38,7 @@ export default function AdminLayout() {
         <div className="hidden lg:left-0 lg:z-20 lg:block lg:min-w-16 lg:bg-slate-900 lg:pb-4">
           <SideBar />
         </div>
-        <div className="h-[calc(100%-64px)] w-full overflow-y-auto overflow-x-hidden rounded-none bg-slate-100 p-2 lg:w-[calc(100%-4rem)] lg:rounded-tl-2xl lg:p-4">
+        <div className="h-[calc(100%-64px)] w-full overflow-y-auto overflow-x-hidden rounded-none bg-muted p-2 lg:w-[calc(100%-4rem)] lg:rounded-tl-2xl lg:p-4">
           <Outlet />
         </div>
       </main>

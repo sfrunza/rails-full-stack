@@ -1,2 +1,2 @@
-web: cd vite-demo && PORT=3000 npm run dev
+web: cd client && PORT=3000 npm run dev
 api: PORT=3001 && bundle exec rails s

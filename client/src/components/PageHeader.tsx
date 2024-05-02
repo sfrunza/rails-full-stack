@@ -1,6 +1,6 @@
-import colorLogo from 'assets/logos/color-logo.png';
-import whiteLogo from 'assets/logos/mono-logo.png';
-import { cn } from 'lib/utils';
+import colorLogo from '@/assets/logos/color-logo.png';
+import whiteLogo from '@/assets/logos/mono-logo.png';
+import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 
 export default function PageHeader({ invert }: { invert?: boolean }) {

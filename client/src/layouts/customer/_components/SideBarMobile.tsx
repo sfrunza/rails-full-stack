@@ -16,17 +16,18 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "components/ui/accordion";
-import { Button, buttonVariants } from "components/ui/button";
-import { Separator } from "components/ui/separator";
+} from "@/components/ui/accordion";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "components/ui/sheet";
-import { cn } from "lib/utils";
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { useSelector } from "@/store";
 
 const statusColors = {
   Confirmed: "text-green-600 bg-green-100",
@@ -39,6 +40,7 @@ const statusColors = {
 };
 
 export function SideBarMobile({ requests }: { requests: any[] }) {
+  const { user } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const params = useParams<{ id: string }>();
   return (
@@ -47,7 +49,7 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
         <Button
           variant="outline"
           size="icon"
-          className="border-none bg-transparent p-0 shadow-none hover:bg-slate-100/10"
+          className="border-none bg-transparent p-0 shadow-none hover:bg-muted/10 "
         >
           <MenuIcon className="h-5 w-5 rounded-md text-white" />
         </Button>
@@ -57,14 +59,11 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
         className="flex flex-col gap-2 overflow-y-scroll px-4 pt-10"
       >
         <SheetHeader>
-          <h2 className="text-lg font-semibold">Welcome, Sergiu</h2>
+          <h2 className="text-lg font-semibold">Welcome, {user?.first_name}</h2>
         </SheetHeader>
         <Button
           variant="ghost"
-          className={cn(
-            "justify-start",
-            pathname === "/account" && "bg-slate-100",
-          )}
+          className={cn("justify-start", pathname === "/account" && "bg-muted")}
           asChild
         >
           <SheetClose asChild>
@@ -94,7 +93,7 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
                     to={`account/requests/${job.id}`}
                     className={cn(
                       buttonVariants({ variant: "outline" }),
-                      params.id === job.id.toString() && "bg-slate-100",
+                      params.id === job.id.toString() && "bg-muted",
                       "flex h-fit flex-col gap-1 p-2 text-xs",
                     )}
                   >
@@ -102,7 +101,11 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
                       <p className="font-semibold"># {job.id}</p>
                       <p
                         className={cn(
-                          `w-fit rounded-full px-2 py-1 ${statusColors[job.status as keyof typeof statusColors]} `,
+                          `w-fit rounded-full px-2 py-1 ${
+                            statusColors[
+                              job.status as keyof typeof statusColors
+                            ]
+                          } `,
                         )}
                       >
                         {job.status}
@@ -134,7 +137,7 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
           variant="ghost"
           className={cn(
             "justify-start",
-            pathname === "/account/profile" && "bg-slate-100",
+            pathname === "/account/profile" && "bg-muted",
           )}
           asChild
         >

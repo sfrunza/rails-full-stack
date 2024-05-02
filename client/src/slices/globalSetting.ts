@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPackings } from 'actions/packings';
-import { getServices } from 'actions/services';
-import { TPacking } from 'types/packing';
-import { TService } from 'types/service';
+import { getPackings } from '@/actions/packings';
+import { getServices } from '@/actions/services';
+import { TPacking } from '@/types/packing';
+import { TService } from '@/types/service';
 
 const initialState = {
   services: [] as TService[],

@@ -1,12 +1,12 @@
-import { deleteService, updateServicesOrder } from "actions/services";
-import { Button } from "components/ui/button";
-import { Input } from "components/ui/input";
-import { GripVerticalIcon, Trash2Icon } from "lucide-react";
-import { useState } from "react";
-import { Draggable } from "react-beautiful-dnd";
-import toast from "react-hot-toast";
-import { setServices } from "slices/globalSetting";
-import { useDispatch } from "store";
+import { deleteService, updateServicesOrder } from '@/actions/services';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { GripVerticalIcon, Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import toast from 'react-hot-toast';
+import { setServices } from '@/slices/globalSetting';
+import { useDispatch } from '@/store';
 
 export default function ListItem({
   draggableId,

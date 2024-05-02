@@ -4,11 +4,11 @@ import {
 } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import { reducer as authReducer, verifyAuth } from 'slices/auth';
-import { reducer as requestsReducer } from 'slices/requests';
-import { reducer as requestReducer } from 'slices/request';
-import { reducer as globalSettingsReducer, setGlobalSettings } from 'slices/globalSetting';
-import { reducer as modalReducer } from 'slices/modal';
+import { reducer as authReducer, verifyAuth } from '@/slices/auth';
+import { reducer as requestsReducer } from '@/slices/requests';
+import { reducer as requestReducer } from '@/slices/request';
+import { reducer as globalSettingsReducer, setGlobalSettings } from '@/slices/globalSetting';
+import { reducer as modalReducer } from '@/slices/modal';
 
 
 export const store = configureStore({

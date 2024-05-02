@@ -1,13 +1,12 @@
-import { Button } from "components/ui/button";
-import { useModal } from "hooks/useModal";
-import { cn } from "lib/utils";
-import { LoadScriptProps, useLoadScript } from "@react-google-maps/api";
-import { MapPinIcon, SquarePenIcon } from "lucide-react";
-import { ModalType } from "slices/modal";
-import { useSelector } from "store";
-import Map from "components/Map/Map";
+import { Button } from '@/components/ui/button';
+import { useModal } from '@/hooks/useModal';
+import { cn } from '@/lib/utils';
+import { MapPinIcon, SquarePenIcon } from 'lucide-react';
+import { ModalType } from '@/slices/modal';
+import { useSelector } from '@/store';
+import Map from '@/components/Map/Map';
 
-// const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
+// const API_KEY = process.env.VITE_GOOGLE_MAPS_API_KEY as string;
 
 // const libraries = ["places"];
 
@@ -21,7 +20,7 @@ export default function Locations() {
 
   if (!request) return null;
 
-  const { id, origin, destination, stops, can_edit_request } = request;
+  const { origin, destination, can_edit_request } = request;
   // const { id: requestId, origin, destination, canEditRequest } = request!;
 
   // const { onOpen } = useModal();
@@ -50,10 +49,10 @@ export default function Locations() {
                 className="w-fit"
                 variant="edit"
                 size="sm"
-                onClick={(e) => onEditLocationsAction(e, "editLocations")}
+                onClick={(e) => onEditLocationsAction(e, 'editLocations')}
               >
                 <SquarePenIcon className="mr-2 size-3" />
-                {!origin ? "Add origin" : "Edit"}
+                {!origin ? 'Add origin' : 'Edit'}
               </Button>
             )
           }
@@ -67,10 +66,10 @@ export default function Locations() {
                 className="w-fit"
                 variant="edit"
                 size="sm"
-                onClick={(e) => onEditLocationsAction(e, "editLocations")}
+                onClick={(e) => onEditLocationsAction(e, 'editLocations')}
               >
                 <SquarePenIcon className="mr-2 size-3" />
-                {!destination ? "Add destination" : "Edit"}
+                {!destination ? 'Add destination' : 'Edit'}
               </Button>
             )
           }
@@ -89,7 +88,7 @@ function AddressItem({
   actionButton,
 }: {
   address: any;
-  type: "Origin" | "Destination" | "Pick up" | "Drop off";
+  type: 'Origin' | 'Destination' | 'Pick up' | 'Drop off';
   actionButton?: React.ReactNode;
 }) {
   // <EditLocation origin={{}} destination={{}} />;
@@ -97,9 +96,9 @@ function AddressItem({
     <>
       <div
         className={cn(
-          "grid grid-cols-12 items-center gap-1 text-blue-600",
-          type === "Origin" && "text-green-500",
-          type === "Destination" && "text-red-500",
+          'grid grid-cols-12 items-center gap-1 text-blue-600',
+          type === 'Origin' && 'text-green-500',
+          type === 'Destination' && 'text-red-500'
         )}
       >
         <div className="col-span-1">
@@ -112,9 +111,9 @@ function AddressItem({
         {/* <div className="col-span-1 h-full w-full justify-self-center"></div> */}
         <div
           className={cn(
-            "col-span-1 h-full w-full justify-self-center",
-            type !== "Destination" &&
-              "bg-radial-gradient bg-gradient-to-br from-gray-200 via-transparent to-transparent bg-left-top bg-repeat-y",
+            'col-span-1 h-full w-full justify-self-center',
+            type !== 'Destination' &&
+              'bg-radial-gradient bg-gradient-to-br from-slate-200 via-transparent to-transparent bg-left-top bg-repeat-y'
           )}
         ></div>
         <div className="col-span-11 grid pb-4 pt-1">
@@ -123,7 +122,7 @@ function AddressItem({
             <>
               <div className="flex items-center gap-4">
                 <p>
-                  <b>{address?.street || "TBD"},</b> {address?.city},{" "}
+                  <b>{address?.street || 'TBD'},</b> {address?.city},{' '}
                   {address?.state} {address?.zip}
                   {/* {address?.apt && (
                     <span className="ml-1 text-muted-foreground">

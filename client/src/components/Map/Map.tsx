@@ -4,27 +4,27 @@ import {
   LoadScriptProps,
   Marker,
   useLoadScript,
-} from "@react-google-maps/api";
-import { memo, useCallback, useEffect, useState } from "react";
-import markerRed from "assets/marker-red-2.jpeg";
-import markerGreen from "assets/marker-green-2.jpeg";
-import markerBlue from "assets/marker-blue-2.jpeg";
+} from '@react-google-maps/api';
+import { memo, useEffect, useState } from 'react';
+// import markerRed from 'assets/marker-red-2.jpeg';
+// import markerGreen from 'assets/marker-green-2.jpeg';
+// import markerBlue from 'assets/marker-blue-2.jpeg';
 
-import mapStyles from "./mapStyles";
-import { useSelector } from "store";
+import mapStyles from './mapStyles';
+import { useSelector } from '@/store';
 
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string;
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
 const CENTER: google.maps.LatLngLiteral = { lat: 42.36, lng: -71.06 };
 
-const libraries = ["places"];
+const libraries = ['places'];
 
 const convertTime = (value: number) => {
   value = Number(value);
   var h = Math.floor(value / 3600);
   var m = Math.floor((value % 3600) / 60);
 
-  var hDisplay = h > 0 ? h + (h === 1 ? " hour " : " hours ") : "";
-  var mDisplay = m > 0 ? m + (m === 1 ? " min " : " mins") : "";
+  var hDisplay = h > 0 ? h + (h === 1 ? ' hour ' : ' hours ') : '';
+  var mDisplay = m > 0 ? m + (m === 1 ? ' min ' : ' mins') : '';
   return hDisplay + mDisplay;
 };
 
@@ -40,7 +40,7 @@ function getFullAddress(address: {
 const Map = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: API_KEY,
-    libraries: libraries as LoadScriptProps["libraries"],
+    libraries: libraries as LoadScriptProps['libraries'],
   });
   const { request } = useSelector((state) => state.request);
 
@@ -65,44 +65,44 @@ const Map = () => {
 
   const [directionsResult, setDirectionsResult] =
     useState<google.maps.DirectionsResult | null>(null);
-  const [distance, setDistance] = useState("");
-  const [duration, setDuration] = useState("");
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
   const [marker, setMarker] = useState<google.maps.LatLng>();
-  const [originCoords, setOriginCoords] = useState<google.maps.LatLngLiteral>();
-  const [destinationCoords, setDestinationCoords] =
-    useState<google.maps.LatLngLiteral>();
-  const [waypointsCoords, setWaypointsCoords] = useState<
-    google.maps.LatLngLiteral[]
-  >([]);
+  // const [originCoords, setOriginCoords] = useState<google.maps.LatLngLiteral>();
+  // const [destinationCoords, setDestinationCoords] =
+  //   useState<google.maps.LatLngLiteral>();
+  // const [waypointsCoords, setWaypointsCoords] = useState<
+  //   google.maps.LatLngLiteral[]
+  // >([]);
 
   const o = getFullAddress(origin);
   const d = getFullAddress(destination);
 
-  const geocoder = isLoaded ? new google.maps.Geocoder() : null;
+  // const geocoder = isLoaded ? new google.maps.Geocoder() : null;
 
-  const geocodeAddress = (
-    address: string,
-  ): Promise<google.maps.LatLngLiteral> => {
-    return new Promise((resolve, reject) => {
-      if (!geocoder) {
-        return;
-      }
-      geocoder.geocode({ address }, (results, status) => {
-        if (
-          status === google.maps.GeocoderStatus.OK &&
-          results &&
-          results.length > 0
-        ) {
-          const location = results[0].geometry.location;
-          resolve({ lat: location.lat(), lng: location.lng() });
-        } else {
-          const errorMessage = `Geocode failed for address: ${address}. Status: ${status}`;
-          console.error(errorMessage);
-          reject(new Error(errorMessage));
-        }
-      });
-    });
-  };
+  // const geocodeAddress = (
+  //   address: string
+  // ): Promise<google.maps.LatLngLiteral> => {
+  //   return new Promise((resolve, reject) => {
+  //     if (!geocoder) {
+  //       return;
+  //     }
+  //     geocoder.geocode({ address }, (results, status) => {
+  //       if (
+  //         status === google.maps.GeocoderStatus.OK &&
+  //         results &&
+  //         results.length > 0
+  //       ) {
+  //         const location = results[0].geometry.location;
+  //         resolve({ lat: location.lat(), lng: location.lng() });
+  //       } else {
+  //         const errorMessage = `Geocode failed for address: ${address}. Status: ${status}`;
+  //         console.error(errorMessage);
+  //         reject(new Error(errorMessage));
+  //       }
+  //     });
+  //   });
+  // };
   // const d = null;
 
   // console.log("Map render", waypointsCoords);
@@ -125,19 +125,19 @@ const Map = () => {
   //   setDirectionsResult(null);
   // }, []);
 
-  function generateWaypoints() {
-    const waypointsCoordsArr = [] as google.maps.LatLngLiteral[];
+  // function generateWaypoints() {
+  //   const waypointsCoordsArr = [] as google.maps.LatLngLiteral[];
 
-    waypoints.map(async (waypoint) => {
-      let res = await geocodeAddress(waypoint);
-      waypointsCoordsArr.push(res);
-      // console.log("waypoint", res);
-      setWaypointsCoords((prev) => [...prev, res]);
-    });
+  //   waypoints.map(async (waypoint) => {
+  //     let res = await geocodeAddress(waypoint);
+  //     waypointsCoordsArr.push(res);
+  //     // console.log("waypoint", res);
+  //     setWaypointsCoords((prev) => [...prev, res]);
+  //   });
 
-    // console.log("waypointsCoordsArr", waypointsCoordsArr);
-    // setWaypointsCoords(waypointsCoordsArr);
-  }
+  //   // console.log("waypointsCoordsArr", waypointsCoordsArr);
+  //   // setWaypointsCoords(waypointsCoordsArr);
+  // }
 
   async function calculateRoute() {
     // const d = null;
@@ -154,8 +154,8 @@ const Map = () => {
         travelMode: google.maps.TravelMode.DRIVING,
       });
 
-      const originCoords = await geocodeAddress(o);
-      const destinationCoords = await geocodeAddress(d);
+      // const originCoords = await geocodeAddress(o);
+      // const destinationCoords = await geocodeAddress(d);
 
       // const waypointsCoordsArr = [] as google.maps.LatLngLiteral[];
 
@@ -164,9 +164,9 @@ const Map = () => {
       //   waypointsCoordsArr.push(res);
       // });
 
-      setOriginCoords(originCoords);
-      setDestinationCoords(destinationCoords);
-      generateWaypoints();
+      // setOriginCoords(originCoords);
+      // setDestinationCoords(destinationCoords);
+      // generateWaypoints();
       // setWaypointsCoords(waypointsCoordsArr);
 
       let resp = results.routes[0].legs;
@@ -183,7 +183,7 @@ const Map = () => {
 
       // console.log(results);
       setDirectionsResult(results);
-      setDistance((distance / 1609).toFixed(1) + " mi");
+      setDistance((distance / 1609).toFixed(1) + ' mi');
       setDuration(convertTime(time));
     } else if ((o && !d) || (!o && d)) {
       const geocoder = new google.maps.Geocoder();
@@ -191,22 +191,22 @@ const Map = () => {
         { address: o || d },
         function (
           results: google.maps.GeocoderResult[] | null,
-          status: google.maps.GeocoderStatus,
+          status: google.maps.GeocoderStatus
         ) {
           // console.log(results);
-          if (status === "OK" && results) {
+          if (status === 'OK' && results) {
             setMarker(results[0].geometry.location);
           } else {
             alert(
-              "Geocode was not successful for the following reason: " + status,
+              'Geocode was not successful for the following reason: ' + status
             );
           }
-        },
+        }
       );
     }
   }
 
-  console.log("waypointsCoords.", waypointsCoords.length);
+  // console.log('waypointsCoords.', waypointsCoords.length);
 
   return (
     <div className="relative flex h-52 w-full flex-col items-center justify-center gap-1 lg:h-full">
@@ -217,9 +217,9 @@ const Map = () => {
           // onLoad={onLoad}
           // onUnmount={onUnmount}
           mapContainerStyle={{
-            height: "100%",
-            width: "100%",
-            margin: "auto",
+            height: '100%',
+            width: '100%',
+            margin: 'auto',
           }}
           options={{
             zoomControl: false,
@@ -238,7 +238,7 @@ const Map = () => {
                 // suppressMarkers: true,
                 polylineOptions: {
                   strokeWeight: 3,
-                  strokeColor: "#4AB5FB",
+                  strokeColor: '#4AB5FB',
                 },
               }}
             />

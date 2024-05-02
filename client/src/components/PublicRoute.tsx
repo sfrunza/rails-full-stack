@@ -1,6 +1,6 @@
-import { Navigate, useLocation, Outlet } from "react-router-dom";
-import { useSelector } from "store";
-import Spinner from "components/Spinner";
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
+import { useSelector } from '@/store';
+import Spinner from '@/components/Spinner';
 
 export default function PublicRoute() {
   let location = useLocation();
@@ -9,9 +9,9 @@ export default function PublicRoute() {
   if (isVerifying) {
     return <Spinner />;
   } else if (user) {
-    return user.role === "admin" ? (
+    return user.role === 'admin' ? (
       <Navigate to="/crm/requests" state={{ from: location }} replace />
-    ) : user.role === "customer" ? (
+    ) : user.role === 'customer' ? (
       <Navigate to="/account" state={{ from: location }} replace />
     ) : (
       <Outlet />

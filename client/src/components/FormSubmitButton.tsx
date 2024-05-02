@@ -1,7 +1,6 @@
-"use client";
-import { Button } from "components/ui/button";
-import { cn } from "lib/utils";
-import { PulseLoader } from "react-spinners";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { PulseLoader } from 'react-spinners';
 
 type FormSubmitButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   isPending?: boolean;
@@ -11,7 +10,7 @@ type FormSubmitButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 export default function FormSubmitButton({
-  type = "submit",
+  type = 'submit',
   isPending,
   label,
   clasName,
@@ -22,7 +21,7 @@ export default function FormSubmitButton({
     <Button
       type={type}
       disabled={isPending || disabled}
-      className={cn("", clasName)}
+      className={cn('', clasName)}
       {...props}
     >
       {isPending ? <PulseLoader color="#fff" size={6} /> : label}

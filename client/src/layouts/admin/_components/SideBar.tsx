@@ -1,7 +1,7 @@
-import { Button } from "components/ui/button";
-import { cn } from "lib/utils";
-import { navLinks } from "./navLinks";
-import { Link, useLocation } from "react-router-dom";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { navLinks } from './navLinks';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function SideBar() {
   const { pathname } = useLocation();
@@ -17,10 +17,10 @@ export default function SideBar() {
               <Link to={item.href}>
                 <Button
                   size="icon"
-                  variant={active ? "outline" : "ghost"}
+                  variant={active ? 'outline' : 'ghost'}
                   className={cn(
-                    "size-10 rounded-[36%]",
-                    item.href !== pathname && "text-white",
+                    'size-10 rounded-[36%]',
+                    item.href !== pathname && 'text-white'
                   )}
                 >
                   <item.icon className="size-5" aria-hidden="true" />

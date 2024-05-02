@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TFullRequest, TStatus } from 'types/request';
+import { TFullRequest, TStatus } from '@/types/request';
 
 interface InitialState {
   requests: TFullRequest[];

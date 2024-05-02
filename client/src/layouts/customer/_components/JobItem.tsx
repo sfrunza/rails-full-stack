@@ -1,16 +1,16 @@
-import { Link, useParams } from "react-router-dom";
-import { MoveRightIcon } from "lucide-react";
-import { buttonVariants } from "components/ui/button";
-import { cn } from "lib/utils";
+import { Link, useParams } from 'react-router-dom';
+import { MoveRightIcon } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const statusColors = {
-  Confirmed: "text-green-600 bg-green-100",
-  Pending: "text-amber-500 bg-amber-100",
-  Canceled: "text-red-500 bg-red-100",
-  Expired: "text-slate-800 bg-slate-200",
-  Completed: "text-[deepskyblue] bg-sky-100",
-  "Not Confirmed": "text-indigo-600 bg-indigo-100",
-  "Not Available": "text-slate-800 bg-slate-200",
+  Confirmed: 'text-green-600 bg-green-100',
+  Pending: 'text-amber-500 bg-amber-100',
+  Canceled: 'text-red-500 bg-red-100',
+  Expired: 'text-slate-800 bg-slate-200',
+  Completed: 'text-[deepskyblue] bg-sky-100',
+  'Not Confirmed': 'text-indigo-600 bg-indigo-100',
+  'Not Available': 'text-slate-800 bg-slate-200',
 };
 
 export default function JobItem({
@@ -30,16 +30,18 @@ export default function JobItem({
     <Link
       to={`account/requests/${id}`}
       className={cn(
-        buttonVariants({ variant: "outline" }),
-        params.id === id.toString() && "bg-slate-100",
-        "flex h-fit flex-col gap-2 p-2 text-xs",
+        buttonVariants({ variant: 'outline' }),
+        params.id === id.toString() && 'bg-muted',
+        'flex h-fit flex-col gap-2 p-2 text-xs'
       )}
     >
       <div className="flex w-full items-center justify-between">
         <p className="font-semibold"># {id}</p>
         <p
           className={cn(
-            `w-fit rounded-full px-2 py-1 ${statusColors[status as keyof typeof statusColors]} `,
+            `w-fit rounded-full px-2 py-1 ${
+              statusColors[status as keyof typeof statusColors]
+            } `
           )}
         >
           {status}
