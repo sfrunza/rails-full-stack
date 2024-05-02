@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   config.web_socket_server_url =
-    "wws://rails-full-stack-6e260a531751.herokuapp.com/cable"
+    "wss://rails-full-stack-6e260a531751.herokuapp.com/cable"
 
   config.action_cable.allowed_request_origins = %w[
     https://rails-full-stack-6e260a531751.herokuapp.com
