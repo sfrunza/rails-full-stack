@@ -5,8 +5,8 @@
     },
     "scripts": {
         "clean": "rm -rf public",
-        "build": "cd client && npm install && npm run build && cd ..",
-        "deploy": "cp -a client/build/. public/",
+        "build": "cd vite-demo && npm install && npm run build && cd ..",
+        "deploy": "cp -a vite-demo/dist/. public/",
         "postinstall": "npm run build && npm run deploy && echo 'Frontend built!'",
         "app-postbuild": "npm run clean && npm run build && npm run deploy"
     },
