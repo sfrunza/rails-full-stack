@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f2098578.css",
-    "main.js": "/static/js/main.8a95e9e7.js",
+    "main.js": "/static/js/main.6460756e.js",
     "static/js/488.ea1387b7.chunk.js": "/static/js/488.ea1387b7.chunk.js",
     "static/media/movers-packing.jpg": "/static/media/movers-packing.9220b9185abb8beb9f64.jpg",
     "static/media/GeistVF.ttf": "/static/media/GeistVF.cd0abcebb928023bf404.ttf",
@@ -9,11 +9,11 @@
     "static/media/mono-logo.png": "/static/media/mono-logo.0d16f753194ffab6dbcc.png",
     "index.html": "/index.html",
     "main.f2098578.css.map": "/static/css/main.f2098578.css.map",
-    "main.8a95e9e7.js.map": "/static/js/main.8a95e9e7.js.map",
+    "main.6460756e.js.map": "/static/js/main.6460756e.js.map",
     "488.ea1387b7.chunk.js.map": "/static/js/488.ea1387b7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f2098578.css",
-    "static/js/main.8a95e9e7.js"
+    "static/js/main.6460756e.js"
   ]
 }
