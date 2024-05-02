@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      p {
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Hi, <%= @customer.first_name %></p>
+    <br />
+    <p>
+      In order to prepare ahead of time, we can always assist with moving tips &
+      tricks on how to save time & $ for your upcoming moving project. During
+      this preparation process, one of the most important things is making sure
+      you are securing your moving parking spot.
+    </p>
+    <br />
+    <p>
+      A Boston moving permit for your moving truck is not required, however, it
+      guarantees you a legal parking spot for the day of the move.
+    </p>
+    <br />
+    <p>There are 3 ways to get a moving permit:</p>
+    <ul>
+      <li>
+        do it yourself (<%= link_to "click here to learn how" , @parking_url %>)
+      </li>
+      <li>
+        have us handle it for you (just reply to this email and we'll help you)
+      </li>
+    </ul>
+    <br />
+    <p style="text-align: center">
+      <%= image_tag(attachments['permit.png'].url, height: '200', width: '200',
+      alt: "rss feed") %>
+    </p>
+    <br />
+    <br />
+    <p>
+      If a car is parked at your reserved spot, call the Boston police at
+      617-343-4911. Let them know it's not an emergency and give them the plate
+      number. If the police can't reach the car owner, they will arrange for a
+      tow.
+    </p>
+    <br />
+    <p style="display: flex; justify-content: flex-end">
+      <i>source: www.boston.gov</i>
+    </p>
+    <br />
+    <p>Best Regards,</p>
+    <p><%= "#{ENV["COMPANY_NAME"]}"%> Team</p>
+    <p><b><%= "#{ENV["COMPANY_EMAIL"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_PHONE"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_SITE"]}" %></b></p>
+  </body>
+</html>

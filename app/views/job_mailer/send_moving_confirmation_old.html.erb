@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      p {
+        margin: 0px;
+      }
+
+      td,
+      th {
+        height: 2rem;
+        border: 1px solid #d3d3d3;
+        text-align: center;
+        padding: 8px;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #e7f0ff;
+        border-color: white;
+      }
+
+      body {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Hi, <%= @customer.first_name %></p>
+    <br />
+    <p>You are covered!</p>
+    <p>
+      Your moving rate/quote, date, crew and dedicated truck is fully secured
+      and scheduled. <i>(No Action Required)</i>
+    </p>
+    <br />
+    <p>
+      Please find below your moving details and please let us know if any
+      information has to be corrected or updated.
+    </p>
+    <br />
+    <h2>Moving Details</h2>
+    <table>
+      <tr>
+        <td>
+          <b>Request #<%= @job.id %></b>
+        </td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td><%= @customer.first_name %> <%= @customer.last_name %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= @customer.phone %></td>
+      </tr>
+      <tr>
+        <th>Move date</th>
+        <td><%= Date.parse(@job.moving_date).strftime("%B %e, %Y") %></td>
+      </tr>
+      <% if !@job.delivery_date.nil? %>
+        <tr>
+          <th>Delivery date</th>
+          <td><%= Date.parse(@job.delivery_date).strftime("%B %e, %Y") %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th>Start time</th>
+        <td><%= @job.start_time %></td>
+      </tr>
+      <tr>
+        <th>Service</th>
+        <td><%= @job.service %></td>
+      </tr>
+      <tr>
+        <th>Move size</th>
+        <td><%= @job.size %></td>
+      </tr>
+      <tr>
+        <th>Packing</th>
+        <td><%= @job.packing %></td>
+      </tr>
+      <% @addresses.each do |address| %>
+        <tr>
+          <% if address.is_origin %>
+            <th>Origin</th>
+          <% elsif address.is_destination %>
+            <th>Destination</th>
+          <% elsif address.is_pickup %>
+            <th>Extra pickup</th>
+          <% else address.is_dropoff %>
+            <th>Extra dropoff</th>
+          <% end %>
+          <td>
+            <%= address.address %>, <%= address.city %>, <%= address.state %> <%=
+          address.zip %>
+          </td>
+        </tr>
+      <% end %> 
+
+      <% if !@job.is_flat_rate %>
+        <tr>
+          <th>Crew size</th>
+          <td><%= @job.crew_size %> movers</td>
+        </tr>
+      <% end %> 
+
+      <% if @job.is_flat_rate %>
+        <tr>
+          <th>Flat rate</th>
+          <td>$<%= @job.estimated_quote[0] %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <th>Rate</th>
+          <td>$<%= @job.rate %>/h</td>
+        </tr>
+      <% end %> 
+
+      <% if !@job.is_flat_rate %>
+        <tr>
+          <th>Estimated job time</th>
+          <% if @job.estimated_time.length == 2 %>
+            <td>
+              <%= @job.estimated_time[0] %> - <%= @job.estimated_time[1] %> hours
+            </td>
+          <% else %>
+            <td><%= @job.estimated_time[0].to_i %> hours</td>
+          <% end %>
+        </tr>
+      <% end %> 
+
+      <% if !@job.is_flat_rate %>
+        <tr>
+          <th>Travel time</th>
+          <td>
+            <%= @job.travel_time[0] %>/<%= @job.travel_time[1] %> min from/to(HQ)
+          </td>
+        </tr>
+      <% end %> 
+
+      <% if !@job.is_flat_rate && %>
+        <tr>
+          <th>Estimated quote</th>
+          <td>
+            <% if @job.estimated_quote.length == 2%> $<%=
+          @job.estimated_quote[0]%> - $<%= @job.estimated_quote[1] %> <% else %>
+              $<%=@job.estimated_quote[0] %> <% end %>
+          </td>
+        </tr>
+      <% end %> 
+
+      <% if @job.deposit %>
+        <tr>
+          <th>Deposit</th>
+          <td>$<%= @job.deposit %></td>
+        </tr>
+      <% end %> 
+
+      <% if @job.storage_fee %>
+        <tr>
+          <th>Storage fee</th>
+          <td>$<%= @job.storage_fee %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
+    <p>Thanks again and have a wonderful day! See you then!</p>
+    <br />
+    <p>Best Regards,</p>
+    <p><%= "#{ENV["COMPANY_NAME"]}"%> Team</p>
+    <p><b><%= "#{ENV["COMPANY_EMAIL"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_PHONE"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_SITE"]}" %></b></p>
+  </body>
+</html>

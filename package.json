@@ -1,0 +1,16 @@
+{
+    "name": "moving-full-stack",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "scripts": {
+        "clean": "rm -rf public",
+        "build": "cd client && npm install && npm run build && cd ..",
+        "deploy": "cp -a client/build/. public/",
+        "postinstall": "npm run build && npm run deploy && echo 'Frontend built!'",
+        "app-postbuild": "npm run clean && npm run build && npm run deploy"
+    },
+    "dependencies": {
+        "react-beautiful-dnd": "^13.1.1"
+    }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      p {
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Hi, <%= @customer.first_name %></p>
+    <br />
+    <p>
+      Another important task when you move is to actually setup a “survival”
+      box. You should make a little bit of space in a corner of a room, that
+      your movers don't touch, or you can also make space on the kitchen
+      counter.
+    </p>
+    <br />
+    <p>
+      In this survival box, you should pack things like: important documents,
+      laptop, plastic cups & plates, keys, tablets, glasses etc. I'm sure you
+      get the point: things that you want access right away at destination, so
+      you don't have to wait to unpack all your boxes.
+    </p>
+    <br />
+    <p>Let us know if any questions, we are always happy to assist you.</p>
+    <br />
+    <p>Best Regards,</p>
+    <p><%= "#{ENV["COMPANY_NAME"]}"%> Team</p>
+    <p><b><%= "#{ENV["COMPANY_EMAIL"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_PHONE"]}" %></b></p>
+    <p><b><%= "#{ENV["COMPANY_SITE"]}" %></b></p>
+  </body>
+</html>

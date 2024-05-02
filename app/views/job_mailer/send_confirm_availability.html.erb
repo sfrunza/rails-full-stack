@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="format-detection"
+      content="telephone=no, date=no, address=no, email=no, url=no"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>GREAT NEWS! Your requested Moving Date is AVAILABLE!</title>
+    <style>
+      .hover-important-text-decoration-underline:hover {
+        text-decoration: underline !important;
+      }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      p {
+        font-size: 14px;
+      }
+
+      @media (max-width: 600px) {
+        .sm-my-8 {
+          margin-top: 32px !important;
+          margin-bottom: 32px !important;
+        }
+        .sm-px-4 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+        .sm-px-6 {
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+        }
+        .sm-leading-8 {
+          line-height: 32px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      word-break: break-word;
+    "
+  >
+    <div
+      role="article"
+      aria-roledescription="email"
+      aria-label="Confirm your email address"
+      lang="en"
+    >
+      <div
+        class="sm-px-4"
+        style="
+          background-color: #f8fafc;
+          font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+            sans-serif;
+        "
+      >
+        <table cellpadding="0" cellspacing="0" role="none" class="center">
+          <tr>
+            <td style="width: 552px; max-width: 100%">
+              <div
+                class="sm-my-8"
+                style="
+                  margin-top: 48px;
+                  margin-bottom: 48px;
+                  text-align: center;
+                "
+              >
+                <img
+                  src="https://bravemovers-app.herokuapp.com/static/media/supersuperBMlogo3.f9d8b636.png"
+                  width="150"
+                  alt="Brave Movers"
+                  style="
+                    max-width: 100%;
+                    vertical-align: middle;
+                    line-height: 1;
+                  "
+                />
+              </div>
+              <table
+                style="width: 100%"
+                cellpadding="0"
+                cellspacing="0"
+                role="none"
+              >
+                <tr>
+                  <td
+                    class="sm-px-6"
+                    style="
+                      border-radius: 4px;
+                      background-color: #fff;
+                      padding: 48px;
+                      font-size: 16px;
+                      color: #334155;
+                      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                    "
+                  >
+                    <h1
+                      class="sm-leading-8"
+                      style="
+                        margin: 0 0 24px;
+                        font-size: 24px;
+                        font-weight: 600;
+                        color: #000;
+                      "
+                    >
+                      Hi, <%= @customer.first_name %>
+                    </h1>
+                    <p style="margin: 0; line-height: 24px">
+                      GREAT NEWS! Your requested moving date is AVAILABLE!
+                      <br />
+                      <i>(Action Required)</i>
+                    </p>
+                    <p style="margin: 0; line-height: 24px">
+                      We checked our schedule and currently have availability
+                      for the requested day and time to help you on your moving
+                      project.
+                    </p>
+                    <p style="font-size: 20px">
+                      <b>Request ID <%= @job.id %> </b>
+                    </p>
+                    <p style="margin: 0; line-height: 24px">
+                      Access your account here <%= link_to "Personal Account" ,
+                      @login_url %>.
+                    </p>
+                    <p style="margin: 0; line-height: 24px">
+                      To reserve and confirm your moving rate/quote, date, crew
+                      and dedicated truck, we require a deposit. Deposits can be
+                      safely paid at the personal account page by following this
+                      link <%= link_to "Personal Account" , @login_url %> or
+                      over the phone with one of our representatives. If it's
+                      more than 24 hours since you received availability
+                      confirmation from us, before submitting any deposit,
+                      please email/call us to make sure your move date and time
+                      is still valid. That amount is later deducted from your
+                      total on the day of the move.
+                    </p>
+                    <p style="margin: 0; line-height: 24px">
+                      A deposit of $100.00 is required to reserve your local
+                      move and 10% of final quote for an interstate move.
+                    </p>
+                    <br />
+
+                    <!-- Job id -->
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Request ID</b></p>
+                      <p style="width: 50%"><%= @job.id %></p>
+                    </div>
+
+                    <!-- Moving Date -->
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Moving date</b></p>
+                      <p style="width: 50%">
+                        <%= Date.parse(@job.moving_date).strftime("%B %e, %Y")
+                        %>
+                      </p>
+                    </div>
+
+                    <!-- Delivery Date -->
+
+                    <% if @job.delivery_date %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Delivery date</b></p>
+                      <p style="width: 50%">
+                        <%= Date.parse(@job.delivery_date).strftime("%B %e, %Y")
+                        %>
+                      </p>
+                    </div>
+                    <% end %>
+
+                    <!-- Service -->
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Service</b></p>
+                      <p style="width: 50%"><%= @job.service %></p>
+                    </div>
+
+                    <!-- Moving size -->
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Moving size</b></p>
+                      <p style="width: 50%"><%= @job.size %></p>
+                    </div>
+
+                    <!-- Need packing -->
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Packing</b></p>
+                      <p style="width: 50%"><%= @job.packing %></p>
+                    </div>
+
+                    <!-- Addresses -->
+
+                    <% @addresses.each do |address| %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <% if address.is_origin %>
+                      <p style="width: 50%"><b>Origin</b></p>
+                      <% elsif address.is_destination %>
+                      <p style="width: 50%"><b>Destination</b></p>
+                      <% elsif address.is_pickup %>
+                      <p style="width: 50%"><b>Extra pickup</b></p>
+                      <% else address.is_dropoff %>
+                      <p style="width: 50%"><b>Extra dropoff</b></p>
+                      <% end %>
+                      <p style="width: 50%">
+                        <%= address.address %>, <%= address.city %>, <%=
+                        address.state %> <%= address.zip %>
+                      </p>
+                    </div>
+                    <% end %>
+
+                    <!-- Crew size -->
+
+                    <% if !@job.is_flat_rate %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Crew size</b></p>
+                      <p style="width: 50%"><%= @job.crew_size %> movers</p>
+                    </div>
+                    <% end %>
+
+                    <!-- Rate -->
+
+                    <% if @job.is_flat_rate %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Flat Rate</b></p>
+                      <p style="width: 50%">$<%= @job.estimated_quote[0] %></p>
+                    </div>
+                    <% else %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Rate</b></p>
+                      <p style="width: 50%">$<%= @job.rate %>/h</p>
+                    </div>
+                    <% end %>
+
+                    <!-- Job time -->
+
+                    <% if !@job.is_flat_rate %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Estimated time</b></p>
+                      <p style="width: 50%">
+                        <%= @job.estimated_time[0] ==
+                        @job.estimated_time[0].to_i ?
+                        @job.estimated_time[0].to_i : @job.estimated_time[0] %>
+                        - <%=@job.estimated_time[1] ==
+                        @job.estimated_time[1].to_i ?
+                        @job.estimated_time[1].to_i : @job.estimated_time[1] %>
+                        hours
+                      </p>
+                    </div>
+                    <% end %>
+
+                    <!-- Travel time -->
+                    <% if !@job.is_flat_rate %>
+                    <div
+                      style="
+                        width: 100%;
+                        display: flex;
+                        border-bottom: 1px solid #e2e8f0;
+                      "
+                    >
+                      <p style="width: 50%"><b>Travel time</b></p>
+                      <p style="width: 50%">
+                        <%= @job.travel_time[0] %>/<%= @job.travel_time[1] %>
+                        min from/to(HQ)
+                      </p>
+                    </div>
+                    <% end %>
+
+                    <!-- Quote -->
+                    <% if !@job.is_flat_rate %>
+                    <div style="width: 100%; display: flex">
+                      <p style="width: 50%"><b>Estimated quote</b></p>
+                      <% if @job.is_flat_rate %>
+                      <p style="width: 50%">$<%= @job.estimated_quote[0] %></p>
+                      <% else %>
+                      <p style="width: 50%">
+                        $<%= @job.estimated_quote[0] %> - $<%=
+                        @job.estimated_quote[1] %>
+                      </p>
+                      <% end %>
+                    </div>
+                    <% end %>
+                    <br />
+                    
+                    <p style="margin: 0; line-height: 24px">
+                      <i>
+                        <b><%= "#{ENV["COMPANY_NAME"]}"%> tip:</b> If your
+                        moving date is coming up soon, we encourage you to
+                        reserve your move as soon as possible. Our online
+                        reservation system is based on first-come, first-serve
+                        basis.
+                      </i>
+                    </p>
+                    <br />
+
+                    <p style="margin: 0">
+                      Best Regards,
+                      <br />
+                      <br />
+                      <%= "#{ENV["COMPANY_NAME"]}"%> Team
+                      <br />
+                      <b><%= "#{ENV["COMPANY_EMAIL"]}" %></b>
+                      <br />
+                      <b><%= "#{ENV["COMPANY_PHONE"]}" %></b>
+                      <br />
+                      <b><%= "#{ENV["COMPANY_SITE"]}" %></b>
+                    </p>
+                  </td>
+                </tr>
+                <tr role="separator">
+                  <td style="line-height: 48px">&zwj;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

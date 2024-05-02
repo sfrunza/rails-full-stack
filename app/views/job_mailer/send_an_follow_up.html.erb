@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="format-detection"
+      content="telephone=no, date=no, address=no, email=no, url=no"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>Just following up on your Moving Request</title>
+    <style>
+      .hover-important-text-decoration-underline:hover {
+        text-decoration: underline !important;
+      }
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      @media (max-width: 600px) {
+        .sm-my-8 {
+          margin-top: 32px !important;
+          margin-bottom: 32px !important;
+        }
+        .sm-px-4 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+        .sm-px-6 {
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+        }
+        .sm-leading-8 {
+          line-height: 32px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      width: 100%;
+      background-color: #f8fafc;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      word-break: break-word;
+    "
+  >
+    <div
+      role="article"
+      aria-roledescription="email"
+      aria-label="Confirm your email address"
+      lang="en"
+    >
+      <div
+        class="sm-px-4"
+        style="
+          background-color: #f8fafc;
+          font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+            sans-serif;
+        "
+      >
+        <table cellpadding="0" cellspacing="0" role="none" class="center">
+          <tr>
+            <td style="width: 552px; max-width: 100%">
+              <div
+                class="sm-my-8"
+                style="
+                  margin-top: 48px;
+                  margin-bottom: 48px;
+                  text-align: center;
+                "
+              >
+                <img
+                  src="https://bravemovers-app.herokuapp.com/static/media/supersuperBMlogo3.f9d8b636.png"
+                  width="150"
+                  alt="Brave Movers"
+                  style="
+                    max-width: 100%;
+                    vertical-align: middle;
+                    line-height: 1;
+                  "
+                />
+              </div>
+              <table
+                style="width: 100%"
+                cellpadding="0"
+                cellspacing="0"
+                role="none"
+              >
+                <tr>
+                  <td
+                    class="sm-px-6"
+                    style="
+                      border-radius: 4px;
+                      background-color: #fff;
+                      padding: 48px;
+                      font-size: 16px;
+                      color: #334155;
+                      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                    "
+                  >
+                    <h1
+                      class="sm-leading-8"
+                      style="
+                        margin: 0 0 24px;
+                        font-size: 24px;
+                        font-weight: 600;
+                        color: #000;
+                      "
+                    >
+                      Hello, <%= @customer.first_name %>
+                    </h1>
+                    <p style="margin: 0; line-height: 24px">
+                      Hope all is well! I know it's been a few days since we
+                      sent you an estimate and I want to follow up on this. As
+                      of now, your date is still available!
+                      <br />
+                      <br />
+                      Let me know if you have any questions or concerns about
+                      your upcoming move. I am sure that we can make anything
+                      work for your moving project.
+                      <br />
+                      <br />
+                      <b><%= "#{ENV["COMPANY_NAME"]}"%></b> is covering
+                      end-to-end moving solutions so there is no third-party
+                      involved in your moving process. A few things that are
+                      included when you are getting a quote from
+                      <%="#{ENV["COMPANY_NAME"]}"%>:
+                    </p>
+                    <br />
+                    <ul>
+                      <li>Moving labour</li>
+                      <li>Dedicated truck</li>
+                      <li>Furniture disassembly</li>
+                      <li>Loading the truck</li>
+                      <li>Offloading the truck</li>
+                      <li>Furniture assembly</li>
+                      <li>Labelling boxes</li>
+                      <li>Furniture wrapping</li>
+                      <li>Packing labour</li>
+                      <li>Travel time</li>
+                    </ul>
+                    <br />
+                    <p style="margin: 0; line-height: 24px">
+                      To reserve and confirm your moving rate/quote, date, crew
+                      and dedicated truck, we require a deposit. Deposits can be
+                      safely paid at the personal account page by following this
+                      link <%= link_to "Personal Account" , @login_url %> or
+                      over the phone with one of our representatives.
+                      <br />
+                      If it's more than 24 hours since you received availability
+                      confirmation from us, before submitting any deposit,
+                      please email/call us to make sure your move date and time
+                      is still valid. That amount is later deducted from your
+                      total on the day of the move.
+                      <br />
+                      <br />
+                      A deposit of $100.00 is required to reserve your local
+                      move and 10% of final quote for an interstate move.
+                    </p>
+                    <div
+                      role="separator"
+                      style="
+                        background-color: #e2e8f0;
+                        height: 1px;
+                        line-height: 1px;
+                        margin: 32px 0;
+                      "
+                    >
+                      &zwj;
+                    </div>
+                    <p style="margin: 0">
+                      Thank you for and have a wonderful day!
+                      <br />
+                      <br />
+                      <%= "#{ENV["COMPANY_NAME"]}"%> Team
+                      <br />
+                      <b><%= "#{ENV["COMPANY_EMAIL"]}" %></b>
+                      <br />
+                      <b><%= "#{ENV["COMPANY_PHONE"]}" %></b>
+                      <br />
+                      <b><%= "#{ENV["COMPANY_SITE"]}" %></b>
+                    </p>
+                  </td>
+                </tr>
+                <tr role="separator">
+                  <td style="line-height: 48px">&zwj;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

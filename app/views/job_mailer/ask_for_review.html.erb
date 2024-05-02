@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      p {
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Dear <%= @customer.first_name %>,</p>
+    <br />
+    <p>It was our sincere pleasure to provide our service for you recently.</p>
+    <br />
+    <p>
+      We take feedback from our customers very seriously as it allows us to
+      continuously improve upon our services.
+    </p>
+    <br />
+    <p>
+      As a local business, we rely enormously on positive word of mouth and
+      would be grateful if you could share your experience by submitting a
+      Google review using this link.
+    </p>
+    <br />
+    <p>
+      <%= link_to "Review us on Google" ,
+      "http://search.google.com/local/writereview?placeid=ChIJ65r-D2iH44kRQVvxQOaxUUY"
+      %>
+    </p>
+    <p>
+      <br />
+    </p>
+    <p>Not sure about what to write?</p>
+    <p>
+      Below are a few suggestions that may help you with your creative flow.
+    </p>
+    <ul>
+      <li>
+        What service did we provide to you and what did you like best about it?
+      </li>
+      <li>Which one of our branches did you visit?</li>
+      <li>
+        Who in our team looked after you? (feel free to mention their names,
+        they will be very flattered)
+      </li>
+      <li>What do you think makes us different from our competitors?</li>
+      <li>What would you tell your friends or colleagues about us?</li>
+      <li>
+        Is there any way we can improve some of our services? if so which ones
+        and how?
+      </li>
+    </ul>
+    <br />
+    <p>
+      We appreciate your time and look forward to seeing you at your next move.
+    </p>
+    <p>
+      Thanks again for choosing <strong><%= "#{ENV["COMPANY_NAME"]}"%></strong>!
+    </p>
+    <br />
+    <p>Warmest Regards,</p>
+    <p><%= "#{ENV["COMPANY_NAME"]}"%> Team</p>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      p {
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Dear <%= @customer.first_name %>,</p>
+    <br />
+    <p>It was our sincere pleasure to provide our service for you recently.</p>
+    <p>
+      Please acccess this link <%= link_to "View Receipt" ,
+      @job.receipt.file.url %> to view your final receipt for our service.
+    </p>
+    <br />
+    <p>
+      We appreciate your business and look forward to seeing you at your next
+      move.
+    </p>
+    <p>Thanks again for choosing <%= "#{ENV["COMPANY_NAME"]}"%>!</p>
+    <br />
+    <p>Best Regards,</p>
+    <p><%= "#{ENV["COMPANY_NAME"]}"%> Team</p>
+  </body>
+</html>
