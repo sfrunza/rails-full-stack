@@ -30,19 +30,23 @@ import { cn } from "@/lib/utils";
 import { useSelector } from "@/store";
 
 const statusColors = {
-  Confirmed: "text-green-600 bg-green-100",
   Pending: "text-amber-500 bg-amber-100",
-  Canceled: "text-red-500 bg-red-100",
-  Expired: "text-slate-800 bg-slate-200",
-  Completed: "text-[deepskyblue] bg-sky-100",
+  Confirmed: "text-green-600 bg-green-100",
   "Not Confirmed": "text-indigo-600 bg-indigo-100",
+  Canceled: "text-red-500 bg-red-100",
+  Completed: "text-[deepskyblue] bg-sky-100",
   "Not Available": "text-slate-800 bg-slate-200",
+  Expired: "text-slate-800 bg-slate-200",
+  Spam: "text-slate-800 bg-slate-200",
 };
 
 export function SideBarMobile({ requests }: { requests: any[] }) {
   const { user } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const params = useParams<{ id: string }>();
+
+  const iconClassName = "mr-4 size-4";
+
   return (
     <Sheet>
       <SheetTrigger asChild className="flex lg:hidden">
@@ -68,7 +72,7 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
         >
           <SheetClose asChild>
             <Link to="/account">
-              <LayoutPanelLeftIcon className="mr-4 h-4 w-4" />
+              <LayoutPanelLeftIcon className={iconClassName} />
               Account Overview
             </Link>
           </SheetClose>
@@ -82,7 +86,7 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
               )}
             >
               <span className="flex items-center justify-start">
-                <HistoryIcon className="mr-4 h-4 w-4" />
+                <HistoryIcon className={iconClassName} />
                 My Moves History ({requests.length})
               </span>
             </AccordionTrigger>
@@ -143,31 +147,31 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
         >
           <SheetClose asChild>
             <Link to="/account/profile">
-              <SettingsIcon className="mr-4 h-4 w-4" /> Edit Profile
+              <SettingsIcon className={iconClassName} /> Edit Profile
             </Link>
           </SheetClose>
         </Button>
         <Separator />
         <Button variant="ghost" className="justify-start" asChild>
           <a href="#">
-            <UmbrellaIcon className="mr-4 h-4 w-4" /> Certificate of Insurance
+            <UmbrellaIcon className={iconClassName} /> Certificate of Insurance
           </a>
         </Button>
         <Button variant="ghost" className="justify-start" asChild>
           <a href="#">
-            <FileTextIcon className="mr-4 h-4 w-4" /> Bill of Lading
+            <FileTextIcon className={iconClassName} /> Bill of Lading
           </a>
         </Button>
         <Separator />
         <p className="pl-4 text-sm font-semibold">Need Help?</p>
         <Button variant="ghost" className="justify-start" asChild>
           <a href="tel:(617)9913552">
-            <PhoneIcon className="mr-4 h-4 w-4" /> (617) 991-3552
+            <PhoneIcon className={iconClassName} /> (617) 991-3552
           </a>
         </Button>
         <Button variant="ghost" className="justify-start" asChild>
           <a href="mailto:info@bravemovers.com">
-            <MailIcon className="mr-4 h-4 w-4" /> info@bravemovers.com
+            <MailIcon className={iconClassName} /> info@bravemovers.com
           </a>
         </Button>
       </SheetContent>

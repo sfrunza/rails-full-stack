@@ -3,35 +3,22 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Geist";
+  font-family: "GeistSans";
   src:
     local("Geist"),
-    url(./assets/fonts/variable-ttf/GeistVF.ttf) format("truetype");
+    url(./assets/fonts/variable-woff/GeistVF.woff2) format("woff2");
 }
 
-/* @font-face {
-  font-family: "Geist";
-  src:
-    local("Geist"),
-    url(./assets/fonts/Nunito-VariableFont_wght.ttf) format("truetype");
-} */
-
-html,
-body,
-/* :root {
-  height: 100%;
-} */
-
-/* .bg-radial-gradient {
+.bg-radial-gradient {
   background-image: radial-gradient(
     circle closest-corner,
     #e8e8ea 2px,
     transparent 2px
   );
-  background-size: 16px 10px; 
-  background-repeat: repeat-y; 
-  background-position: left top; 
-} */
+  background-size: 16px 10px;
+  background-repeat: repeat-y;
+  background-position: left top;
+}
 .pac-container {
   border-radius: 8px;
   box-shadow:
@@ -47,29 +34,6 @@ body,
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   overflow: hidden;
-}
-
-@layer components {
-  .bg-radial-gradient {
-    background-image: radial-gradient(
-      circle closest-corner,
-      #e8e8ea 2px,
-      transparent 2px
-    );
-    background-size: 16px 10px;
-    background-repeat: repeat-y;
-    background-position: left top;
-  }
-  .pac-container {
-    border-radius: 8px;
-    box-shadow:
-      0 1px 3px 0 rgb(0 0 0 / 0.1),
-      0 1px 2px -1px rgb(0 0 0 / 0.1);
-  }
-  .pac-item:hover {
-    cursor: pointer;
-    background-color: #f1f5f9;
-  }
 }
 
 @layer base {

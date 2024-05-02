@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { SquarePenIcon } from 'lucide-react';
-import { useSelector } from '@/store';
-import image from '@/assets/movers-packing.jpg';
-import { useModal } from '@/hooks/useModal';
-import { ModalType } from '@/slices/modal';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { SquarePenIcon } from "lucide-react";
+import { useSelector } from "@/store";
+import image from "@/assets/movers-packing.jpg";
+import { useModal } from "@/hooks/useModal";
+import { ModalType } from "@/slices/modal";
 
 export default function PackingCard() {
   // const { request } = clientRequest((state) => state);
@@ -34,10 +34,10 @@ export default function PackingCard() {
         />
       </CardHeader>
       <CardContent className="pt-4">
-        <p className="text-lg font-bold">Packing</p>
+        <p className="text-lg font-semibold">Packing</p>
         <p className="font-medium text-primary">{packing?.name}</p>
         <div
-          dangerouslySetInnerHTML={{ __html: packing?.description || '' }}
+          dangerouslySetInnerHTML={{ __html: packing?.description || "" }}
           className="mt-2 line-clamp-5"
         />
         <br />
@@ -45,7 +45,7 @@ export default function PackingCard() {
           <Button
             variant="edit"
             size="sm"
-            onClick={(e) => onAction(e, 'editPacking')}
+            onClick={(e) => onAction(e, "editPacking")}
           >
             <SquarePenIcon className="mr-2 size-3" />
             Edit packing

@@ -1,39 +1,37 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { formatPhone } from '@/lib/utils';
-import { ChevronLeftIcon } from 'lucide-react';
-// import { useSession } from "next-auth/react";
-// import Link from "next/link";
-import FormSubmitButton from '@/components/FormSubmitButton';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-import { updateUser } from '@/slices/auth';
-import { useDispatch, useSelector } from '@/store';
-import { z } from 'zod';
-import { useEffect } from 'react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { formatPhone } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronLeftIcon } from "lucide-react";
+import FormSubmitButton from "@/components/FormSubmitButton";
+import { updateUser } from "@/slices/auth";
+import { useDispatch, useSelector } from "@/store";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { z } from "zod";
 
 export const FormDataSchema = z.object({
   first_name: z.string().min(1),
   last_name: z.string().min(1),
-  email: z.string().min(1, 'required').email('Invalid email address'),
+  email: z.string().min(1, "required").email("Invalid email address"),
   phone: z.string().min(14).max(14),
-  add_phone: z.string().min(14).max(14).optional().or(z.literal('')),
+  add_phone: z.string().min(14).max(14).optional().or(z.literal("")),
 });
 
 export type Inputs = z.infer<typeof FormDataSchema>;
@@ -44,14 +42,14 @@ export default function Profile() {
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    mode: 'onTouched',
-    reValidateMode: 'onChange',
+    mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      add_phone: '',
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      add_phone: "",
     },
   });
 
@@ -61,7 +59,7 @@ export default function Profile() {
       last_name: user?.last_name,
       email: user?.email,
       phone: user?.phone,
-      add_phone: user?.add_phone || '',
+      add_phone: user?.add_phone || "",
     });
   }, [user]);
 
@@ -95,7 +93,6 @@ export default function Profile() {
       <Form {...form}>
         <form autoComplete="off" onSubmit={form.handleSubmit(_onSubmit)}>
           <CardContent>
-            {/* {!user && <p>Loading...</p>} */}
             <div className="grid grid-cols-6 gap-4">
               <div className="col-span-6 sm:col-span-3">
                 <FormField

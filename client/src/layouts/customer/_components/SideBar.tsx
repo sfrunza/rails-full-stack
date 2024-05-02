@@ -2,11 +2,12 @@ import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/accordion";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { useSelector } from "@/store";
 import {
   FileTextIcon,
   HistoryIcon,
@@ -15,14 +16,14 @@ import {
   PhoneIcon,
   SettingsIcon,
   UmbrellaIcon,
-} from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from '@/store';
-import JobsMenu from './JobsMenu';
+} from "lucide-react";
+import { NavLink } from "react-router-dom";
+import JobsMenu from "./JobsMenu";
 
 export default function SideBar({ requests }: { requests: any[] }) {
   const { user } = useSelector((state) => state.auth);
-  const { pathname } = useLocation();
+
+  const iconClassName = "mr-4 size-4";
 
   return (
     <Card className="relative">
@@ -32,29 +33,30 @@ export default function SideBar({ requests }: { requests: any[] }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 px-4 pt-4">
-        <Button
-          variant="ghost"
-          className={cn(
-            'justify-start',
-            pathname === '/account' && 'bg-muted'
-          )}
-          asChild
+        <NavLink
+          to="/account"
+          end
+          className={({ isActive }) => {
+            return cn(
+              buttonVariants({ variant: "ghost" }),
+              "justify-start",
+              isActive && "bg-muted",
+            );
+          }}
         >
-          <Link to="/account">
-            <LayoutPanelLeftIcon className="mr-4 size-4" />
-            Account Overview
-          </Link>
-        </Button>
-        <Accordion type="single" collapsible className="w-full border-none">
+          <LayoutPanelLeftIcon className={iconClassName} />
+          Account Overview
+        </NavLink>
+        <Accordion type="single" collapsible>
           <AccordionItem value="1" className="border-b-0">
             <AccordionTrigger
               className={cn(
-                buttonVariants({ variant: 'ghost' }),
-                'justify-between hover:no-underline'
+                buttonVariants({ variant: "ghost" }),
+                "justify-between hover:no-underline",
               )}
             >
               <span className="flex items-center justify-start">
-                <HistoryIcon className="mr-4 size-4" />
+                <HistoryIcon className={iconClassName} />
                 My Moves History ({requests?.length})
               </span>
             </AccordionTrigger>
@@ -62,43 +64,47 @@ export default function SideBar({ requests }: { requests: any[] }) {
           </AccordionItem>
         </Accordion>
         <Separator />
-        <Button
-          variant="ghost"
-          className={cn(
-            'justify-start',
-            pathname === '/account/profile' && 'bg-muted'
-          )}
-          asChild
+        <NavLink
+          to="/account/profile"
+          className={({ isActive }) => {
+            return cn(
+              buttonVariants({ variant: "ghost" }),
+              "justify-start",
+              isActive && "bg-muted",
+            );
+          }}
         >
-          <Link to="/account/profile">
-            <SettingsIcon className="mr-4 size-4" /> Edit Profile
-          </Link>
-        </Button>
+          <SettingsIcon className={iconClassName} /> Edit Profile
+        </NavLink>
         <Separator />
-        <Button variant="ghost" className="justify-start" asChild>
-          <a href="#">
-            <UmbrellaIcon className="mr-4 size-4" />
-            <span className="truncate">Certificate of Insurance</span>
-          </a>
-        </Button>
-        <Button variant="ghost" className="justify-start" asChild>
-          <a href="#">
-            <FileTextIcon className="mr-4 size-4" /> Bill of Lading
-          </a>
-        </Button>
+        <a
+          href="#"
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
+        >
+          <UmbrellaIcon className={iconClassName} />
+          <span className="truncate">Certificate of Insurance</span>
+        </a>
+        <a
+          href="#"
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
+        >
+          <FileTextIcon className={iconClassName} /> Bill of Lading
+        </a>
         <Separator />
         <p className="pl-4 text-sm font-semibold">Need Help?</p>
-        <Button variant="ghost" className="justify-start" asChild>
-          <a href="tel:(617)9913552">
-            <PhoneIcon className="mr-4 size-4" /> (617) 991-3552
-          </a>
-        </Button>
-        <Button variant="ghost" className="justify-start" asChild>
-          <a href="mailto:info@bravemovers.com">
-            <MailIcon className="mr-4 size-4" />
-            <span className="truncate">info@bravemovers.com</span>
-          </a>
-        </Button>
+        <a
+          href="tel:(617)9913552"
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
+        >
+          <PhoneIcon className={iconClassName} /> (617) 991-3552
+        </a>
+        <a
+          href="mailto:info@bravemovers.com"
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
+        >
+          <MailIcon className={iconClassName} />
+          <span className="truncate">info@bravemovers.com</span>
+        </a>
       </CardContent>
     </Card>
   );

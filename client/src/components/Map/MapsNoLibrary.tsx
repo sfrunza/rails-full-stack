@@ -1,15 +1,15 @@
 // import { LoadScriptProps, useLoadScript } from "@react-google-maps/api";
-import { useRef, useEffect } from 'react';
-import mapStyles from './mapStyles';
-// import greenMarker from "assets/marker-red-2.jpeg";
-// import redMarker from "assets/marker-green-2.jpeg";
+import { useRef, useEffect } from "react";
+import mapStyles from "./mapStyles";
+// import greenMarker from "@/assets/marker-red-2.jpeg";
+// import redMarker from "@/assets/marker-green-2.jpeg";
 
 export default function MapsNoLibrary() {
   const mapRef = useRef<google.maps.Map | HTMLDivElement | null>(null);
 
-  const originAddress = 'Dedham, MA';
-  const destinationAddress = 'Brookline, MA';
-  const waypoints = ['Newton, MA', 'Waltham, MA', 'Watertown, MA'];
+  const originAddress = "Dedham, MA";
+  const destinationAddress = "Brookline, MA";
+  const waypoints = ["Newton, MA", "Waltham, MA", "Watertown, MA"];
 
   // const { isLoaded } = useLoadScript({
   //   googleMapsApiKey: API_KEY,
@@ -24,7 +24,7 @@ export default function MapsNoLibrary() {
     });
 
     const geocodeAddress = (
-      address: string
+      address: string,
     ): Promise<google.maps.LatLngLiteral> => {
       return new Promise((resolve, reject) => {
         geocoder.geocode({ address }, (results, status) => {
@@ -115,11 +115,11 @@ export default function MapsNoLibrary() {
           directionsService.route(routeRequest, (response, status) => {
             if (status === google.maps.DirectionsStatus.OK && response) {
               directionsRenderer.setDirections(response);
-              console.log('Directions response:', response);
+              console.log("Directions response:", response);
 
               const legs = response.routes[0].legs[0];
-              console.log('Start Address:', legs.start_address);
-              console.log('End Address:', legs.end_address);
+              console.log("Start Address:", legs.start_address);
+              console.log("End Address:", legs.end_address);
               // console.log('Distance:', legs.distance.text);
               // console.log('Duration:', legs.duration.text);
               // const originMarker = new google.maps.Marker({
@@ -166,12 +166,12 @@ export default function MapsNoLibrary() {
               //   });
               // });
             } else {
-              console.error('Directions request failed:', status);
+              console.error("Directions request failed:", status);
             }
           });
         }
       } catch (error) {
-        console.error('Error loading map:', error);
+        console.error("Error loading map:", error);
       }
     };
 

@@ -1,8 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,16 +10,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Form, FormField } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useModal } from '@/hooks/useModal';
-import useUpdateRequest from '@/hooks/useUpdateRequest';
-import { cn } from '@/lib/utils';
-import { useSelector } from '@/store';
-import { useEffect, useRef } from 'react';
+} from "@/components/ui/dialog";
+import { Form, FormField } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useModal } from "@/hooks/useModal";
+import useUpdateRequest from "@/hooks/useUpdateRequest";
+import { cn } from "@/lib/utils";
+import { useSelector } from "@/store";
+import { useEffect, useRef } from "react";
 
 const FormDataSchema = z.object({
   packing_id: z.string(),
@@ -32,20 +32,20 @@ export function EditPackingModal() {
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
 
-  const { packing_id } = getModalData('editPacking');
+  const { packing_id } = getModalData("editPacking");
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: 'onChange',
+    reValidateMode: "onChange",
     defaultValues: {
-      packing_id: packing_id.toString() || '',
+      packing_id: packing_id.toString() || "",
     },
   });
 
   const selectedRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (isModalOpen('editPacking') && selectedRef.current) {
+    if (isModalOpen("editPacking") && selectedRef.current) {
       selectedRef.current.scrollIntoView();
     }
   }, []);
@@ -55,11 +55,11 @@ export function EditPackingModal() {
   }
   const handleClose = () => {
     form.reset();
-    closeModal('editPacking');
+    closeModal("editPacking");
   };
 
   return (
-    <Dialog open={isModalOpen('editPacking')} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen("editPacking")} onOpenChange={handleClose}>
       <DialogTrigger asChild>
         <Button>Edit packing</Button>
       </DialogTrigger>
@@ -79,7 +79,7 @@ export function EditPackingModal() {
                 name="packing_id"
                 render={({ field }) => (
                   <RadioGroup
-                    defaultValue={form.getValues('packing_id')}
+                    defaultValue={form.getValues("packing_id")}
                     onValueChange={(val) => {
                       field.onChange(val);
                     }}
@@ -89,13 +89,12 @@ export function EditPackingModal() {
                       <div
                         key={packing.id}
                         className={cn(
-                          Number(form.getValues('packing_id')) === packing.id
-                            ? 'border-primary bg-primary/5 ring-2 ring-primary'
-                            : 'border-slate-300',
-                          'relative flex cursor-pointer flex-row-reverse gap-4 rounded-lg border-input p-4 shadow-button focus:outline-none'
+                          Number(form.getValues("packing_id")) === packing.id &&
+                            "border-primary bg-primary/5 ring-2 ring-primary",
+                          "shadow-button relative flex cursor-pointer flex-row-reverse gap-4 rounded-lg border-input p-4 focus:outline-none",
                         )}
                         ref={
-                          Number(form.getValues('packing_id')) === packing.id
+                          Number(form.getValues("packing_id")) === packing.id
                             ? selectedRef
                             : null
                         }
@@ -107,14 +106,14 @@ export function EditPackingModal() {
                         />
                         <Label
                           htmlFor={packing.id.toString()}
-                          className="hover:cursor-pointer"
+                          className="w-full hover:cursor-pointer"
                         >
                           <div className="space-y-2">
                             <p
                               className={cn(
-                                'text-base font-semibold',
-                                Number(form.getValues('packing_id')) ===
-                                  packing.id && 'text-primary'
+                                "text-base font-semibold",
+                                Number(form.getValues("packing_id")) ===
+                                  packing.id && "text-primary",
                               )}
                             >
                               {packing.name}

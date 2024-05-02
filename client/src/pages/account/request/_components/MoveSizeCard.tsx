@@ -4,20 +4,20 @@ import {
   ClipboardPenIcon,
   ImagesIcon,
   SquarePenIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { cn, hasNonEmptyValues } from '@/lib/utils';
-import { useSelector } from '@/store';
-import { ModalType } from '@/slices/modal';
-import { useModal } from '@/hooks/useModal';
+} from "@/components/ui/card";
+import { cn, hasNonEmptyValues } from "@/lib/utils";
+import { useSelector } from "@/store";
+import { ModalType } from "@/slices/modal";
+import { useModal } from "@/hooks/useModal";
 
 export default function MoveSizeCard() {
   const { request } = useSelector((state) => state.request);
@@ -84,14 +84,12 @@ export default function MoveSizeCard() {
     <Card className="h-full">
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
-          <CardTitle>
-            <p>{size || 'TBD'}</p>
-          </CardTitle>
+          <CardTitle>{size || "TBD"}</CardTitle>
           {can_edit_request && (
             <Button
               variant="edit"
               size="sm"
-              onClick={(e) => onMoveSizeAction(e, 'editMoveSize')}
+              onClick={(e) => onMoveSizeAction(e, "editMoveSize")}
               className="right-4 top-4 mt-0"
             >
               <SquarePenIcon className="mr-2 size-3" />
@@ -110,27 +108,47 @@ export default function MoveSizeCard() {
           Do you want to get a more precise quote ?
         </p>
 
-        {/* Edit Inventory */}
         <div className="space-y-3 sm:container sm:max-w-sm">
-          <div className="rounded-md border border-input bg-background px-6 py-3 text-green-600 shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground hover:text-green-700">
+          {/* Edit Inventory */}
+          <button
+            className={cn(
+              buttonVariants({
+                variant: false ? "default" : "edit",
+              }),
+              "text flex h-fit w-full flex-col items-start gap-1 px-6 py-3 text-xs hover:cursor-pointer",
+            )}
+            disabled
+            // onClick={(e) => onEditDetailsAction(e, "editDetails")}
+          >
             <div className="flex items-center gap-4">
-              <ClipboardListIcon className="mr-2 size-8" />
+              {false ? (
+                <CheckCircleIcon className="mr-2 size-8" />
+              ) : (
+                <ClipboardListIcon className="mr-2 size-8" />
+              )}
               <div className="text-left text-sm">
                 <p className="font-semibold">Edit Inventory</p>
-                <p className="font-normal text-slate-900">Optional</p>
+                <p
+                  className={cn(
+                    "font-normal",
+                    false ? "text-white" : "text-slate-800",
+                  )}
+                >
+                  Optional
+                </p>
               </div>
             </div>
-          </div>
+          </button>
 
           {/* Edit Details */}
           <button
             className={cn(
               buttonVariants({
-                variant: hasDetails ? 'default' : 'edit',
+                variant: hasDetails ? "default" : "edit",
               }),
-              'text flex h-fit w-full flex-col items-start gap-1 px-6 py-3 text-xs hover:cursor-pointer'
+              "text flex h-fit w-full flex-col items-start gap-1 px-6 py-3 text-xs hover:cursor-pointer",
             )}
-            onClick={(e) => onEditDetailsAction(e, 'editDetails')}
+            onClick={(e) => onEditDetailsAction(e, "editDetails")}
           >
             <div className="flex items-center gap-4">
               {hasDetails ? (
@@ -140,12 +158,12 @@ export default function MoveSizeCard() {
               )}
               <div className="text-left text-sm">
                 <p className="font-semibold">
-                  {hasDetails ? 'View or modify details' : 'Add Details'}
+                  {hasDetails ? "View or modify details" : "Add Details"}
                 </p>
                 <p
                   className={cn(
-                    'font-normal',
-                    hasDetails ? 'text-white' : 'text-slate-800'
+                    "font-normal",
+                    hasDetails ? "text-white" : "text-slate-800",
                   )}
                 >
                   Optional
@@ -157,10 +175,10 @@ export default function MoveSizeCard() {
           {/* <EditPhotos /> */}
           <button
             className={cn(
-              buttonVariants({ variant: photos?.length ? 'default' : 'edit' }),
-              'text flex h-fit w-full flex-col items-start gap-1 px-6 py-3 text-xs hover:cursor-pointer'
+              buttonVariants({ variant: photos?.length ? "default" : "edit" }),
+              "text flex h-fit w-full flex-col items-start gap-1 px-6 py-3 text-xs hover:cursor-pointer",
             )}
-            onClick={(e) => onEditPhotosAction(e, 'editPhotos')}
+            onClick={(e) => onEditPhotosAction(e, "editPhotos")}
           >
             <div className="flex items-center gap-4">
               {photos?.length ? (
@@ -170,12 +188,12 @@ export default function MoveSizeCard() {
               )}
               <div className="text-left text-sm">
                 <p className="font-semibold">
-                  {photos?.length ? 'View or add photos' : 'Add Photos'}
+                  {photos?.length ? "View or add photos" : "Add Photos"}
                 </p>
                 <p
                   className={cn(
-                    'font-normal',
-                    photos?.length ? 'text-white' : 'text-slate-800'
+                    "font-normal",
+                    photos?.length ? "text-white" : "text-slate-800",
                   )}
                 >
                   Optional

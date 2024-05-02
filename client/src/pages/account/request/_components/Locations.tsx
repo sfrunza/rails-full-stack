@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { useModal } from '@/hooks/useModal';
-import { cn } from '@/lib/utils';
-import { MapPinIcon, SquarePenIcon } from 'lucide-react';
-import { ModalType } from '@/slices/modal';
-import { useSelector } from '@/store';
-import Map from '@/components/Map/Map';
+import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/useModal";
+import { cn } from "@/lib/utils";
+import { MapPinIcon, SquarePenIcon } from "lucide-react";
+import { ModalType } from "@/slices/modal";
+import { useSelector } from "@/store";
+import Map from "@/components/Map/Map";
 
 // const API_KEY = process.env.VITE_GOOGLE_MAPS_API_KEY as string;
 
@@ -49,10 +49,10 @@ export default function Locations() {
                 className="w-fit"
                 variant="edit"
                 size="sm"
-                onClick={(e) => onEditLocationsAction(e, 'editLocations')}
+                onClick={(e) => onEditLocationsAction(e, "editLocations")}
               >
                 <SquarePenIcon className="mr-2 size-3" />
-                {!origin ? 'Add origin' : 'Edit'}
+                {!origin ? "Add origin" : "Edit"}
               </Button>
             )
           }
@@ -66,10 +66,10 @@ export default function Locations() {
                 className="w-fit"
                 variant="edit"
                 size="sm"
-                onClick={(e) => onEditLocationsAction(e, 'editLocations')}
+                onClick={(e) => onEditLocationsAction(e, "editLocations")}
               >
                 <SquarePenIcon className="mr-2 size-3" />
-                {!destination ? 'Add destination' : 'Edit'}
+                {!destination ? "Add destination" : "Edit"}
               </Button>
             )
           }
@@ -88,7 +88,7 @@ function AddressItem({
   actionButton,
 }: {
   address: any;
-  type: 'Origin' | 'Destination' | 'Pick up' | 'Drop off';
+  type: "Origin" | "Destination" | "Pick up" | "Drop off";
   actionButton?: React.ReactNode;
 }) {
   // <EditLocation origin={{}} destination={{}} />;
@@ -96,9 +96,9 @@ function AddressItem({
     <>
       <div
         className={cn(
-          'grid grid-cols-12 items-center gap-1 text-blue-600',
-          type === 'Origin' && 'text-green-500',
-          type === 'Destination' && 'text-red-500'
+          "grid grid-cols-12 items-center gap-1 text-blue-600",
+          type === "Origin" && "text-green-500",
+          type === "Destination" && "text-red-500",
         )}
       >
         <div className="col-span-1">
@@ -111,19 +111,21 @@ function AddressItem({
         {/* <div className="col-span-1 h-full w-full justify-self-center"></div> */}
         <div
           className={cn(
-            'col-span-1 h-full w-full justify-self-center',
-            type !== 'Destination' &&
-              'bg-radial-gradient bg-gradient-to-br from-slate-200 via-transparent to-transparent bg-left-top bg-repeat-y'
+            "col-span-1 h-full w-full justify-self-center",
+            type !== "Destination" &&
+              "bg-radial-gradient bg-gradient-to-br from-slate-200 via-transparent to-transparent bg-left-top bg-repeat-y",
           )}
-        ></div>
+        />
         <div className="col-span-11 grid pb-4 pt-1">
           {!address && actionButton}
           {address && (
             <>
               <div className="flex items-center gap-4">
                 <p>
-                  <b>{address?.street || 'TBD'},</b> {address?.city},{' '}
-                  {address?.state} {address?.zip}
+                  <span className="font-semibold">
+                    {address?.street || "TBD"},
+                  </span>{" "}
+                  {address?.city}, {address?.state} {address?.zip}
                   {/* {address?.apt && (
                     <span className="ml-1 text-muted-foreground">
                       Apt. {address.apt}
