@@ -8,7 +8,7 @@ export default function PageFooter() {
   const { request } = useSelector((state) => state.request);
 
   return (
-    <div className="grid grid-cols-12 gap-4 divide-y bg-background p-4 md:divide-y-0 md:p-6">
+    <div className="mt-6 grid grid-cols-12 gap-4 divide-y bg-background p-4 md:divide-y-0 md:p-6">
       <div
         className={cn(
           buttonVariants({

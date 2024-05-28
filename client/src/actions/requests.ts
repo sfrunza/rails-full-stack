@@ -2,7 +2,7 @@ import { TNewRequestData } from "@/types/request";
 
 export async function createRequest(serviceId: number) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const response = await fetch("/api/v1/requests", {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ export async function createRequest(serviceId: number) {
 
 
 export async function updateRequest(id: number, newData: TNewRequestData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // console.log("updateRequest", id, newData);
 

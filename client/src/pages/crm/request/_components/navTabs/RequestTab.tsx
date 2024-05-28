@@ -72,10 +72,10 @@ export default function RequestTab() {
     <div className="bg-muted">
       <DateTimeSection />
       <StatusServiceSection />
-      <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 px-2 md:grid-cols-3 md:px-4">
         <div className="md:col-span-2">
           <Card>
-            <CardContent className="space-y-6 p-6">
+            <CardContent className="space-y-6 p-4 md:p-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
@@ -85,7 +85,7 @@ export default function RequestTab() {
                       <p className="text-primary">View Map</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-12 gap-2 pl-6">
+                  <div className="grid grid-cols-12 gap-2 md:pl-6">
                     <div className="col-span-8">
                       <Input
                         defaultValue={request?.origin.street}
@@ -154,7 +154,7 @@ export default function RequestTab() {
                       <p className="text-primary">Total distance 2.7 miles</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-12 gap-2 pl-6">
+                  <div className="grid grid-cols-12 gap-2 md:pl-6">
                     <div className="col-span-8">
                       <Input
                         defaultValue={request?.destination.street}
@@ -219,7 +219,7 @@ export default function RequestTab() {
               <Separator />
               <Notes />
               <Separator />
-              <div className="space-y-4 px-4">
+              <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                   <div className="space-y-1 text-sm md:col-span-1">
                     <div className="flex items-baseline justify-between">
