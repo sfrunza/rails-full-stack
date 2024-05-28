@@ -133,7 +133,7 @@ export default function StatusServiceSection() {
         {isChanged && (
           <Button
             size="lg"
-            className="h-11"
+            className="absolute -left-1/2 -right-1/2 bottom-0 z-50 h-14 w-auto md:static md:bottom-0 md:right-0 md:ml-auto md:mt-0"
             onClick={() => handleUpdateRequest()}
             disabled={isSaving}
           >
