@@ -63,7 +63,7 @@ export default function CustomerLayout() {
       </header>
 
       <main className="-mt-28">
-        <div className="mx-auto max-w-6xl p-4">
+        <div className="mx-auto max-w-6xl p-2 md:p-4">
           <div className="grid grid-cols-12 gap-6">
             <aside className="col-span-12 hidden lg:col-span-3 lg:block">
               <SideBar requests={data || []} />

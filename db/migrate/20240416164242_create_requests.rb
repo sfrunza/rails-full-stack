@@ -12,8 +12,14 @@ class CreateRequests < ActiveRecord::Migration[7.1]
       t.jsonb :total_price, default: { min: 0, max: 0 }
       t.integer :travel_time, default: 0
       t.integer :crew_size
+      t.boolean :can_edit_request, default: true
       t.integer :rate
       t.jsonb :stops, default: []
+      t.text :sales_notes
+      t.text :driver_notes
+      t.text :customer_notes
+      t.text :dispatch_notes
+      t.integer :deposit, default: 10_000
       t.jsonb :details,
               default: {
                 delicate_items_question_answer: "",
@@ -28,7 +34,11 @@ class CreateRequests < ActiveRecord::Migration[7.1]
                 state: "",
                 zip: "",
                 apt: "",
-                floor: ""
+                floor: "",
+                location: {
+                  lat: 0,
+                  lng: 0
+                }
               }
       t.jsonb :destination,
               default: {
@@ -37,7 +47,11 @@ class CreateRequests < ActiveRecord::Migration[7.1]
                 state: "",
                 zip: "",
                 apt: "",
-                floor: ""
+                floor: "",
+                location: {
+                  lat: 0,
+                  lng: 0
+                }
               }
 
       t.timestamps

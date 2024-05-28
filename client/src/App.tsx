@@ -1,29 +1,31 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import PublicRoute from '@/components/PublicRoute';
-import CustomerLayout from '@/layouts/customer/CustomerLayout';
-import MainLayout from '@/layouts/MainLayout';
-import RequestLayout from '@/layouts/RequestLayout';
-import AdminLayout from '@/layouts/admin/AdminLayout';
+import { Navigate, Route, Routes } from "react-router-dom";
+import PublicRoute from "@/components/PublicRoute";
+import CustomerLayout from "@/layouts/customer/CustomerLayout";
+import MainLayout from "@/layouts/MainLayout";
+import RequestLayout from "@/layouts/RequestLayout";
+import AdminLayout from "@/layouts/admin/AdminLayout";
 
-import AdminLogin from '@/pages/AdminLogin';
-import Home from '@/pages/Home';
+import AdminLogin from "@/pages/AdminLogin";
+import Home from "@/pages/Home";
 
-import Requests from '@/pages/crm/requests/Requests';
-import Request from '@/pages/crm/request/Request';
-import Calendar from '@/pages/crm/Calendar';
-import SettingsMain from '@/pages/crm/settings/SettingsMain';
-import ServicesSettings from '@/pages/crm/settings/services/ServicesSettings';
-import PackingSettings from '@/pages/crm/settings/packing/PackingSettings';
+import Requests from "@/pages/crm/requests/Requests";
+import Request from "@/pages/crm/request/Request";
+import Calendar from "@/pages/crm/Calendar";
+import SettingsMain from "@/pages/crm/settings/SettingsMain";
+import ServicesSettings from "@/pages/crm/settings/services/ServicesSettings";
+import PackingSettings from "@/pages/crm/settings/packing/PackingSettings";
 
-import Profile from '@/pages/account/Profile';
-import AccountMain from '@/pages/account/AccountMain';
-import AccountRequest from '@/pages/account/request/AccountRequest';
+import Profile from "@/pages/account/Profile";
+import AccountMain from "@/pages/account/AccountMain";
+import AccountRequest from "@/pages/account/request/AccountRequest";
+import BookPage from "@/pages/BookPage";
 
 export default function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path="/book" element={<BookPage />} />
       </Route>
 
       <Route element={<AdminLayout />}>

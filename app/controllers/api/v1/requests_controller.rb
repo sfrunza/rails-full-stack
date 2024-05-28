@@ -1,6 +1,6 @@
 class Api::V1::RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_request, only: %i[show update destroy]
+  before_action :set_request, only: %i[show update destroy show]
   before_action :check_permission, only: %i[destroy]
 
   # GET /requests
@@ -13,7 +13,18 @@ class Api::V1::RequestsController < ApplicationController
     if params[:filter] === "all"
       @requests = Request.limit(per_page).offset(offset).order("id desc")
       total_pages = (Request.count.to_f / per_page).ceil
-    else
+    elsif filter == "Pending" || filter == "Pending-info"
+      @requests =
+        Request
+          .where(status: %w[Pending Pending-info])
+          .limit(per_page)
+          .offset(offset)
+          .order("id desc")
+      total_pages =
+        (
+          Request.where(status: %w[Pending Pending-info]).count.to_f / per_page
+        ).ceil
+    elsif filter.present?
       @requests =
         Request
           .where(status: filter)
@@ -34,10 +45,13 @@ class Api::V1::RequestsController < ApplicationController
   end
 
   def status_counts
-    status_counts = Request.group(:status).count
+    status_counts =
+      Request.group(
+        "CASE WHEN status = 'Pending-info' THEN 'Pending' ELSE status END"
+      ).count
     status_data = {
       all: Request.count,
-      Pending: status_counts["Pending"] || 0,
+      Pending: status_counts["Pending" || "Pending-info"] || 0,
       Confirmed: status_counts["Confirmed"] || 0,
       "Not Confirmed": status_counts["Not Confirmed"] || 0,
       Canceled: status_counts["Canceled"] || 0,
@@ -52,24 +66,17 @@ class Api::V1::RequestsController < ApplicationController
 
   # GET /requests/1
   def show
-    @request = request = Request.find(params[:id])
     render json: @request, serializer: RequestSerializer, user: @current_user
-    #  can_edit_request: can_edit_request(@request, user:@current_user)
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Request not found" }, status: :not_found
   end
 
-  # def update_order
-  #   requests = params[:requests]
+  def show_versions
+    request = Request.find(params[:request_id])
+    versions = request.audits.order(id: :desc)
 
-  #   requests.each do |request|
-  #     s = Request.find(request["id"])
-  #     s.droppable_index = request["droppable_index"].to_i
-  #     s.name = request["name"]
-  #     s.save
-  #   end
-  #   render json: { success: "Changes saved." }, status: :accepted
-  # end
+    render json: versions, each_serializer: AuditLogSerializer
+  end
 
   # POST /requests
   def create
@@ -90,8 +97,14 @@ class Api::V1::RequestsController < ApplicationController
   def update
     @request = Request.joins(:service).find(params[:id])
     serialized_request = RequestSerializer.new(@request)
+
+    previous_changes = @request.previous_changes
+
     if @request.update(request_params)
-      ActionCable.server.broadcast("request_#{params[:id]}", serialized_request)
+      @request.update_status_if_needed(current_user.role)
+      updated_fields = @request.updated_fields
+
+      ActionCable.server.broadcast("request_#{params[:id]}", updated_fields)
       render json: @request, serializer: RequestSerializer
     else
       render json: @request.errors, status: :unprocessable_entity
@@ -108,6 +121,8 @@ class Api::V1::RequestsController < ApplicationController
 
   def set_request
     @request = Request.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Request not found" }, status: :not_found
   end
 
   def authenticate_user!
@@ -138,9 +153,13 @@ class Api::V1::RequestsController < ApplicationController
       :size,
       :crew_size,
       :rate,
+      :sales_notes,
+      :driver_notes,
+      :customer_notes,
+      :dispatch_notes,
+      :deposit,
       :travel_time,
-      origin: %i[street city state zip apt floor],
-      destination: %i[street city state zip apt floor],
+      :can_edit_request,
       work_time: %i[min max],
       total_time: %i[min max],
       total_price: %i[min max],
@@ -150,8 +169,29 @@ class Api::V1::RequestsController < ApplicationController
         disassemble_items_question_answer
         comments
       ],
-      stops: []
+      origin: permit_nested_location_params_with_location,
+      destination: permit_nested_location_params_with_location,
+      stops: [
+        :street,
+        :city,
+        :state,
+        :zip,
+        :floor,
+        :apt,
+        :isPickup,
+        :isDropoff,
+        location: %i[lat lng] # Permit nested location attributes
+      ]
     )
+  end
+
+  def permit_nested_location_params
+    %i[street city state zip apt floor]
+  end
+
+  # Permit nested location attributes with lat/lng within destination
+  def permit_nested_location_params_with_location
+    permit_nested_location_params + [location: %i[lat lng]]
   end
 
   def check_permission

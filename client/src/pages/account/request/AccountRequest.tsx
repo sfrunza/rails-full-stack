@@ -3,7 +3,7 @@ import Spinner from "@/components/Spinner";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchRequest, setRequest } from "@/slices/request";
+import { fetchClientRequest, setRequest } from "@/slices/request";
 import { useDispatch, useSelector } from "@/store";
 import DateTimeAddressesCard from "./_components/DateTimeAddressesCard";
 import MoveSizeCard from "./_components/MoveSizeCard";
@@ -20,7 +20,8 @@ export default function AccountRequest() {
   useEffect(() => {
     if (!id) return;
 
-    dispatch(fetchRequest(id));
+    dispatch(fetchClientRequest(id));
+
     // Subscribe to channel
     const channel = cable.subscriptions.create(
       { channel: "RequestChannel", request_id: id },
@@ -32,7 +33,7 @@ export default function AccountRequest() {
           console.log("Disconnected from RequestChannel");
         },
         received(data) {
-          console.log("Customer view received:", data);
+          console.log("CustomerRequestChannel", data);
           dispatch(setRequest(data));
         },
       },

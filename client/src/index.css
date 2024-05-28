@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: "GeistSans";
   src:
-    local("Geist"),
-    url(./assets/fonts/variable-woff/GeistVF.woff2) format("woff2");
-}
+    local("GeistSans"),
+    url(./assets/fonts/variable/GeistVF.ttf) format("truetype"),
+    url(./assets/fonts/variable/GeistVF.woff) format("woff"),
+    url(./assets/fonts/variable/GeistVF.woff2) format("woff2");
+} */
+
+/* body,
+html {
+  height: 100%;
+} */
 
 .bg-radial-gradient {
   background-image: radial-gradient(
@@ -36,6 +43,10 @@
   overflow: hidden;
 }
 
+/* [data-radix-scroll-area-viewport] > div[style] {
+  display: block !important;
+} */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -57,7 +68,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -84,10 +95,22 @@
 }
 
 @layer base {
+  @font-face {
+    font-family: "GeistSans";
+    src: url(./assets/fonts/variable/GeistVF.woff2) format("woff2-variations");
+    src: url(./assets/fonts/variable/GeistVF.woff2) tech("variations");
+    font-weight: 100 1000;
+    font-stretch: 25% 151%;
+  }
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 }

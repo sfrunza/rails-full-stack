@@ -35,17 +35,20 @@ export type TFullRequest = {
   customer_id: number;
   origin: TAddress;
   destination: TAddress;
-  stops: TAddress & {
-    is_dropoff: boolean;
-    is_pickup: boolean;
-  }[];
+  stops: TStop[];
+  sales_notes: string;
+  driver_notes: string;
+  customer_notes: string;
+  dispatch_notes: string;
+  deposit: number;
+  can_edit_request: boolean;
   created_at: Date;
   updated_at: Date;
-  can_edit_request: boolean;
 }
 
 export type TStatus =
   | "Pending"
+  | "Pending-info"
   | "Confirmed"
   | "Not Confirmed"
   | "Canceled"
@@ -61,7 +64,13 @@ export type TAddress = {
   zip: string;
   apt: string;
   floor: string;
+  location: google.maps.LatLng | google.maps.LatLngLiteral
 }
+
+export type TStop = TAddress & {
+  isPickup: boolean;
+  isDropoff: boolean;
+};
 
 export type TCustomer = {
   id: number;
@@ -93,6 +102,6 @@ export type TStatusCounts = {
 }
 
 
-export type TNewData = {
+export type TNewRequestData = {
   [key: string]: any
 }

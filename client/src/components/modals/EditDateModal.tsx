@@ -1,22 +1,24 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 // import { updateRequest } from "@/actions/requests";
-import { CalendarWithRates } from '@/components/CalendarWithRates';
-import { Button } from '@/components/ui/button';
+import { CalendarWithRates } from "@/components/CalendarWithRates";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Form, FormField } from '@/components/ui/form';
-import { useModal } from '@/hooks/useModal';
+} from "@/components/ui/dialog";
+import { Form, FormField } from "@/components/ui/form";
+import { useModal } from "@/hooks/useModal";
 // import { useSelector } from "store";
 // import { TFullRequest } from "types/request";
-import useUpdateRequest from '@/hooks/useUpdateRequest';
+// import useMediaQuery from "@/hooks/useMediaQuery";
+import useUpdateRequest from "@/hooks/useUpdateRequest";
+import { LoaderCircleIcon } from "lucide-react";
 
 const FormDataSchema = z.record(z.date().nullable());
 
@@ -25,14 +27,17 @@ type Inputs = z.infer<typeof FormDataSchema>;
 export const EditDateModal = () => {
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
+  // const isDesktop = useMediaQuery("(min-width: 640px)");
 
   // const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const { date } = getModalData('editDate');
+  const { date } = getModalData("editDate");
+
+  if (!date) return null;
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: 'onSubmit',
+    reValidateMode: "onSubmit",
     defaultValues: {
       [date.field]: new Date(date[date.field]),
     },
@@ -44,14 +49,14 @@ export const EditDateModal = () => {
 
   const handleClose = () => {
     form.reset();
-    closeModal('editDate');
+    closeModal("editDate");
   };
 
   return (
-    <Dialog open={isModalOpen('editDate')} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen("editDate")} onOpenChange={handleClose}>
       <DialogContent className="h-full overflow-hidden p-0 sm:h-auto">
         <DialogHeader className="p-6">
-          <DialogTitle>Select move date</DialogTitle>
+          <DialogTitle>Select date</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -78,7 +83,12 @@ export const EditDateModal = () => {
               />
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>Save changes</Button>
+              <Button disabled={isSaving || !form.formState.isDirty}>
+                {isSaving && (
+                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ModalProvider />
         <Toaster
           toastOptions={{
-            duration: 1000,
+            duration: 2000,
           }}
         />
       </SWRConfig>

@@ -7,7 +7,7 @@ class RequestSerializer < ActiveModel::Serializer
              :service_id,
              #  :packing,
              :packing_id,
-             #  :customer,
+             :customer,
              :customer_id,
              :origin,
              :destination,
@@ -19,18 +19,23 @@ class RequestSerializer < ActiveModel::Serializer
              :details,
              :crew_size,
              :rate,
-             :can_edit_request
+             :sales_notes,
+             :driver_notes,
+             :customer_notes,
+             :dispatch_notes,
+             :deposit,
+             :can_edit_request,
+             :created_at,
+             :updated_at
   def customer
     {
       id: object.customer&.id,
       first_name: object.customer&.first_name,
       last_name: object.customer&.last_name,
       email: object.customer&.email,
-      phone: object.customer&.phone
+      phone: object.customer&.phone,
+      add_phone: object.customer&.add_phone,
+      password: object.customer&.password_digest
     }
-  end
-
-  def can_edit_request
-    ["Pending", "Not Confirmed"].include?(object.status)
   end
 end

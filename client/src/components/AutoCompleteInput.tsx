@@ -1,7 +1,21 @@
-import { forwardRef, useEffect, useState } from 'react';
-import { Autocomplete } from '@react-google-maps/api';
+import { forwardRef, useEffect, useState } from "react";
+import { Autocomplete } from "@react-google-maps/api";
 
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input";
+
+export type TAutocompleteData = {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  fullAddress: string | undefined;
+  location?:
+    | {
+        lat?: number | undefined;
+        lng?: number | undefined;
+      }
+    | undefined;
+};
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -10,6 +24,13 @@ export interface InputProps
     city: string;
     state: string;
     zip: string;
+    fullAddress: string | undefined;
+    location?:
+      | {
+          lat?: number | undefined;
+          lng?: number | undefined;
+        }
+      | undefined;
   }) => void;
   updateValue?: (val: string) => void;
 }
@@ -21,7 +42,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
 
     function onLoad(autocomplete: google.maps.places.Autocomplete) {
       autocomplete.setComponentRestrictions({
-        country: 'us',
+        country: "us",
       });
       setSearchResult(autocomplete);
     }
@@ -29,33 +50,29 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
     function onPlaceChanged() {
       if (searchResult != null) {
         const place = searchResult.getPlace();
-        console.log(searchResult.getPlace());
-
         const addressComponents =
           place.address_components as google.maps.GeocoderAddressComponent[];
 
-        let street = '';
-        let city = '';
-        let state = '';
-        let zip = '';
-
-        // console.log(addressComponents);
+        let street = "";
+        let city = "";
+        let state = "";
+        let zip = "";
 
         addressComponents.forEach((component) => {
           const types = component.types;
-          if (types.includes('premise')) {
+          if (types.includes("premise")) {
             street = component.long_name;
-          } else if (types.includes('street_number')) {
+          } else if (types.includes("street_number")) {
             street = component.long_name;
-          } else if (types.includes('route')) {
-            street += ' ' + component.long_name;
+          } else if (types.includes("route")) {
+            street += " " + component.long_name;
           } else if (
-            ['locality', 'neighborhood'].some((str) => types.includes(str))
+            ["locality", "neighborhood"].some((str) => types.includes(str))
           ) {
             city = component.long_name;
-          } else if (types.includes('administrative_area_level_1')) {
+          } else if (types.includes("administrative_area_level_1")) {
             state = component.short_name;
-          } else if (types.includes('postal_code')) {
+          } else if (types.includes("postal_code")) {
             zip = component.long_name;
           }
         });
@@ -65,19 +82,20 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
           city: city!,
           state: state!,
           zip: zip!,
+          fullAddress: place?.formatted_address,
+          location: {
+            lat: place?.geometry?.location?.lat()!,
+            lng: place?.geometry?.location?.lng()!,
+          },
         };
-        getAddress(data);
 
-        // console.log(data);
-        if (updateValue) {
-          updateValue(`${street}, ${city}, ${state} ${zip}`);
-        }
+        getAddress(data);
       }
     }
 
     useEffect(() => {
       // Disable Radix ui dialog pointer events lockout
-      setTimeout(() => (document.body.style.pointerEvents = ''), 0);
+      setTimeout(() => (document.body.style.pointerEvents = ""), 0);
     });
 
     return (
@@ -87,7 +105,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
         </Autocomplete>
       </>
     );
-  }
+  },
 );
 
-AutoCompleteInput.displayName = 'AutoComp';
+AutoCompleteInput.displayName = "AutoCompleteInput";

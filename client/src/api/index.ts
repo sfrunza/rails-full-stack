@@ -23,6 +23,6 @@ function createAxiosResponse() {
 }
 
 export const fetcher = (url: string) => createAxiosResponse()!.get(url).then(async (res) => {
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
   return res.data
 });

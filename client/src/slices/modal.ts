@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TAddress } from '@/types/request';
 
-export type ModalType = "editTime" | "editDate" | "editMoveSize" | "editPacking" | "editDetails" | "editLocations" | "editPhotos";
+export type ModalType = "editTime" | "editDate" | "editMoveSize" | "editPacking" | "editDetails" | "editLocations" | "editStop" | "editPhotos" | "editDeposit";
 
 export interface ModalData {
   time?: {
@@ -22,13 +22,15 @@ export interface ModalData {
   },
   canEditRequest?: boolean;
   locations?: {
-    origin?: TAddress | null;
-    destination?: TAddress | null;
-  }
+    origin: TAddress;
+    destination: TAddress
+  },
+  stop?: TAddress & { isOrigin?: boolean, isDestination?: boolean } | null;
   size?: string;
   packing_id?: number;
   requestId?: number;
-  photos?: any[]
+  photos?: any[];
+  deposit?: number;
 }
 
 interface ModalState {

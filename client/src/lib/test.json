@@ -1,0 +1,781 @@
+{
+  "id": 859,
+  "tmpID": null,
+  "updatedAt": 1716587448,
+  "createdAt": 1713201408,
+  "serviceType": 0,
+  "customServiceType": null,
+  "originAddress": {
+    "streetNumber": "482",
+    "address": "482 Fletcher St",
+    "apt": "",
+    "city": "Lowell",
+    "state": "MA",
+    "postal": "01854",
+    "floor": 6,
+    "lat": 42.647452,
+    "lng": -71.3237741
+  },
+  "destinationAddress": {
+    "streetNumber": "38",
+    "address": "38 Wannalancit St",
+    "apt": "",
+    "city": "Lowell",
+    "state": "MA",
+    "postal": "01854",
+    "floor": 6,
+    "lat": 42.6469812,
+    "lng": -71.3288776
+  },
+  "status": 4,
+  "source": 2,
+  "referrer": 0,
+  "type": 0,
+  "services": {
+    "total": 0,
+    "autoServices": [],
+    "customServices": []
+  },
+  "discount": {
+    "percent": 0,
+    "promoCode": null,
+    "total": 0,
+    "type": 0,
+    "value": 0
+  },
+  "packing": {
+    "total": 0,
+    "packingService": {
+      "id": 1629741025262,
+      "version": 0,
+      "isDefault": true,
+      "name": "I will pack by myself",
+      "description": "<p><b style=\"color: rgb(0, 0, 0);\">This is the most budget friendly option.</b></p><p><span style=\"color: rgb(0, 0, 0);\"><br></span></p><p><span style=\"color: rgb(0, 0, 0);\">We expect customer to empty all the drawers of all the furniture and pack all personal and miscellaneous items into standard moving size boxes or crates.</span></p><p><span style=\"color: rgb(0, 0, 0);\"><br></span></p><p><span style=\"color: rgb(0, 0, 0);\">Our movers will disassemble furniture, if necessary, such as beds, tables etc. and reassemble at the new address.</span></p><p><span style=\"color: rgb(0, 0, 0);\"><br></span></p><p><b style=\"color: rgb(0, 0, 0);\">We will provide furniture pads, shrink wrap, mattress covers, as part of the hourly rate so there is no extra charge for furniture wrapping materials.</b></p>",
+      "image": "/files/public/bravemovers/packingServiceImages/img-7092-jpeg1699521831.jpeg",
+      "laborIncrease": 0,
+      "ratePerCbf": 0,
+      "total": {
+        "min": 0,
+        "max": 0
+      }
+    },
+    "packingSupplies": []
+  },
+  "balance": {
+    "min": 1055.5,
+    "max": 1613.5
+  },
+  "notes": {
+    "0": "<p>s</p>",
+    "1": "",
+    "2": "<p>d</p>",
+    "3": "<p>dis</p>"
+  },
+  "location": {},
+  "calculatorFlags": {
+    "needAutoDefineServiceType": false,
+    "needAutoDefineServiceTypeNoExcludes": false,
+    "disableRateAutomation": false,
+    "disableCrewSizeAutomation": false,
+    "disableTravelTimeAutomation": false,
+    "disableWorkTimeAutomation": false,
+    "disableMinCbfAutomation": false,
+    "disableDeliveryDaysAutomation": false,
+    "forceRecalculateRate": false,
+    "disableCalculatingFuelBySettings": false
+  },
+  "validationFlags": {
+    "notConfirmedStrictMode": null
+  },
+  "bookedDate": 1713201931,
+  "truckWasAutoassigned": 0,
+  "rate": 279,
+  "volume": 1737,
+  "laborTime": {
+    "min": 255,
+    "max": 480
+  },
+  "workTime": {
+    "min": 180,
+    "max": 300
+  },
+  "travelTime": 90,
+  "totalTime": {
+    "min": 270,
+    "max": 390
+  },
+  "transportation": {
+    "min": 1255.5,
+    "max": 1813.5
+  },
+  "grandTotal": {
+    "min": 1255.5,
+    "max": 1813.5
+  },
+  "totalWithDiscount": {
+    "min": 1255.5,
+    "max": 1813.5
+  },
+  "tax": {
+    "min": 0,
+    "max": 0
+  },
+  "totalPrice": {
+    "min": 1255.5,
+    "max": 1813.5
+  },
+  "reservationPrice": 100,
+  "fuel": {
+    "percent": 0,
+    "value": 0,
+    "total": 0
+  },
+  "valuation": {
+    "total": 0,
+    "description": "<p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\"><b>Released Value Protection (RVP)</b> or the “$0.60 per pound per item” option is the standard liability coverage provided during a move. However, there is an alternative option called Full Value Protection (FVP) that you can choose instead if desired.</p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica;\"><span style=\"color: rgb(0, 0, 0);\">Released Value Protection does not incur any additional charges, and it does not involve deductibles (</span><span style=\"color: rgb(192, 80, 77);\">FREE</span><span style=\"color: rgb(0, 0, 0);\">).</span></p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\">Under the provisions of RVP (“$0.60 per pound per item”), the moving company will not be responsible for repairing or replacing any lost or damaged items. Instead, compensation is purely monetary, and the level of protection provided is minimal. In the event of loss or damage, you would be reimbursed at a rate of $0.60 per pound, per item. Consequently, you could potentially face a significant financial loss if an expensive item is damaged, despite its relatively low weight.</p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica;\"><span style=\"color: rgb(192, 80, 77);\">To illustrate</span><span style=\"color: rgb(0, 0, 0);\">, let's consider the example of a 75\" 4K QLED flat-screen television that you purchased for $2600. Suppose it weighs 30 pounds and is shattered during the move, and you only have RVP coverage. In this case, your total compensation would amount to $0.60 multiplied by 30, which equals $18.</span></p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\">Given the limited level of protection offered, one might question whether opting for RVP ever makes sense.</p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\">There are circumstances where it might be reasonable to choose RVP—particularly if you do not own any high-value items. For instance, as a recent graduate relocating for a job, you may only have a phone and a laptop as valuable possessions. These items can be transported in your own vehicle, eliminating the need for coverage during the move. If, for instance, a secondhand kitchen table weighing 100 pounds gets scratched, you would receive $60 ($0.60 multiplied by 100), which could be sufficient to repair the scratch.</p><p class=\"p1\" style=\"margin: 0px 0px 20px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\">It is important to emphasize that Full Value Protection (FVP) coverage needs to be specifically requested since it provides only minimal protection. By default, Released Value Protection (RVP) is the liability coverage offered during a move.</p><p class=\"p2\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Helvetica; color: rgb(0, 0, 0);\">While Brave Movers can provide both FVP and RVP options, we recommend considering a third liability coverage option: third-party moving insurance.</p>",
+    "title": "Released Value Protection (included)",
+    "valuationId": 1625164200573
+  },
+  "timeWindowStart": 1717070400,
+  "timeWindowEnd": 1717070400,
+  "parklotStartTime": null,
+  "parklotDuration": 0,
+  "isCalculatorDisabled": 1,
+  "volumeType": 0,
+  "moveDate": 1717041600,
+  "extraStops": [],
+  "crewSize": 4,
+  "cachedFieldsForCalculator": {
+    "parkingState": {
+      "cacheKey": "[\"01854\",\"01854\"]",
+      "value": "MA"
+    },
+    "minTrucksCount": {
+      "cacheKey": "[1737]",
+      "value": 2
+    },
+    "volumeWithDispersion": {
+      "cacheKey": "[1737]",
+      "value": {
+        "min": 1215.9,
+        "max": 2258.1
+      }
+    },
+    "floorNames": {
+      "cacheKey": "[6,6]",
+      "value": [
+        "1st Floor",
+        "2nd Floor",
+        "3d Floor",
+        "4th Floor",
+        "5th Floor",
+        "Elevator",
+        "Private Home"
+      ]
+    },
+    "crewSize": {
+      "cacheKey": "[1737,6,6,0]",
+      "value": 5
+    },
+    "moversSpeedOrigin": {
+      "cacheKey": "[4,6]",
+      "value": 285
+    },
+    "moversSpeedDestination": {
+      "cacheKey": "[4,6]",
+      "value": 285
+    },
+    "parkingZip": {
+      "cacheKey": "[\"01854\",\"01854\"]",
+      "value": "02132"
+    },
+    "parkingLatLng": {
+      "cacheKey": "[\"01854\",\"01854\"]"
+    },
+    "ldRateSettings": {
+      "cacheKey": "[\"MA\",\"MA\"]"
+    },
+    "trucksCountWithMin": {
+      "cacheKey": "[1737,1,0,0,0]",
+      "value": 2
+    },
+    "deliveryDays": {
+      "cacheKey": "[\"01854\",\"01854\"]",
+      "value": 1
+    },
+    "minCubicFeet": {
+      "cacheKey": "[0]",
+      "value": 0
+    },
+    "workTime": {
+      "cacheKey": "[\"01854\",\"01854\",{\"min\":255,\"max\":465},0]",
+      "value": {
+        "min": 270,
+        "max": 480
+      }
+    },
+    "travelTime": {
+      "cacheKey": "[0,\"01854\",\"01854\",0.1]",
+      "value": 90
+    },
+    "rate": {
+      "cacheKey": "[1717214400,5,2,0,1737,0,0]",
+      "value": 369
+    },
+    "extraDropoffService": {
+      "cacheKey": "[0,\"01854\"]",
+      "value": {
+        "rate": 0,
+        "visibleName": "Extra Dropoff fee"
+      }
+    },
+    "extraPickupService": {
+      "cacheKey": "[0,\"01854\"]",
+      "value": {
+        "rate": 0,
+        "visibleName": "Extra pickup fee"
+      }
+    },
+    "equipmentFeeService": {
+      "cacheKey": "[\"01854\",\"01854\",0,279]",
+      "value": {
+        "rate": 0
+      }
+    },
+    "storageService": {
+      "cacheKey": "[false,false,0,1737]",
+      "value": {
+        "rate": 0,
+        "visibleName": "Storage service",
+        "total": 0,
+        "quantity": 0,
+        "monthlyCharge": false
+      }
+    },
+    "fuel": {
+      "cacheKey": "[1813.5,0,2]",
+      "value": {
+        "percent": 0,
+        "value": 0,
+        "total": 0
+      }
+    },
+    "reservationPriceExtraValue": {
+      "cacheKey": "[100,null]",
+      "value": 0
+    },
+    "tax": {
+      "cacheKey": "[\"MA\",\"MA\",0,0,1255.5,1813.5]",
+      "value": {
+        "min": 0,
+        "max": 0
+      }
+    }
+  },
+  "reservationPriceExtraValue": 0,
+  "reservationPriceTotal": 200,
+  "totalDistance": 66.8,
+  "valuationType": 1,
+  "reservationType": 3,
+  "isReservationAccepted": 1,
+  "rateType": 0,
+  "uploadedImages": [],
+  "details": {
+    "distanceFromToParking": {
+      "origin": null,
+      "destination": null
+    },
+    "stepsOnStairs": {
+      "origin": null,
+      "destination": null
+    },
+    "parkingAvailability": {
+      "origin": null,
+      "destination": null
+    },
+    "delicateItemsQuestionAnswer": null,
+    "bulkyItemsQuestionAnswer": null,
+    "disassembleItemsQuestionAnswer": null,
+    "comment": "",
+    "isTouched": false
+  },
+  "hasNewDetails": 0,
+  "drivingDistance": 0.4,
+  "truckDiscount": 0,
+  "totalDiscount": 0,
+  "deliveryWindowStart": null,
+  "deliveryWindowEnd": null,
+  "deliveryScheduleStart": null,
+  "deliveryScheduleEnd": null,
+  "deliveryStartTime": null,
+  "isLDDelivery": 0,
+  "deliveryDays": 1,
+  "floorNames": [
+    "1st Floor",
+    "2nd Floor",
+    "3d Floor",
+    "4th Floor",
+    "5th Floor",
+    "Elevator",
+    "Private Home"
+  ],
+  "ldRateSettings": {
+    "enabled": null,
+    "daysDelivery": null,
+    "ratePerCubicFeet": null,
+    "minimumCubicFeet": null,
+    "rateAutomations": []
+  },
+  "originDestinationDistance": 0.4,
+  "deliveryTimeWindowStart": null,
+  "deliveryTimeWindowEnd": null,
+  "pickUpOnly": 0,
+  "isFLDelivery": 0,
+  "flatRateSubmitted": 0,
+  "pairedRequest": null,
+  "isMovingFromStorage": 0,
+  "trucksCountWithMin": 2,
+  "minCubicFeet": 0,
+  "sourceLead": "Google",
+  "hasNewImages": 0,
+  "deliveryCrewSize": 2,
+  "note": "",
+  "storageService": {
+    "rate": 0,
+    "visibleName": "Storage service",
+    "total": 0,
+    "quantity": 0,
+    "monthlyCharge": false
+  },
+  "minTotalTime": 120,
+  "quoteExplanationSettings": {
+    "enabled": false,
+    "value": {
+      "0": {
+        "defaultSettings": {
+          "detailsAutomationEnabled": false,
+          "details": "",
+          "explanation": "",
+          "fullQuoteExplanation": "",
+          "image": "",
+          "confirmationPageQuoteExplanationText": ""
+        },
+        "byStatusEnabled": false,
+        "addedVolumes": [],
+        "byVolumeAndStatus": {}
+      }
+    }
+  },
+  "customVolume": 0,
+  "deliveryEndTime": null,
+  "contractTermsSignature": null,
+  "contractDeclarationValueSignature": null,
+  "contractStartTimeSignature": null,
+  "contractStartTimeSignatureDate": null,
+  "contractStartTime": null,
+  "contractEndTimeSignature": null,
+  "contractEndTimeSignatureDate": null,
+  "contractPaymentSignature": null,
+  "contractFinalShipperSignature": null,
+  "contractFinalForemanSignature": null,
+  "contractEndTime": null,
+  "contractTimeOff": 0,
+  "contractMainCrewWorkTime": 0,
+  "contractMainCrewTotalCost": 0,
+  "contractTravelTime": 0,
+  "contractTravelTimeTotalCost": 0,
+  "contractTotalTime": 0,
+  "contractTotalHourlyCharge": 0,
+  "contractAdditionalCrews": [],
+  "contractCustomerComments": null,
+  "contractTotalCost": 0,
+  "contractBalance": 0,
+  "contractCreditCardProcessingFee": 0,
+  "contractCashDiscount": 0,
+  "contractAppliedCreditCardProcessingFee": 0,
+  "contractAppliedCashDiscount": 0,
+  "contractBalanceWithFee": 0,
+  "contractTermsSignatureDate": null,
+  "contractDeclarationValueSignatureDate": null,
+  "contractFinalForemanSignatureDate": null,
+  "contractFinalShipperSignatureDate": null,
+  "contractTips": 0,
+  "contractTotalWithDiscount": 0,
+  "contractTotalWithTaxes": 0,
+  "contractTax": 0,
+  "idBeforeImport": null,
+  "settingsForContract": {
+    "contractBuilderSettings": null,
+    "contractBuilderTerms": null,
+    "valuationSettings": null,
+    "paymentDiscountAndCommissions": null,
+    "minHoursAndMoversSettings": null,
+    "taxesSettings": null
+  },
+  "contractSubmitted": null,
+  "contractTotalCrewSize": 0,
+  "contractStarted": 0,
+  "contractDiscount": {
+    "percent": 0,
+    "promoCode": null,
+    "total": 0,
+    "type": 0,
+    "value": 0
+  },
+  "contractFuel": {
+    "percent": 0,
+    "value": 0,
+    "total": 0
+  },
+  "contractPacking": {
+    "total": 0,
+    "packingService": null,
+    "packingSupplies": []
+  },
+  "contractServices": {
+    "total": 0,
+    "customServices": []
+  },
+  "contractMainCrew": {
+    "foreman": null,
+    "helpers": [],
+    "trucksCount": 0
+  },
+  "contractValuation": {
+    "total": 0,
+    "description": "",
+    "title": "",
+    "valuationId": 0,
+    "declaredValue": 0,
+    "valuationFlatRate": 0
+  },
+  "contractRate": 0,
+  "contractVolume": 0,
+  "contractMinCubicFeet": 0,
+  "reviewScore": null,
+  "reviewDate": null,
+  "reviewFeedback": null,
+  "direction": {
+    "PO": {
+      "totalDistance": 33.4,
+      "totalTime": 40,
+      "address": [
+        {
+          "from": "02132",
+          "to": "01854",
+          "time": 40,
+          "distance": 33.4
+        }
+      ],
+      "flatTravelTimeZone": null,
+      "flatTravelTime": 0
+    },
+    "OD": {
+      "totalDistance": 0.4,
+      "totalTime": 15,
+      "address": [
+        {
+          "from": "01854",
+          "to": "01854",
+          "time": 15,
+          "distance": 0.4
+        }
+      ],
+      "flatTravelTimeZone": null,
+      "flatTravelTime": 0
+    },
+    "DP": {
+      "totalDistance": 33,
+      "totalTime": 43,
+      "address": [
+        {
+          "from": "01854",
+          "to": "02132",
+          "time": 43,
+          "distance": 33
+        }
+      ],
+      "flatTravelTimeZone": null,
+      "flatTravelTime": 0
+    }
+  },
+  "contractDeliveryFinalShipperSignature": null,
+  "contractDeliveryFinalForemanSignature": null,
+  "contractDeliveryFinalForemanSignatureDate": null,
+  "contractDeliveryFinalShipperSignatureDate": null,
+  "contractPaymentSignatureDate": null,
+  "contractDeliveryMainCrew": {
+    "foreman": null,
+    "helpers": [],
+    "trucksCount": 0
+  },
+  "contractDeliveryCustomerComments": null,
+  "contractPickupBalance": 0,
+  "contractPickupCreditCardProcessingFee": 0,
+  "contractPickupCashDiscount": 0,
+  "contractPickupAppliedCreditCardProcessingFee": 0,
+  "contractPickupAppliedCashDiscount": 0,
+  "contractPickupBalanceWithFee": 0,
+  "contractDeliveryStarted": 0,
+  "contractTransportationPrice": 0,
+  "contractLDAdditionalCharge": 0,
+  "contractLDAdditionalVolumeRate": 0,
+  "contractLDAdditionalVolume": 0,
+  "contractFullTransportationPrice": 0,
+  "contractPickupSubmittedDeposit": 0,
+  "contractPickupPaymentPercent": 0,
+  "client": {
+    "id": 696,
+    "tmpID": null,
+    "updatedAt": 1713201407,
+    "createdAt": 1713201407,
+    "firstName": "Debbie",
+    "lastName": "Oneil",
+    "email": "deboneil41@verizon.net",
+    "additionalEmail": null,
+    "password": null,
+    "phone": "+1 508 395 3779",
+    "phoneAdditional": "",
+    "phoneSms": "",
+    "companyName": "",
+    "hashLogin": "4a410d9af2aa1e8ebc7828a4620f6c93688a03739fc38b5b9b145d92dbecfead",
+    "avatar": "",
+    "active": 1,
+    "inHomeEstimator": 0,
+    "videoEstimator": 0,
+    "dateStart": null,
+    "dateLeaving": null,
+    "dateOfBirth": null,
+    "driverLicense": "",
+    "ssn": "",
+    "address": "",
+    "permissions": "{\"canSeeSettingsPage\":false,\"canSeeInvoicesPage\":false,\"canSeeStatisticsPage\":false,\"canAssignUnassignedLeads\":false,\"canEditOtherSalesLeads\":false,\"canEditUnassignedLeads\":false,\"canSeeOtherSalesLeads\":false,\"canSeeUnassignedLeads\":false,\"canSeeOtherSalesNewMessageNotifications\":false}",
+    "settings": "{\"inventoryViewMode\":0,\"requestAlternativeView\":false,\"requestViewMode\":2,\"hideInventoryStartDialogForRequests\":[],\"dailyParklotHorizontalView\":false,\"customTabs\":[],\"lastSeenNewsVersion\":\"\"}",
+    "salesGreetingsSettings": "{}",
+    "emailSignature": "",
+    "smtp": "{\"auth\":{\"user\":\"\",\"pass\":\"\"},\"from\":\"\",\"host\":\"\",\"port\":\"\",\"secure\":false}",
+    "autoAssignment": "{\"servicesTypes\":{},\"enabled\":false}",
+    "isPending": 0,
+    "roles": 2,
+    "ratesAndCommissions": "{\"excludeFuelFromCommissionBase\":false,\"excludeValuationFromCommissionBase\":false,\"moverCommissions\":{\"0\":0,\"1\":0,\"2\":0,\"3\":0,\"4\":0,\"5\":0}}"
+  },
+  "manager": {
+    "id": 3,
+    "tmpID": null,
+    "updatedAt": 1715890165,
+    "createdAt": 1690369579,
+    "firstName": "Sam",
+    "lastName": "Adam",
+    "email": "info@bravemovers.com",
+    "additionalEmail": null,
+    "password": "$2a$10$S4e3V3TYmKhe09BjDpMaCuIQ8Nd45viMGfXGqWA3HZRjZa7Gd9k5y",
+    "phone": "+1 617 991 3552",
+    "phoneAdditional": null,
+    "phoneSms": null,
+    "companyName": null,
+    "hashLogin": "8de176dd8273a10f971de3c6d6bfe1047f85dbe1eb4939589f517b0f9fed6cc6",
+    "avatar": "/files/public/bravemovers/uploadFile/screen-shot-2023-02-20-at-12-14-46.png",
+    "active": 1,
+    "inHomeEstimator": 0,
+    "videoEstimator": 0,
+    "dateStart": 1705899600,
+    "dateLeaving": 0,
+    "dateOfBirth": 809841600,
+    "driverLicense": null,
+    "ssn": null,
+    "address": null,
+    "permissions": "{\"canSeeSettingsPage\":true,\"canSeeInvoicesPage\":true,\"canSeeStatisticsPage\":true,\"canAssignUnassignedLeads\":true,\"canEditOtherSalesLeads\":true,\"canEditUnassignedLeads\":true,\"canSeeOtherSalesLeads\":true,\"canSeeUnassignedLeads\":true,\"canSeeOtherSalesNewMessageNotifications\":true}",
+    "settings": "{\"inventoryViewMode\":0,\"requestAlternativeView\":false,\"requestViewMode\":2,\"hideInventoryStartDialogForRequests\":[],\"dailyParklotHorizontalView\":true,\"customTabs\":[{\"color\":\"gray\",\"name\":\"Expired\",\"filters\":{\"requestStatus\":{\"-6\":true},\"moveDateStart\":null,\"moveDateEnd\":null,\"createdDateStart\":null,\"createdDateEnd\":null,\"bookedDateStart\":null,\"bookedDateEnd\":null,\"bookedDateToday\":false,\"updatedDateStart\":null,\"updatedDateEnd\":null,\"updatedDateToday\":false,\"stateFrom\":null,\"stateTo\":null,\"packingService\":null}},{\"color\":\"gray\",\"name\":\"Custom tab\",\"filters\":{\"moveDateStart\":null,\"moveDateEnd\":null,\"createdDateStart\":null,\"createdDateEnd\":null,\"bookedDateStart\":null,\"bookedDateEnd\":null,\"bookedDateToday\":false,\"updatedDateStart\":null,\"updatedDateEnd\":null,\"updatedDateToday\":false,\"stateFrom\":null,\"stateTo\":null,\"packingService\":null}},{\"color\":\"gray\",\"name\":\"Custom tab\",\"filters\":{\"requestStatus\":{\"8\":true},\"moveDateStart\":null,\"moveDateEnd\":null,\"createdDateStart\":null,\"createdDateEnd\":null,\"bookedDateStart\":null,\"bookedDateEnd\":null,\"bookedDateToday\":false,\"updatedDateStart\":null,\"updatedDateEnd\":null,\"updatedDateToday\":false,\"stateFrom\":null,\"stateTo\":null,\"packingService\":null}}],\"lastSeenNewsVersion\":\"1.23.0\",\"locale\":\"\"}",
+    "salesGreetingsSettings": "{\"0\":{\"0\":{\"value\":\"<p><span style=\\\"color: rgb(0, 0, 0);\\\"><b>Welcome!</b></span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><b><br></b></span></p><p><br></p><p><span style=\\\"color: rgb(192, 80, 77);\\\"><b style=\\\"\\\">The quote below is a </b><b style=\\\"\\\">PRELIMINARY estimate</b><b style=\\\"\\\"> </b><b style=\\\"\\\">generated based on a typical inventory for a similar move size.</b></span></p><p><b style=\\\"color: rgb(227, 108, 9);\\\"><br></b></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><b style=\\\"\\\">1. We are in the process of checking our availability for your upcoming move.</b><b style=\\\"\\\">&nbsp;</b></span></p><p><br></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">2. In the meantime, please update your<b> inventory, addresses, add your move's unique details or additional stops,</b> if needed.</span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><br></span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">3. Press </span><b style=\\\"color: rgb(192, 80, 77);\\\">Let's Get Moving</b><span style=\\\"color: rgb(0, 0, 0);\\\">&nbsp;once you done updating additional details, so that can start working on your quote.</span><br></p><p><br></p>\",\"useCustom\":true},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"<p style=\\\"text-align: left; font-family: Arial, Helvetica, sans-serif; padding-bottom: 10px;\\\"><span style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: 14px;\\\">We have checked our schedule and it looks like we can make your move happen.</span></span></p><p style=\\\"text-align: left; padding-bottom: 10px;\\\"><span style=\\\"font-size: 14px;\\\"><span style=\\\"font-family: Arial, Helvetica, sans-serif;\\\"><span style=\\\"color: rgb(0, 0, 0);\\\">Please review your online page, <b>check your desired move dates, move details and inventory. C</b></span></span><span style=\\\"font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);\\\">lick the </span><b style=\\\"font-family: Arial, Helvetica, sans-serif; color: rgb(84, 141, 212);\\\">Proceed to Reservation</b><span style=\\\"font-family: Arial, Helvetica, sans-serif; color: rgb(0, 0, 0);\\\">, if you wish to confirm&nbsp;your move.</span></span></p><p style=\\\"text-align: left; font-family: Arial, Helvetica, sans-serif; padding-bottom: 10px;\\\"><span style=\\\"color: rgb(0, 0, 0);\\\"><i style=\\\"\\\"><span style=\\\"font-size: 14px;\\\">We have a first come, first serve reservation system, so we encourage you to act fast if your move date is not flexible.</span></i></span></p>\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"<p><b style=\\\"color: rgb(192, 80, 77);\\\"><span style=\\\"font-size: small;\\\">It looks like your move plan has EXPIRED.</span></b></p><p><b style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\"><br></span></b></p><p><b style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">This may be for a number of reasons:&nbsp;</span></b></p><p></p><ul><li><b style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">due to no action taken on time</span></b></li><li><b style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">we no longer have the availability</span></b></li><li><b style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">someone else booked your spot or the moving date got booked up.</span></b></li></ul><p></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">Please let us know if your move date is flexible and/or if you are still interested in using Brave Movers for your upcoming move and we will reactivate your request.&nbsp;</span></span></p>\",\"useCustom\":true},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"1\":{\"0\":{\"value\":\"\",\"useCustom\":false},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"<p><span style=\\\"font-weight: bolder; color: rgb(192, 80, 77);\\\"><span style=\\\"font-size: small;\\\">It looks like your move plan has EXPIRED.</span></span></p><p><span style=\\\"font-weight: bolder; color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\"><br></span></span></p><p><span style=\\\"font-weight: bolder; color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">This may be for a number of reasons:&nbsp;</span></span></p><p></p><ul><li><span style=\\\"font-weight: bolder; color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">due to no action taken on time</span></span></li><li><span style=\\\"font-weight: bolder; color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">we no longer have the availability</span></span></li><li><span style=\\\"font-weight: bolder; color: rgb(0, 0, 0);\\\"><span style=\\\"font-size: small;\\\">someone else booked your spot or the moving date got booked up.</span></span></li></ul><p></p><p><span style=\\\"color: rgb(0, 0, 0); font-size: small;\\\">Please let us know if your move date is flexible and/or if you are still interested in using Brave Movers for your upcoming move and we will reactivate your request.&nbsp;</span><br></p>\",\"useCustom\":true},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"2\":{\"0\":{\"value\":\"\",\"useCustom\":false},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"\",\"useCustom\":false},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"3\":{\"0\":{\"value\":\"\",\"useCustom\":false},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"\",\"useCustom\":false},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"4\":{\"0\":{\"value\":\"\",\"useCustom\":false},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"\",\"useCustom\":false},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"5\":{\"0\":{\"value\":\"\",\"useCustom\":false},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"\",\"useCustom\":false},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}},\"6\":{\"0\":{\"value\":\"<p><span style=\\\"color: rgb(0, 0, 0);\\\"><b>Welcome!</b></span><br></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><b><br></b></span></p><p><b style=\\\"color: rgb(247, 150, 70);\\\"><br></b></p><p><b style=\\\"color: rgb(247, 150, 70);\\\">1. We are in the process of checking our availability for your upcoming move.&nbsp;</b><br></p><p><br></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">2. Once we confirm our availability, you will have the option to proceed and reserve your move.&nbsp;<br></span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><br></span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">3. In the meantime, please update your inventory, addresses, add your move unique details.</span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\"><br></span></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">4. Press&nbsp;<span style=\\\"font-weight: bolder;\\\">Let's Get Moving</span>&nbsp;once you done adding additional details, so that can start working on your quote.</span></p>\",\"useCustom\":true},\"1\":{\"value\":\"\",\"useCustom\":false},\"2\":{\"value\":\"\",\"useCustom\":false},\"3\":{\"value\":\"\",\"useCustom\":false},\"4\":{\"value\":\"\",\"useCustom\":false},\"5\":{\"value\":\"\",\"useCustom\":false},\"6\":{\"value\":\"\",\"useCustom\":false},\"7\":{\"value\":\"\",\"useCustom\":false},\"8\":{\"value\":\"\",\"useCustom\":false},\"9\":{\"value\":\"\",\"useCustom\":false},\"-1\":{\"value\":\"\",\"useCustom\":false},\"-2\":{\"value\":\"\",\"useCustom\":false},\"-3\":{\"value\":\"\",\"useCustom\":false},\"-4\":{\"value\":\"\",\"useCustom\":false},\"-5\":{\"value\":\"\",\"useCustom\":false},\"-6\":{\"value\":\"\",\"useCustom\":false},\"-7\":{\"value\":\"\",\"useCustom\":false},\"-8\":{\"value\":\"\",\"useCustom\":false}}}",
+    "emailSignature": null,
+    "smtp": "{}",
+    "autoAssignment": "{\"servicesTypes\":{\"0\":true,\"1\":true,\"2\":true,\"3\":true,\"4\":true,\"5\":true,\"6\":true},\"enabled\":true}",
+    "isPending": null,
+    "roles": 3,
+    "ratesAndCommissions": "{\"excludeFuelFromCommissionBase\":false,\"excludeValuationFromCommissionBase\":false,\"moverCommissions\":{\"0\":10,\"1\":0,\"2\":0,\"3\":0,\"4\":0,\"5\":0}}"
+  },
+  "FlagsEntity": [],
+  "flags": [],
+  "payments": {
+    "rows": [
+      {
+        "id": 419,
+        "entityId": 859,
+        "entityType": "Request",
+        "userId": 696,
+        "type": 1,
+        "amount": 200,
+        "transactionId": "ch_3P5tHYJeHZULduEK13SsnkwE",
+        "paymentProvider": 2,
+        "email": "deboneil41@verizon.net",
+        "invoiceId": null,
+        "data": {
+          "note": null,
+          "cardInfo": {
+            "numberSuffix": "0851",
+            "cardType": "MasterCard"
+          },
+          "autopayment": false
+        },
+        "refunds": [],
+        "refund": false,
+        "isContract": false,
+        "receiptId": null,
+        "isReservation": 1,
+        "updatedAt": 1713201929,
+        "createdAt": 1713201929
+      }
+    ],
+    "invoices": [],
+    "total": 200,
+    "totalContract": 0
+  },
+  "parklot": [
+    {
+      "status": 2,
+      "type": 0,
+      "startTime": 1717070400,
+      "endTime": 1717093800,
+      "entityId": 859,
+      "listWeight": 0,
+      "foreman": null,
+      "id": 981,
+      "ELID": 201408722071,
+      "trucks": [
+        3
+      ],
+      "helpers": []
+    }
+  ],
+  "inventory": {
+    "rooms": [],
+    "totalCount": 0,
+    "totalBoxes": 0,
+    "totalWeight": 0,
+    "totalVolume": 0,
+    "extraServices": [],
+    "totalServicesCost": 0,
+    "minCrewSize": 0,
+    "additionalTime": 0,
+    "typicalItemsAdded": 0
+  },
+  "contractInventory": {
+    "rooms": [],
+    "totalCount": 0,
+    "totalBoxes": 0,
+    "totalWeight": 0,
+    "totalVolume": 0,
+    "extraServices": [],
+    "totalServicesCost": 0,
+    "minCrewSize": 0,
+    "additionalTime": 0,
+    "typicalItemsAdded": 0
+  },
+  "movesize": {
+    "movesize": {
+      "name": "4 Bedroom House ",
+      "description": "2000+ sq. ft. ",
+      "image": "/files/public/RomaTest/uploadFile/2-bedroo-house.svg",
+      "crewSizeSettings": [
+        [
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        [
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        [
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        [
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5
+        ],
+        [
+          5,
+          5,
+          5,
+          6,
+          6,
+          5,
+          5
+        ]
+      ],
+      "dispersion": 30,
+      "trucksCount": 2,
+      "weight": 12159,
+      "volume": 1737,
+      "volumeWithDispersion": {
+        "min": 1216,
+        "max": 2258
+      },
+      "itemsCount": 171,
+      "boxesCount": 72,
+      "orderWeight": 11,
+      "id": 242,
+      "ELID": 2335987691810584,
+      "defaultRooms": [
+        394,
+        409,
+        410,
+        428,
+        452,
+        456,
+        505,
+        515,
+        518
+      ],
+      "suggestedRooms": [
+        399,
+        400,
+        401,
+        446
+      ]
+    },
+    "selectedSuggestedRooms": [],
+    "totalItems": 171,
+    "totalBoxes": 72,
+    "totalVolume": 1737
+  },
+  "contractMovesize": {}
+}

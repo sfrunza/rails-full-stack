@@ -39,9 +39,7 @@ export default function MoveSizeCard() {
 
   const onEditDetailsAction = (e: React.MouseEvent, action: ModalType) => {
     e.stopPropagation();
-    openModal(action, {
-      details: details,
-    });
+    openModal(action, {});
   };
 
   const onEditPhotosAction = (e: React.MouseEvent, action: ModalType) => {

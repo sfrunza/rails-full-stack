@@ -1,4 +1,4 @@
-import { TNewData } from "@/types/request";
+import { TNewRequestData } from "@/types/request";
 
 export async function createRequest(serviceId: number) {
   try {
@@ -26,8 +26,10 @@ export async function createRequest(serviceId: number) {
 }
 
 
-export async function updateRequest(id: number, newData: TNewData) {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+export async function updateRequest(id: number, newData: TNewRequestData) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // console.log("updateRequest", id, newData);
 
   try {
     const response = await fetch(`/api/v1/requests/${id}`, {

@@ -1,18 +1,18 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { formatDate, formatMoney } from '@/lib/utils';
-import { CheckCircleIcon, ChevronRightIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useSelector } from '@/store';
+} from "@/components/ui/card";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { formatDate, formatMoney } from "@/lib/utils";
+import { CheckCircleIcon, ChevronRightIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useSelector } from "@/store";
 
 export default function QuoteDetailsCardFlatRate() {
   const { request } = useSelector((state) => state.request);
@@ -37,7 +37,7 @@ export default function QuoteDetailsCardFlatRate() {
 
             <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
               <p className="col-span-4">Start Time</p>
-              <p className="font-medium lg:col-span-8">{'8AM' || 'TBD'}</p>
+              <p className="font-medium lg:col-span-8">{"8AM" || "TBD"}</p>
             </div>
           </div>
 
@@ -51,7 +51,7 @@ export default function QuoteDetailsCardFlatRate() {
 
             <div className="flex items-center justify-between text-sm lg:grid lg:grid-cols-12">
               <p className="col-span-4">Start Time</p>
-              <p className="font-medium lg:col-span-8">{'8AM' || 'TBD'}</p>
+              <p className="font-medium lg:col-span-8">{"8AM" || "TBD"}</p>
             </div>
           </div>
         </div>
@@ -59,9 +59,8 @@ export default function QuoteDetailsCardFlatRate() {
 
         <div className="my-4 flex flex-col items-center justify-between lg:grid lg:grid-cols-12">
           <p className="col-span-4 text-center lg:text-left">Flat Rate</p>
-          <p className="text-xl font-bold lg:col-span-8">
+          <p className="text-xl font-semibold lg:col-span-8">
             <PriceDisplay price={total_price} />
-            {/* To be determined */}
           </p>
         </div>
 
@@ -89,7 +88,7 @@ export default function QuoteDetailsCardFlatRate() {
             <Button variant="edit">Learn More</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <ScrollArea className="h-[90vh]">
+            <ScrollArea className="h-[80vh]">
               <div className="mx-auto mb-10 max-w-2xl space-y-4 p-6 text-sm">
                 <p>
                   No ballpark estimates or hourly rates. This is the exact price
@@ -110,7 +109,7 @@ export default function QuoteDetailsCardFlatRate() {
                   mattress plastic covers etc.)
                 </p>
 
-                <p className="font-bold uppercase">How do we work?</p>
+                <p className="font-semibold uppercase">How do we work?</p>
 
                 <p>
                   We offer single-load service to all long-distance moves. Your
@@ -154,7 +153,7 @@ export default function QuoteDetailsCardFlatRate() {
                   upon the tariff rates in effect on the date of this estimate.
                 </p>
 
-                <p className="font-bold uppercase">Packing Options</p>
+                <p className="font-semibold uppercase">Packing Options</p>
                 <ol className="list-decimal space-y-2 px-4">
                   <li>
                     Self packing. All boxes have to be packed by you, the
@@ -175,7 +174,7 @@ export default function QuoteDetailsCardFlatRate() {
                   </li>
                 </ol>
 
-                <p className="font-bold">PLEASE NOTE:</p>
+                <p className="font-semibold">PLEASE NOTE:</p>
 
                 <p>
                   This estimate is valid for 30 days from the date of issue.
@@ -192,7 +191,7 @@ export default function QuoteDetailsCardFlatRate() {
         </Drawer>
       </CardContent>
       <CardFooter className="flex-col items-start p-4">
-        {status === 'Not Confirmed' && (
+        {status === "Not Confirmed" && (
           <Button
             size="lg"
             className="w-full rounded-xl py-8 text-base font-semibold"
@@ -212,12 +211,10 @@ export default function QuoteDetailsCardFlatRate() {
 function PriceDisplay({ price }: { price: { min: number; max: number } }) {
   const { min, max } = price;
 
-  // Determine the formatted time string based on min and max values
   const maxPrice = formatMoney(max);
 
-  // Conditionally render based on the max value
   if (max === 0 || min === 0) {
-    return 'To be determined';
+    return "To be determined";
   } else {
     return maxPrice;
   }

@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { PhoneCallIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useSelector } from '@/store';
+import { Button } from "@/components/ui/button";
+import { PhoneCallIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useSelector } from "@/store";
 
 export default function StatusMessage() {
   const { request } = useSelector((state) => state.request);
@@ -10,7 +10,7 @@ export default function StatusMessage() {
 
   const { id, status, service_id } = request;
   const service = services.find((s) => s.id === service_id);
-  const isFlatRate = service?.name === 'Flat Rate';
+  const isFlatRate = service?.name === "Flat Rate";
   return (
     <div className="grid grid-cols-2 gap-4 border-b p-4">
       <div className="col-span-2 flex h-full w-full items-center justify-center lg:col-span-1">
@@ -37,7 +37,7 @@ export default function StatusMessage() {
       </div>
 
       <div className="col-span-2 flex w-full gap-2 text-left text-sm lg:col-span-1">
-        {isFlatRate && status === 'Pending' && (
+        {isFlatRate && status === "Pending" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold text-primary">
               This is a Flat Rate request. We need the following information in
@@ -45,21 +45,28 @@ export default function StatusMessage() {
             </p>
             <ol className="list-decimal space-y-2 px-4">
               <li>
-                Choose preferred <b>Pick Up and Delivery dates.</b>
+                Choose preferred{" "}
+                <span className="font-semibold">
+                  Pick Up and Delivery dates.
+                </span>
               </li>
               <li>
-                Provide full <b>Origin and Destination addresses</b>, including
-                additional pick up and drop off stops, if needed.
+                Provide full{" "}
+                <span className="font-semibold">
+                  Origin and Destination addresses
+                </span>
+                , including additional pick up and drop off stops, if needed.
               </li>
               <li>
-                Add <b>Inventory</b> of all items, including approximate number
-                of boxes, that you will be moving.
+                Add <span className="font-semibold">Inventory</span> of all
+                items, including approximate number of boxes, that you will be
+                moving.
               </li>
             </ol>
           </div>
         )}
-        {status === 'Completed' && null}
-        {status === 'Confirmed' && (
+        {status === "Completed" && null}
+        {status === "Confirmed" && (
           <>
             <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
               <p className="font-semibold">
@@ -73,7 +80,7 @@ export default function StatusMessage() {
             </div>
           </>
         )}
-        {!isFlatRate && status === 'Pending' && (
+        {!isFlatRate && status === "Pending" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               We&apos;re currently checking if we&apos;re available for your
@@ -86,7 +93,16 @@ export default function StatusMessage() {
           </div>
         )}
 
-        {status === 'Canceled' && (
+        {status === "Pending-info" && (
+          <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
+            <p>
+              Looks like there was an update to your Request. We will process
+              all the updates and will get back to you shortly.
+            </p>
+          </div>
+        )}
+
+        {status === "Canceled" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">Your move is now canceled.</p>
             <p>
@@ -95,7 +111,7 @@ export default function StatusMessage() {
             </p>
           </div>
         )}
-        {status === 'Expired' && (
+        {status === "Expired" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               It looks like you move plan has EXPIRED.
@@ -115,17 +131,17 @@ export default function StatusMessage() {
             </p>
           </div>
         )}
-        {status === 'Not Confirmed' && (
+        {status === "Not Confirmed" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               We have checked our schedule and it looks like we can make your
               move happen.
             </p>
             <p>
-              Click the{' '}
+              Click the{" "}
               <span className="font-semibold">
                 Proceed to Confirmation Page
-              </span>{' '}
+              </span>{" "}
               if you wish to confirm your move.
             </p>
             <p>
@@ -140,13 +156,13 @@ export default function StatusMessage() {
             </Button>
           </div>
         )}
-        {status === 'Not Available' && (
+        {status === "Not Available" && (
           <div className="flex w-full flex-col space-y-2 rounded-e-xl rounded-es-xl bg-muted p-4">
             <p className="font-semibold">
               Sorry... It looks we are not available for this move on this day.
             </p>
             <p>
-              Please give us a call at{' '}
+              Please give us a call at{" "}
               <span className="font-semibold">(617) 991-3552</span> to explore
               alternative dates for your move.
             </p>

@@ -28,24 +28,15 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useSelector } from "@/store";
+import { statusColors } from "@/constants/request";
+import { TStatus } from "@/types/request";
 
-const statusColors = {
-  Pending: "text-amber-500 bg-amber-100",
-  Confirmed: "text-green-600 bg-green-100",
-  "Not Confirmed": "text-indigo-600 bg-indigo-100",
-  Canceled: "text-red-500 bg-red-100",
-  Completed: "text-[deepskyblue] bg-sky-100",
-  "Not Available": "text-slate-800 bg-slate-200",
-  Expired: "text-slate-800 bg-slate-200",
-  Spam: "text-slate-800 bg-slate-200",
-};
+const iconClassName = "mr-4 size-4";
 
 export function SideBarMobile({ requests }: { requests: any[] }) {
   const { user } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const params = useParams<{ id: string }>();
-
-  const iconClassName = "mr-4 size-4";
 
   return (
     <Sheet>
@@ -91,42 +82,39 @@ export function SideBarMobile({ requests }: { requests: any[] }) {
               </span>
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 border-none px-1 pt-4">
-              {requests.map((job) => (
-                <SheetClose asChild key={job.id}>
+              {requests.map(({ id, status, origin, destination }) => (
+                <SheetClose asChild key={id}>
                   <Link
-                    to={`account/requests/${job.id}`}
+                    to={`account/requests/${id}`}
                     className={cn(
                       buttonVariants({ variant: "outline" }),
-                      params.id === job.id.toString() && "bg-muted",
+                      params.id === id.toString() && "bg-muted",
                       "flex h-fit flex-col gap-1 p-2 text-xs",
                     )}
                   >
                     <div className="flex w-full items-center justify-between">
-                      <p className="font-semibold"># {job.id}</p>
+                      <p className="font-semibold"># {id}</p>
                       <p
                         className={cn(
-                          `w-fit rounded-full px-2 py-1 ${
-                            statusColors[
-                              job.status as keyof typeof statusColors
-                            ]
-                          } `,
+                          "w-fit rounded-full px-2 py-1 text-white",
+                          statusColors[status as TStatus],
                         )}
                       >
-                        {job.status}
+                        {status}
                       </p>
                     </div>
                     <div className="flex w-full items-center gap-2 overflow-hidden text-muted-foreground">
                       {origin && (
                         <p>
-                          {job.origin.city}, {job.origin.state}
+                          {origin.city}, {origin.state}
                         </p>
                       )}
-                      {job.origin && job.destination && (
+                      {origin && destination && (
                         <MoveRightIcon className="size-4 min-w-4" />
                       )}
-                      {job.destination && (
+                      {destination && (
                         <p>
-                          {job.destination.city}, {job.destination.state}
+                          {destination.city}, {destination.state}
                         </p>
                       )}
                     </div>

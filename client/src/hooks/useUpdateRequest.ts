@@ -2,7 +2,7 @@ import { updateRequest } from '@/actions/requests';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from '@/store';
-import { TNewData } from '@/types/request';
+import { TNewRequestData } from '@/types/request';
 
 
 export default function useUpdateRequest() {
@@ -10,18 +10,21 @@ export default function useUpdateRequest() {
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  function updateRequestHandler(newData: TNewData, handleClose: () => void) {
+  function updateRequestHandler(newData: TNewRequestData, callbackFunction?: () => void) {
+    if (!request) return
     setIsSaving(true)
 
-    updateRequest(request?.id!, newData).then((res) => {
-      console.log(res)
+    updateRequest(request.id, newData).then((res) => {
       if (res?.error) {
         setError(res.error)
         toast.error(res.error)
         return
       }
+      toast.success("Request saved!")
       setIsSaving(false)
-      handleClose()
+      if (callbackFunction) {
+        callbackFunction()
+      }
     }).finally(() => setIsSaving(false))
   }
 

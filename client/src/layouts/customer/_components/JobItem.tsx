@@ -2,17 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { MoveRightIcon } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-const statusColors = {
-  Pending: "text-amber-500 bg-amber-100",
-  Confirmed: "text-green-600 bg-green-100",
-  "Not Confirmed": "text-indigo-600 bg-indigo-100",
-  Canceled: "text-red-500 bg-red-100",
-  Completed: "text-[deepskyblue] bg-sky-100",
-  "Not Available": "text-slate-800 bg-slate-200",
-  Expired: "text-slate-800 bg-slate-200",
-  Spam: "text-slate-800 bg-slate-200",
-};
+import { TStatus } from "@/types/request";
+import { statusColors } from "@/constants/request";
 
 export default function JobItem({
   id,
@@ -40,9 +31,8 @@ export default function JobItem({
         <p className="font-semibold"># {id}</p>
         <p
           className={cn(
-            `w-fit rounded-full px-2 py-1 ${
-              statusColors[status as keyof typeof statusColors]
-            } `,
+            "w-fit rounded-full px-2 py-1 text-white",
+            statusColors[status as TStatus],
           )}
         >
           {status}

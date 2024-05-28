@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock8Icon } from "lucide-react";
+import { Clock8Icon, LoaderCircleIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -118,7 +118,7 @@ export const EditTimeModal = () => {
                             form.watch(time.field) === timeWindow.id.toString()
                               ? "border-primary bg-primary/5 ring-2 ring-primary"
                               : "text-muted-foreground",
-                            "shadow-button relative col-span-1 h-20 cursor-pointer rounded-lg border-input focus:outline-none sm:min-h-20",
+                            "relative col-span-1 h-20 cursor-pointer rounded-lg border-input shadow-button focus:outline-none sm:min-h-20",
                           )}
                         >
                           <Label
@@ -149,7 +149,12 @@ export const EditTimeModal = () => {
               />
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>Save changes</Button>
+              <Button disabled={isSaving || !form.formState.isDirty}>
+                {isSaving && (
+                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -4,10 +4,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from './ui/separator';
-import { useDispatch } from '@/store';
-import { updateStoreRequest } from '@/slices/request';
+} from "@/components/ui/select";
+import { setRequest } from "@/slices/request";
+import { useDispatch, useSelector } from "@/store";
+import { Separator } from "./ui/separator";
 
 // export function generateWorkTimeOptions() {
 //   const options = [];
@@ -27,34 +27,31 @@ export function generateWorkTimeOptions() {
       const timeInMinutes = hours * 60 + minutes;
       options.push({
         value: timeInMinutes,
-        label: `${hours.toString().padStart(2, '0')}:${minutes
+        label: `${hours.toString().padStart(2, "0")}:${minutes
           .toString()
-          .padStart(2, '0')}`,
+          .padStart(2, "0")}`,
       });
     }
   }
   return options;
 }
 
-export default function WorkTimeInput({
-  workTime,
-}: {
-  workTime: { min: number; max: number };
-}) {
+export default function WorkTimeInput() {
+  const { request } = useSelector((state) => state.request);
   const dispatch = useDispatch();
   return (
     <div className="flex w-full gap-[1px] rounded-md border shadow-sm">
       <Select
-        value={workTime.min.toString()}
+        value={request?.work_time.min.toString()}
         onValueChange={(val) => {
-          const newWorkTime = { ...workTime };
+          const newWorkTime = { ...request?.work_time! };
           if (parseInt(val) > newWorkTime.max) {
             newWorkTime.max = parseInt(val);
           }
           dispatch(
-            updateStoreRequest({
+            setRequest({
               work_time: { ...newWorkTime, min: parseInt(val) },
-            })
+            }),
           );
         }}
       >
@@ -74,17 +71,17 @@ export default function WorkTimeInput({
       </Select>
       <Separator className="h-9" orientation="vertical" />
       <Select
-        value={workTime.max.toString()}
+        value={request?.work_time.max.toString()}
         onValueChange={(val) => {
           // console.log(val);
-          const newWorkTime = { ...workTime };
+          const newWorkTime = { ...request?.work_time! };
           if (parseInt(val) < newWorkTime.min) {
             newWorkTime.min = parseInt(val);
           }
           dispatch(
-            updateStoreRequest({
+            setRequest({
               work_time: { ...newWorkTime, max: parseInt(val) },
-            })
+            }),
           );
         }}
       >

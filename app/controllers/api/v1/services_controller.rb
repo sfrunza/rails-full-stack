@@ -83,6 +83,6 @@ class Api::V1::ServicesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def service_params
-    params.require(:service).permit(:name, :droppable_index)
+    params.require(:service).permit(:name, :droppable_index, :is_default)
   end
 end

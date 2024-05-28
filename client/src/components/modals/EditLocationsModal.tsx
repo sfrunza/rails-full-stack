@@ -1,83 +1,42 @@
-import { MapPinIcon } from 'lucide-react';
-// import { useEffect, useTransition } from "react";
-
-// import { AutoComp } from "@/components/Map/AutoComp";
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { LoaderCircleIcon, MapPinIcon } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { UseFormReturn, useForm } from 'react-hook-form';
-import { z } from 'zod';
-// import toast from "react-hot-toast";
-import useUpdateRequest from '@/hooks/useUpdateRequest';
-import { useModal } from '@/hooks/useModal';
-// import { useSelector } from "store";
-import { TAddress } from '@/types/request';
-import { Button } from '@/components/ui/button';
-import { AutoCompleteInput } from '@/components/AutoCompleteInput';
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { UseFormReturn, useForm } from "react-hook-form";
+import { z } from "zod";
+import useUpdateRequest from "@/hooks/useUpdateRequest";
+import { useModal } from "@/hooks/useModal";
+import { Button } from "@/components/ui/button";
+import { AutoCompleteInput } from "@/components/AutoCompleteInput";
+import { floorOptions } from "@/constants/request";
 
 type TLocationFormProps = {
   form: UseFormReturn<Inputs>;
-  type: 'origin' | 'destination';
-  updateLocation: (type: 'origin' | 'destination', data: TAddress) => void;
+  type: "origin" | "destination";
+  updateLocation: (type: "origin" | "destination", data: Inputs) => void;
 };
-
-const floors = [
-  {
-    label: '1',
-    value: '1st/ground floor',
-  },
-  {
-    label: '2',
-    value: '2nd floor',
-  },
-  {
-    label: '3',
-    value: '3rd floor',
-  },
-  {
-    label: '4',
-    value: '4th floor',
-  },
-  {
-    label: '5',
-    value: '5th floor',
-    isDisabled: true,
-  },
-  {
-    label: 'House',
-    value: 'Private House',
-  },
-  {
-    label: 'Elevator',
-    value: 'Elevator Building',
-  },
-  {
-    label: 'Storage',
-    value: 'Storage Unit',
-  },
-];
 
 const FormDataSchema = z.object({
   origin: z
@@ -88,6 +47,12 @@ const FormDataSchema = z.object({
       zip: z.string().or(z.undefined()),
       apt: z.string().or(z.null()),
       floor: z.string().min(5).or(z.undefined()),
+      location: z
+        .object({
+          lat: z.number().optional(),
+          lng: z.number().optional(),
+        })
+        .optional(),
     })
     .required(),
   destination: z
@@ -98,6 +63,12 @@ const FormDataSchema = z.object({
       zip: z.string().or(z.undefined()),
       apt: z.string().or(z.null()),
       floor: z.string().min(5).or(z.undefined()),
+      location: z
+        .object({
+          lat: z.number().optional(),
+          lng: z.number().optional(),
+        })
+        .optional(),
     })
     .required(),
 });
@@ -105,39 +76,40 @@ const FormDataSchema = z.object({
 type Inputs = z.infer<typeof FormDataSchema>;
 
 export function EditLocationsModal() {
-  // const { request } = useSelector((state) => state.request);
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
 
-  const { locations } = getModalData('editLocations');
+  const { locations } = getModalData("editLocations");
   const origin = locations?.origin;
   const destination = locations?.destination;
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       origin: {
-        street: origin?.street || '',
+        street: origin?.street || "",
         city: origin?.city,
         state: origin?.state,
         zip: origin?.zip,
-        apt: origin?.apt || '',
+        apt: origin?.apt || "",
         floor: origin?.floor,
+        location: origin?.location,
       },
       destination: {
-        street: destination?.street || '',
+        street: destination?.street || "",
         city: destination?.city,
         state: destination?.state,
         zip: destination?.zip,
-        apt: destination?.apt || '',
+        apt: destination?.apt || "",
         floor: destination?.floor,
+        location: destination?.location,
       },
     },
   });
 
-  function updateLocation(type: 'origin' | 'destination', data: TAddress) {
+  function updateLocation(type: "origin" | "destination", data: Inputs) {
     form.setValue(type, {
       ...form.watch(type),
       ...data,
@@ -145,19 +117,20 @@ export function EditLocationsModal() {
   }
 
   async function onSubmit(newData: Inputs) {
+    // console.log(newData);
     updateRequestHandler(
       { origin: newData.origin, destination: newData.destination },
-      handleClose
+      handleClose,
     );
   }
 
   const handleClose = () => {
     form.reset();
-    closeModal('editLocations');
+    closeModal("editLocations");
   };
 
   return (
-    <Dialog open={isModalOpen('editLocations')} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen("editLocations")} onOpenChange={handleClose}>
       <DialogContent
         onInteractOutside={(e) => {
           const classes: Array<Array<string>> = [];
@@ -167,7 +140,7 @@ export function EditLocationsModal() {
               classes.push(Array.from(el.classList));
             }
           });
-          if (classes.join('-').includes('pac-container')) {
+          if (classes.join("-").includes("pac-container")) {
             e.preventDefault();
           }
         }}
@@ -222,7 +195,12 @@ export function EditLocationsModal() {
               </div>
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>Save changes</Button>
+              <Button disabled={isSaving}>
+                {isSaving && (
+                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>
@@ -232,11 +210,10 @@ export function EditLocationsModal() {
 }
 
 function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
-  const color = type === 'origin' ? 'text-green-600' : 'text-red-500';
+  const color = type === "origin" ? "text-green-600" : "text-red-600";
 
   function getNewAddress(data: any) {
     updateLocation(type, data);
-    // form.clearErrors(`${type}.fullAddress`);
   }
 
   const isLoaded = google.maps.places.AutocompleteService ? true : false;
@@ -254,7 +231,7 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
               {form.watch(`${type}.street`)}
             </span>
             <br />
-            {form.watch(`${type}.city`)}, {form.watch(`${type}.state`)}{' '}
+            {form.watch(`${type}.city`)}, {form.watch(`${type}.state`)}{" "}
             {form.watch(`${type}.zip`)}
           </p>
         </div>
@@ -272,16 +249,16 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
                     {isLoaded ? (
                       <AutoCompleteInput
                         {...field}
-                        value={field.value ?? ''}
+                        value={field.value ?? ""}
+                        getAddress={getNewAddress}
                         placeholder="Address"
                         title="Please enter your Full Address"
                         type={type}
-                        getAddress={getNewAddress}
                       />
                     ) : (
                       <Input
                         {...field}
-                        value={field.value || ''}
+                        value={field.value || ""}
                         placeholder="Address"
                         title="Please enter your Full Address"
                       />
@@ -301,7 +278,7 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
                   <FormControl>
                     <Input
                       {...field}
-                      value={field.value || ''}
+                      value={field.value || ""}
                       placeholder="Apt. (optional)"
                       title="Please enter your Apartment"
                     />
@@ -383,12 +360,12 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {floors.map((item, i) => (
+                      {floorOptions.map((item, i) => (
                         <SelectItem
                           key={i}
                           value={item.value}
                           className="hover:cursor-pointer"
-                          disabled={item.value === '5th floor'}
+                          disabled={item.value === "5th floor"}
                         >
                           {item.value}
                         </SelectItem>

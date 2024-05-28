@@ -4,108 +4,55 @@ import {
   LoadScriptProps,
   Marker,
   useLoadScript,
-} from '@react-google-maps/api';
-import { memo, useEffect, useState } from 'react';
-// import markerRed from 'assets/marker-red-2.jpeg';
-// import markerGreen from 'assets/marker-green-2.jpeg';
-// import markerBlue from 'assets/marker-blue-2.jpeg';
+} from "@react-google-maps/api";
+import { memo, useEffect, useState } from "react";
+import markerRed from "@/assets/marker-red-2.jpeg";
+import markerGreen from "@/assets/marker-green-2.jpeg";
+import markerBlue from "@/assets/marker-blue-2.jpeg";
 
-import mapStyles from './mapStyles';
-import { useSelector } from '@/store';
+import mapStyles from "./mapStyles";
+import { useSelector } from "@/store";
+import { TAddress } from "@/types/request";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
-const CENTER: google.maps.LatLngLiteral = { lat: 42.36, lng: -71.06 };
 
-const libraries = ['places'];
+function calculateMapCenter(
+  origin: TAddress,
+  destination: TAddress,
+): google.maps.LatLng | google.maps.LatLngLiteral | undefined {
+  if (origin.city) {
+    return origin.location;
+  } else if (destination.city) {
+    return destination.location;
+  }
+  return undefined;
+}
+
+const libraries = ["places"];
 
 const convertTime = (value: number) => {
   value = Number(value);
   var h = Math.floor(value / 3600);
   var m = Math.floor((value % 3600) / 60);
 
-  var hDisplay = h > 0 ? h + (h === 1 ? ' hour ' : ' hours ') : '';
-  var mDisplay = m > 0 ? m + (m === 1 ? ' min ' : ' mins') : '';
+  var hDisplay = h > 0 ? h + (h === 1 ? " hour " : " hours ") : "";
+  var mDisplay = m > 0 ? m + (m === 1 ? " min " : " mins") : "";
   return hDisplay + mDisplay;
 };
-
-function getFullAddress(address: {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-}) {
-  return `${address.street} ${address.city}, ${address.state} ${address.zip} USA`;
-}
 
 const Map = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: API_KEY,
-    libraries: libraries as LoadScriptProps['libraries'],
+    libraries: libraries as LoadScriptProps["libraries"],
   });
   const { request } = useSelector((state) => state.request);
 
   const { origin, destination, stops } = request!;
 
-  // const waypoints = ["Newton, MA", "Waltham, MA", "Watertown, MA"];
-  const waypoints = [] as string[];
-  // const request = {
-  //   origin: {
-  //     street: "123 Main St",
-  //     city: "Boston",
-  //     state: "MA",
-  //     zip: "02101",
-  //   },
-  //   destination: {
-  //     street: "456 Elm St",
-  //     city: "Boston",
-  //     state: "MA",
-  //     zip: "02101",
-  //   },
-  // };
-
   const [directionsResult, setDirectionsResult] =
     useState<google.maps.DirectionsResult | null>(null);
-  const [distance, setDistance] = useState('');
-  const [duration, setDuration] = useState('');
-  const [marker, setMarker] = useState<google.maps.LatLng>();
-  // const [originCoords, setOriginCoords] = useState<google.maps.LatLngLiteral>();
-  // const [destinationCoords, setDestinationCoords] =
-  //   useState<google.maps.LatLngLiteral>();
-  // const [waypointsCoords, setWaypointsCoords] = useState<
-  //   google.maps.LatLngLiteral[]
-  // >([]);
-
-  const o = getFullAddress(origin);
-  const d = getFullAddress(destination);
-
-  // const geocoder = isLoaded ? new google.maps.Geocoder() : null;
-
-  // const geocodeAddress = (
-  //   address: string
-  // ): Promise<google.maps.LatLngLiteral> => {
-  //   return new Promise((resolve, reject) => {
-  //     if (!geocoder) {
-  //       return;
-  //     }
-  //     geocoder.geocode({ address }, (results, status) => {
-  //       if (
-  //         status === google.maps.GeocoderStatus.OK &&
-  //         results &&
-  //         results.length > 0
-  //       ) {
-  //         const location = results[0].geometry.location;
-  //         resolve({ lat: location.lat(), lng: location.lng() });
-  //       } else {
-  //         const errorMessage = `Geocode failed for address: ${address}. Status: ${status}`;
-  //         console.error(errorMessage);
-  //         reject(new Error(errorMessage));
-  //       }
-  //     });
-  //   });
-  // };
-  // const d = null;
-
-  // console.log("Map render", waypointsCoords);
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
 
   useEffect(() => {
     if (isLoaded) {
@@ -117,109 +64,44 @@ const Map = () => {
     };
   }, [isLoaded, origin, destination, stops]);
 
-  // const onLoad = useCallback(() => {
-  //   calculateRoute();
-  // }, [origin, destination, stops]);
-
-  // const onUnmount = useCallback(() => {
-  //   setDirectionsResult(null);
-  // }, []);
-
-  // function generateWaypoints() {
-  //   const waypointsCoordsArr = [] as google.maps.LatLngLiteral[];
-
-  //   waypoints.map(async (waypoint) => {
-  //     let res = await geocodeAddress(waypoint);
-  //     waypointsCoordsArr.push(res);
-  //     // console.log("waypoint", res);
-  //     setWaypointsCoords((prev) => [...prev, res]);
-  //   });
-
-  //   // console.log("waypointsCoordsArr", waypointsCoordsArr);
-  //   // setWaypointsCoords(waypointsCoordsArr);
-  // }
-
   async function calculateRoute() {
-    // const d = null;
-    if (!origin.city || !destination.city) {
-      return;
-    }
-
-    if (o && d) {
+    if (origin.city && destination.city) {
       const directionsService = new google.maps.DirectionsService();
       const results = await directionsService.route({
-        origin: o,
-        destination: d,
-        waypoints: waypoints.map((waypoint) => ({ location: waypoint })),
+        origin: origin.location,
+        destination: destination.location,
+        waypoints: stops.map((stop) => ({ location: stop.location })),
         travelMode: google.maps.TravelMode.DRIVING,
       });
-
-      // const originCoords = await geocodeAddress(o);
-      // const destinationCoords = await geocodeAddress(d);
-
-      // const waypointsCoordsArr = [] as google.maps.LatLngLiteral[];
-
-      // waypoints.map(async (waypoint) => {
-      //   let res = await geocodeAddress(waypoint);
-      //   waypointsCoordsArr.push(res);
-      // });
-
-      // setOriginCoords(originCoords);
-      // setDestinationCoords(destinationCoords);
-      // generateWaypoints();
-      // setWaypointsCoords(waypointsCoordsArr);
-
       let resp = results.routes[0].legs;
-      let distance = 0;
+      let miles = 0;
       let time = 0;
 
       resp.map((leg: google.maps.DirectionsLeg) => {
         if (leg.distance && leg.duration) {
-          distance += leg.distance.value;
+          miles += leg.distance.value;
           time += leg.duration.value;
         }
         return 0;
       });
-
-      // console.log(results);
       setDirectionsResult(results);
-      setDistance((distance / 1609).toFixed(1) + ' mi');
+      setDistance((miles / 1609).toFixed(1) + " mi");
       setDuration(convertTime(time));
-    } else if ((o && !d) || (!o && d)) {
-      const geocoder = new google.maps.Geocoder();
-      await geocoder.geocode(
-        { address: o || d },
-        function (
-          results: google.maps.GeocoderResult[] | null,
-          status: google.maps.GeocoderStatus
-        ) {
-          // console.log(results);
-          if (status === 'OK' && results) {
-            setMarker(results[0].geometry.location);
-          } else {
-            alert(
-              'Geocode was not successful for the following reason: ' + status
-            );
-          }
-        }
-      );
     }
   }
-
-  // console.log('waypointsCoords.', waypointsCoords.length);
 
   return (
     <div className="relative flex h-52 w-full flex-col items-center justify-center gap-1 lg:h-full">
       {isLoaded && (
         <GoogleMap
-          center={directionsResult ? CENTER : marker}
-          // zoom={directionsResult ? 14 : 15}
+          center={calculateMapCenter(origin, destination)}
+          zoom={directionsResult ? 14 : 15}
           // onLoad={onLoad}
           // onUnmount={onUnmount}
           mapContainerStyle={{
-            height: '100%',
-            width: '100%',
-            margin: 'auto',
+            height: "100%",
+            width: "100%",
+            margin: "auto",
           }}
           options={{
             zoomControl: false,
@@ -230,56 +112,53 @@ const Map = () => {
             scrollwheel: true,
           }}
         >
-          {directionsResult ? (
+          {origin.city && (
+            <Marker
+              position={origin.location}
+              icon={{
+                url: markerGreen,
+                scaledSize: new google.maps.Size(18, 22),
+              }}
+            />
+          )}
+          {destination.city && (
+            <Marker
+              position={destination.location}
+              icon={{
+                url: markerRed,
+                scaledSize: new google.maps.Size(18, 22),
+              }}
+            />
+          )}
+          {stops.length > 0 &&
+            stops.map((stop, index) => (
+              <Marker
+                key={`stop-${index}`}
+                position={stop.location}
+                icon={{
+                  url: markerBlue,
+                  scaledSize: new google.maps.Size(18, 22),
+                }}
+              />
+            ))}
+          {directionsResult && (
             <DirectionsRenderer
               directions={directionsResult}
               routeIndex={0}
               options={{
-                // suppressMarkers: true,
+                suppressMarkers: true,
                 polylineOptions: {
                   strokeWeight: 3,
-                  strokeColor: '#4AB5FB',
+                  strokeColor: "#4AB5FB",
                 },
               }}
             />
-          ) : marker ? (
-            <Marker position={marker!} />
-          ) : null}
-          {/* <Marker
-            position={originCoords!}
-            icon={{
-              url: markerGreen,
-              scaledSize: new google.maps.Size(24, 30),
-            }}
-          />
-
-          <Marker
-            position={destinationCoords!}
-            icon={{
-              url: markerRed,
-              scaledSize: new google.maps.Size(24, 30),
-            }}
-          />
-
-          {waypointsCoords.length > 0 &&
-            waypointsCoords.map((waypoint, index) => {
-              console.log("waypoint", waypoint);
-              return (
-                <Marker
-                  key={index}
-                  position={waypoint}
-                  icon={{
-                    url: markerBlue,
-                    scaledSize: new window.google.maps.Size(24, 30),
-                  }}
-                />
-              );
-            })} */}
+          )}
         </GoogleMap>
       )}
 
       {directionsResult && (
-        <p className="absolute right-0 top-0 rounded bg-green-200/40 px-2 py-1 text-center text-xs font-bold text-green-600">
+        <p className="absolute right-0 top-0 rounded bg-green-200/40 px-2 py-1 text-center text-xs font-semibold text-green-600">
           {distance} ({duration})
         </p>
       )}

@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { MenuIcon } from 'lucide-react';
-import { navLinks } from './navLinks';
-import { Link, useLocation } from 'react-router-dom';
+} from "@/components/ui/sheet";
+import { MenuIcon } from "lucide-react";
+import { navLinks } from "./navLinks";
+import { Link, useLocation } from "react-router-dom";
 
 export function MobileMenu() {
   const { pathname } = useLocation();
@@ -31,15 +31,16 @@ export function MobileMenu() {
               return (
                 <li key={i}>
                   <SheetClose asChild>
-                    <Link to={item.href}>
-                      <Button
-                        variant={active ? 'secondary' : 'ghost'}
-                        className="rounded-full py-6"
-                      >
+                    <Button
+                      asChild
+                      variant={active ? "secondary" : "ghost"}
+                      className="rounded-full py-6"
+                    >
+                      <Link to={item.href}>
                         <item.icon className="mr-4 size-5" aria-hidden="true" />
                         <span>{item.name}</span>
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </SheetClose>
                 </li>
               );

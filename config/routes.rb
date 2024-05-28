@@ -14,7 +14,9 @@ Rails.application.routes.draw do
       #   resources :requests, only: %i[index show update destroy]
       # end
 
-      resources :users
+      resources :users do
+        patch "update_password", to: "users#update_password"
+      end
       resources :client_requests, only: %i[index show]
       # resources :users
 
@@ -25,7 +27,10 @@ Rails.application.routes.draw do
       post "/packings/update_order", to: "packings#update_order"
 
       get "/requests/status_counts", to: "requests#status_counts"
-      resources :requests
+
+      resources :requests do
+        get "/versions", to: "requests#show_versions"
+      end
 
       # resources :client_requests
 

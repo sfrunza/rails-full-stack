@@ -14,7 +14,8 @@ class RequestTableSerializer < ActiveModel::Serializer
              :crew_size,
              :rate,
              :created_at,
-             :updated_at
+             :updated_at,
+             :total_price
   #  def customer
   #    {
   #      first_name: object.customer&.first_name,

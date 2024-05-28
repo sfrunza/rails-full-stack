@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useModal } from '@/hooks/useModal';
-import { EditPackingModal } from '@/components/modals/EditPackingModal';
-import { EditDateModal } from '@/components/modals/EditDateModal';
-import { EditMoveSizeModal } from '@/components/modals/EditMoveSize';
-import { EditTimeModal } from '@/components/modals/EditTimeModal';
-import { EditDetailsModal } from '@/components/modals/EditDetailsModal';
-import { EditPhotosModal } from '@/components/modals/EditPhotosModal';
-import { EditLocationsModal } from '@/components/modals/EditLocationsModal';
+import { useModal } from "@/hooks/useModal";
+import { EditPackingModal } from "@/components/modals/EditPackingModal";
+import { EditDateModal } from "@/components/modals/EditDateModal";
+import { EditMoveSizeModal } from "@/components/modals/EditMoveSize";
+import { EditTimeModal } from "@/components/modals/EditTimeModal";
+import { EditDetailsModal } from "@/components/modals/EditDetailsModal";
+import { EditPhotosModal } from "@/components/modals/EditPhotosModal";
+import { EditLocationsModal } from "@/components/modals/EditLocationsModal";
+import { EditStopModal } from "@/components/modals/EditStopModal";
+import { EditDepositModal } from "@/components/modals/EditDepositModal";
 
 // import { EditTimeModal } from "@/components/modals/edit-time-modal";
 // import { EditDateModal } from "@/components/modals/edit-date-modal";
@@ -31,13 +33,15 @@ export const ModalProvider = () => {
 
   return (
     <>
-      {isModalOpen('editPacking') && <EditPackingModal />}
-      {isModalOpen('editDate') && <EditDateModal />}
-      {isModalOpen('editMoveSize') && <EditMoveSizeModal />}
-      {isModalOpen('editTime') && <EditTimeModal />}
-      {isModalOpen('editDetails') && <EditDetailsModal />}
-      {isModalOpen('editPhotos') && <EditPhotosModal />}
-      {isModalOpen('editLocations') && <EditLocationsModal />}
+      {isModalOpen("editPacking") && <EditPackingModal />}
+      {isModalOpen("editDate") && <EditDateModal />}
+      {isModalOpen("editMoveSize") && <EditMoveSizeModal />}
+      {isModalOpen("editTime") && <EditTimeModal />}
+      {isModalOpen("editDetails") && <EditDetailsModal />}
+      {isModalOpen("editPhotos") && <EditPhotosModal />}
+      {isModalOpen("editLocations") && <EditLocationsModal />}
+      {isModalOpen("editStop") && <EditStopModal />}
+      {isModalOpen("editDeposit") && <EditDepositModal />}
       {/* <EditTimeModal /> */}
       {/* <EditDateModal /> */}
       {/* <EditMoveSizeModal /> */}

@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_16_164242) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.jsonb "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_type", "associated_id"], name: "associated_index"
+    t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
+  end
 
   create_table "packings", force: :cascade do |t|
     t.string "name"
@@ -36,11 +58,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_164242) do
     t.jsonb "total_price", default: {"max"=>0, "min"=>0}
     t.integer "travel_time", default: 0
     t.integer "crew_size"
+    t.boolean "can_edit_request", default: true
     t.integer "rate"
     t.jsonb "stops", default: []
+    t.text "sales_notes"
+    t.text "driver_notes"
+    t.text "customer_notes"
+    t.text "dispatch_notes"
+    t.integer "deposit", default: 10000
     t.jsonb "details", default: {"comments"=>"", "bulky_items_question_answer"=>"", "delicate_items_question_answer"=>"", "disassemble_items_question_answer"=>""}
-    t.jsonb "origin", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>""}
-    t.jsonb "destination", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>""}
+    t.jsonb "origin", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>"", "location"=>{"lat"=>0, "lng"=>0}}
+    t.jsonb "destination", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>"", "location"=>{"lat"=>0, "lng"=>0}}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["packing_id"], name: "index_requests_on_packing_id"
@@ -50,6 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_16_164242) do
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.integer "droppable_index"
+    t.boolean "is_default", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

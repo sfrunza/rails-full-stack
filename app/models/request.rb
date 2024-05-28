@@ -1,16 +1,58 @@
 class Request < ApplicationRecord
+  audited
+
   belongs_to :service
   belongs_to :packing
   belongs_to :customer, class_name: "User", optional: true
 
   before_save :calculate_total_time
   before_save :calculate_total_price
+  before_save :update_can_edit_request
+  # before_update :update_status_if_needed
+  before_update :track_changes
 
   def editable_by?(user)
     return true if user.role == "admin"
   end
 
+  public
+
+  def updated_fields
+    changed_fields = {}
+    @previous_changes.each do |field, values|
+      changed_fields[field] = values.last # Get the latest value
+    end
+    changed_fields
+  end
+
+  def update_status_if_needed(current_user_role)
+    if current_user_role == "customer" && status_was == "Not Confirmed" &&
+         status != "Confirmed"
+      update(status: "Pending-info")
+    end
+  end
+
   private
+
+  # def update_status_if_needed
+  #   if current_user.role == "customer"
+  #     if status_was == "Not Confirmed" && status != "Confirmed"
+  #       self.status = "Pending-info"
+  #     end
+  #   end
+  # end
+
+  def update_can_edit_request
+    self.can_edit_request =
+      (
+        status == "Pending" || status == "Pending-info" ||
+          status == "Not Confirmed"
+      )
+  end
+
+  def track_changes
+    @previous_changes = changes.dup
+  end
 
   # def calculate_total_time
   #   if work_time.present? && work_time.is_a?(Hash)

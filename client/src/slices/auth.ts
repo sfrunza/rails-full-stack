@@ -195,7 +195,7 @@ export const updateUser = (userId: number, update: any) => async (dispatch: any)
     if (error instanceof Error) {
       dispatch(slice.actions.updateFailure(error.message));
     }
-    console.error('Verify failed:', error);
+    console.error('update failed:', error);
     return { error: "update failed!" }
   }
 };

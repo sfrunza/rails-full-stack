@@ -1,44 +1,45 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useModal } from '@/hooks/useModal';
-import useUpdateRequest from '@/hooks/useUpdateRequest';
+} from "@/components/ui/select";
+import { useModal } from "@/hooks/useModal";
+import useUpdateRequest from "@/hooks/useUpdateRequest";
+import { LoaderCircleIcon } from "lucide-react";
 
 const sizes = [
-  'Room or less (partial move)',
-  'Studio apartment',
-  'Small 1 Bedroom apartment',
-  'Large 1 Bedroom apartment',
-  'Small 2 Bedroom apartment',
-  'Large 2 Bedroom apartment',
-  '3 Bedroom apartment',
-  '2 Bedroom House/Townhouse',
-  '3 Bedroom House/Townhouse',
-  '4 Bedroom House/Townhouse',
-  'Commercial Move',
+  "Room or less (partial move)",
+  "Studio apartment",
+  "Small 1 Bedroom apartment",
+  "Large 1 Bedroom apartment",
+  "Small 2 Bedroom apartment",
+  "Large 2 Bedroom apartment",
+  "3 Bedroom apartment",
+  "2 Bedroom House/Townhouse",
+  "3 Bedroom House/Townhouse",
+  "4 Bedroom House/Townhouse",
+  "Commercial Move",
 ];
 
 const FormDataSchema = z.object({
@@ -50,11 +51,11 @@ export const EditMoveSizeModal = () => {
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
 
-  const { size } = getModalData('editMoveSize');
+  const { size } = getModalData("editMoveSize");
 
   const form = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-    reValidateMode: 'onSubmit',
+    reValidateMode: "onSubmit",
     defaultValues: {
       size: size,
     },
@@ -66,11 +67,11 @@ export const EditMoveSizeModal = () => {
 
   const handleClose = () => {
     form.reset();
-    closeModal('editMoveSize');
+    closeModal("editMoveSize");
   };
 
   return (
-    <Dialog open={isModalOpen('editMoveSize')} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen("editMoveSize")} onOpenChange={handleClose}>
       <DialogContent className="flex h-full flex-col overflow-hidden p-0 sm:h-auto">
         <DialogHeader className="p-6">
           <DialogTitle>Select move date</DialogTitle>
@@ -93,7 +94,7 @@ export const EditMoveSizeModal = () => {
                           <SelectValue placeholder="Select move size" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="h-72">
                         {sizes.map((item, i) => (
                           <SelectItem
                             key={i}
@@ -110,7 +111,12 @@ export const EditMoveSizeModal = () => {
               />
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>Save changes</Button>
+              <Button disabled={isSaving || !form.formState.isDirty}>
+                {isSaving && (
+                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

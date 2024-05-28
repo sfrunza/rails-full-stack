@@ -20,6 +20,7 @@ import useUpdateRequest from "@/hooks/useUpdateRequest";
 import { cn } from "@/lib/utils";
 import { useSelector } from "@/store";
 import { useEffect, useRef } from "react";
+import { LoaderCircleIcon } from "lucide-react";
 
 const FormDataSchema = z.object({
   packing_id: z.string(),
@@ -46,7 +47,10 @@ export function EditPackingModal() {
 
   useEffect(() => {
     if (isModalOpen("editPacking") && selectedRef.current) {
-      selectedRef.current.scrollIntoView();
+      selectedRef.current.scrollIntoView({
+        block: "end",
+        inline: "nearest",
+      });
     }
   }, []);
 
@@ -91,7 +95,7 @@ export function EditPackingModal() {
                         className={cn(
                           Number(form.getValues("packing_id")) === packing.id &&
                             "border-primary bg-primary/5 ring-2 ring-primary",
-                          "shadow-button relative flex cursor-pointer flex-row-reverse gap-4 rounded-lg border-input p-4 focus:outline-none",
+                          "relative flex cursor-pointer flex-row-reverse gap-4 rounded-lg border-input p-4 shadow-button focus:outline-none",
                         )}
                         ref={
                           Number(form.getValues("packing_id")) === packing.id
@@ -132,7 +136,12 @@ export function EditPackingModal() {
               />
             </ScrollArea>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>Save changes</Button>
+              <Button disabled={isSaving || !form.formState.isDirty}>
+                {isSaving && (
+                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -10,7 +10,13 @@ class RequestChannel < ApplicationCable::Channel
   end
 
   def received(data, options)
+    request = Request.find(data["request_id"])
+    updated_fields = request.updated_fields
+
     # Handle received data here
-    ActionCable.server.broadcast("request_#{params[:request_id]}", data)
+    ActionCable.server.broadcast(
+      "request_#{data["request_id"]}",
+      updated_fields
+    )
   end
 end
