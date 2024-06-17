@@ -1,4 +1,4 @@
-import { updateRequest } from '@/actions/requests';
+import { updateRequestAction } from '@/actions/requests';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSelector } from '@/store';
@@ -14,7 +14,7 @@ export default function useUpdateRequest() {
     if (!request) return
     setIsSaving(true)
 
-    updateRequest(request.id, newData).then((res) => {
+    updateRequestAction(request.id, newData).then((res) => {
       if (res?.error) {
         setError(res.error)
         toast.error(res.error)

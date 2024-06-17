@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +23,7 @@ import { useSelector } from "@/store";
 import { z } from "zod";
 import { ScrollArea } from "../ui/scroll-area";
 import { useEffect } from "react";
-import { LoaderCircleIcon } from "lucide-react";
+import FormSubmitButton from "../FormSubmitButton";
 
 const FormDataSchema = z.object({
   delicate_items_question_answer: z.string(),
@@ -206,12 +205,11 @@ export function EditDetailsModal() {
             </ScrollArea>
             {request?.can_edit_request && (
               <DialogFooter className="flex justify-end bg-muted p-6">
-                <Button disabled={isSaving || !form.formState.isDirty}>
-                  {isSaving && (
-                    <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Save changes
-                </Button>
+                <FormSubmitButton
+                  disabled={isSaving || !form.formState.isDirty}
+                  isPending={isSaving}
+                  label="Save changes"
+                />
               </DialogFooter>
             )}
           </form>

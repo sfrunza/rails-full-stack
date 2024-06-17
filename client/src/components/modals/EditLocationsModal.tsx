@@ -1,4 +1,4 @@
-import { LoaderCircleIcon, MapPinIcon } from "lucide-react";
+import { AutoCompleteInput } from "@/components/AutoCompleteInput";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Dialog,
@@ -13,6 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,14 +24,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { floorOptions } from "@/constants/request";
+import { useModal } from "@/hooks/useModal";
+import useUpdateRequest from "@/hooks/useUpdateRequest";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MapPinIcon } from "lucide-react";
+import { useState } from "react";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
-import useUpdateRequest from "@/hooks/useUpdateRequest";
-import { useModal } from "@/hooks/useModal";
-import { Button } from "@/components/ui/button";
-import { AutoCompleteInput } from "@/components/AutoCompleteInput";
-import { floorOptions } from "@/constants/request";
+import FormSubmitButton from "../FormSubmitButton";
 
 type TLocationFormProps = {
   form: UseFormReturn<Inputs>;
@@ -38,7 +40,7 @@ type TLocationFormProps = {
   updateLocation: (type: "origin" | "destination", data: Inputs) => void;
 };
 
-const FormDataSchema = z.object({
+const formSchema = z.object({
   origin: z
     .object({
       street: z.string().or(z.null()),
@@ -46,7 +48,7 @@ const FormDataSchema = z.object({
       state: z.string().or(z.undefined()),
       zip: z.string().or(z.undefined()),
       apt: z.string().or(z.null()),
-      floor: z.string().min(5).or(z.undefined()),
+      floor: z.string().min(5),
       location: z
         .object({
           lat: z.number().optional(),
@@ -62,7 +64,7 @@ const FormDataSchema = z.object({
       state: z.string().or(z.undefined()),
       zip: z.string().or(z.undefined()),
       apt: z.string().or(z.null()),
-      floor: z.string().min(5).or(z.undefined()),
+      floor: z.string().min(5),
       location: z
         .object({
           lat: z.number().optional(),
@@ -73,20 +75,19 @@ const FormDataSchema = z.object({
     .required(),
 });
 
-type Inputs = z.infer<typeof FormDataSchema>;
+type Inputs = z.infer<typeof formSchema>;
 
 export function EditLocationsModal() {
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
+  const { locations, tab } = getModalData("editLocations");
+  const [activeTab, setActiveTab] = useState(tab);
 
-  const { locations } = getModalData("editLocations");
   const origin = locations?.origin;
   const destination = locations?.destination;
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(FormDataSchema),
-    mode: "onChange",
-    reValidateMode: "onChange",
+    resolver: zodResolver(formSchema),
     defaultValues: {
       origin: {
         street: origin?.street || "",
@@ -117,7 +118,6 @@ export function EditLocationsModal() {
   }
 
   async function onSubmit(newData: Inputs) {
-    // console.log(newData);
     updateRequestHandler(
       { origin: newData.origin, destination: newData.destination },
       handleClose,
@@ -155,11 +155,22 @@ export function EditLocationsModal() {
             onSubmit={form.handleSubmit(onSubmit)}
           >
             {/* Form Mobile */}
-            <Tabs defaultValue="origin" className="block px-2 md:hidden">
+            <Tabs className="block px-2 md:hidden" value={activeTab}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="origin">Origin</TabsTrigger>
-                <TabsTrigger value="destination">Destination</TabsTrigger>
+                <TabsTrigger
+                  value="origin"
+                  onClick={() => setActiveTab("origin")}
+                >
+                  Origin
+                </TabsTrigger>
+                <TabsTrigger
+                  value="destination"
+                  onClick={() => setActiveTab("destination")}
+                >
+                  Destination
+                </TabsTrigger>
               </TabsList>
+              {/* </div> */}
               <TabsContent value="origin" className="mt-6">
                 <LocationForm
                   form={form}
@@ -195,12 +206,11 @@ export function EditLocationsModal() {
               </div>
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>
-                {isSaving && (
-                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Save changes
-              </Button>
+              <FormSubmitButton
+                disabled={isSaving || !form.formState.isDirty}
+                isPending={isSaving}
+                label="Save changes"
+              />
             </DialogFooter>
           </form>
         </Form>
@@ -219,7 +229,7 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
   const isLoaded = google.maps.places.AutocompleteService ? true : false;
 
   return (
-    <Card className="space-y-4 overflow-hidden border shadow-none sm:space-y-2">
+    <Card className="space-y-4 overflow-hidden border shadow-none">
       <CardHeader className="bg-muted p-4">
         <div className="grid grid-cols-5 items-start text-sm">
           <div className="col-span-2 flex gap-3">
@@ -372,6 +382,7 @@ function LocationForm({ form, type, updateLocation }: TLocationFormProps) {
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />

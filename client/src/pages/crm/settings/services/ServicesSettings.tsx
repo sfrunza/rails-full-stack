@@ -1,6 +1,7 @@
-import { updateServicesOrder } from '@/actions/services';
-import BackButton from '@/components/BackButton';
-import { Button } from '@/components/ui/button';
+import { updateServicesOrder } from "@/actions/services";
+import BackButton from "@/components/BackButton";
+import FormSubmitButton from "@/components/FormSubmitButton";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,19 +9,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { deepCopy } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { setServices } from '@/slices/globalSetting';
-import { useDispatch, useSelector } from '@/store';
-import ServiceForm from './_components/ServiceForm';
-import ServiceList from './_components/ServiceList';
+} from "@/components/ui/card";
+import { deepCopy } from "@/lib/utils";
+import { setServices } from "@/slices/globalSetting";
+import { useDispatch, useSelector } from "@/store";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import ServiceForm from "./_components/ServiceForm";
+import ServiceList from "./_components/ServiceList";
+import { Separator } from "@/components/ui/separator";
+import { TService } from "@/types/service";
 
 export default function ServicesSettings() {
   const { services } = useSelector((state) => state.globalSettings);
   const dispatch = useDispatch();
-  const [items, setItems] = useState<any[]>(services);
+  const [items, setItems] = useState<TService[]>(services);
   const [isUpdating, setIsUpdating] = useState(false);
   const [orderChanged, setOrderChanged] = useState(false);
 
@@ -29,7 +32,7 @@ export default function ServicesSettings() {
     setItems(deepCopy(services));
   }, [services]);
 
-  function updateServiceOrder(newItemsOrder: any[]) {
+  function updateOrder(newItemsOrder: any[]) {
     if (!newItemsOrder) return;
     setIsUpdating(true);
     updateServicesOrder(newItemsOrder)
@@ -58,8 +61,9 @@ export default function ServicesSettings() {
           Add, remove, and reorder services for your customers
         </CardDescription>
       </CardHeader>
-      <CardContent className="p-2 md:p-6">
+      <CardContent className="space-y-4">
         <ServiceForm />
+        <Separator />
         <ServiceList
           items={items}
           setItems={setItems}
@@ -81,15 +85,13 @@ export default function ServicesSettings() {
               >
                 Cancel
               </Button>
-
-              <Button
+              <FormSubmitButton
                 type="button"
+                onClick={() => updateOrder(items!)}
                 disabled={isUpdating}
-                onClick={() => updateServiceOrder(items!)}
-                className="w-full sm:w-auto"
-              >
-                Save changes
-              </Button>
+                isPending={isUpdating}
+                label="Save changes"
+              />
             </>
           )}
         </div>

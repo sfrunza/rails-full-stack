@@ -40,6 +40,7 @@ gem "email_validator", require: "email_validator/strict"
 gem "jwt", "~> 2.8", ">= 2.8.1"
 
 gem "active_model_serializers", "~> 0.10.14"
+gem "jsonapi-serializer"
 
 gem "figaro", "~> 1.2"
 

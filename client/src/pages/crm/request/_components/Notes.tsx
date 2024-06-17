@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { z } from "zod";
-import { LoaderCircleIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
+import FormSubmitButton from "@/components/FormSubmitButton";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -110,12 +109,11 @@ export default function Notes() {
           </TabsContent>
         </Tabs>
         <div className="flex justify-end">
-          <Button disabled={isSaving || !form.formState.isDirty} type="submit">
-            {isSaving && (
-              <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Save notes
-          </Button>
+          <FormSubmitButton
+            disabled={isSaving || !form.formState.isDirty}
+            isPending={isSaving}
+            label="Save notes"
+          />
         </div>
       </div>
     </form>

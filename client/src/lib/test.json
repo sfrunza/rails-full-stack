@@ -1,33 +1,33 @@
 {
-  "id": 859,
+  "id": 1137,
   "tmpID": null,
-  "updatedAt": 1716587448,
-  "createdAt": 1713201408,
-  "serviceType": 0,
+  "updatedAt": 1717285728,
+  "createdAt": 1717285727,
+  "serviceType": 5,
   "customServiceType": null,
   "originAddress": {
-    "streetNumber": "482",
-    "address": "482 Fletcher St",
+    "streetNumber": "",
+    "address": "",
     "apt": "",
-    "city": "Lowell",
+    "city": "Westborough",
     "state": "MA",
-    "postal": "01854",
-    "floor": 6,
-    "lat": 42.647452,
-    "lng": -71.3237741
+    "postal": "01581",
+    "floor": null,
+    "lat": 42.2638905,
+    "lng": -71.6080009
   },
   "destinationAddress": {
-    "streetNumber": "38",
-    "address": "38 Wannalancit St",
+    "streetNumber": "",
+    "address": "",
     "apt": "",
-    "city": "Lowell",
+    "city": "Westborough",
     "state": "MA",
-    "postal": "01854",
-    "floor": 6,
-    "lat": 42.6469812,
-    "lng": -71.3288776
+    "postal": "01581",
+    "floor": 1,
+    "lat": 42.2638905,
+    "lng": -71.6080009
   },
-  "status": 4,
+  "status": 0,
   "source": 2,
   "referrer": 0,
   "type": 0,
@@ -62,14 +62,14 @@
     "packingSupplies": []
   },
   "balance": {
-    "min": 1055.5,
-    "max": 1613.5
+    "min": 717,
+    "max": 836.5
   },
   "notes": {
-    "0": "<p>s</p>",
+    "0": "",
     "1": "",
-    "2": "<p>d</p>",
-    "3": "<p>dis</p>"
+    "2": "",
+    "3": ""
   },
   "location": {},
   "calculatorFlags": {
@@ -87,42 +87,42 @@
   "validationFlags": {
     "notConfirmedStrictMode": null
   },
-  "bookedDate": 1713201931,
+  "bookedDate": null,
   "truckWasAutoassigned": 0,
-  "rate": 279,
-  "volume": 1737,
+  "rate": 239,
+  "volume": 900,
   "laborTime": {
-    "min": 255,
-    "max": 480
+    "min": 90,
+    "max": 120
   },
   "workTime": {
-    "min": 180,
-    "max": 300
+    "min": 90,
+    "max": 120
   },
   "travelTime": 90,
   "totalTime": {
-    "min": 270,
-    "max": 390
+    "min": 180,
+    "max": 210
   },
   "transportation": {
-    "min": 1255.5,
-    "max": 1813.5
+    "min": 717,
+    "max": 836.5
   },
   "grandTotal": {
-    "min": 1255.5,
-    "max": 1813.5
+    "min": 717,
+    "max": 836.5
   },
   "totalWithDiscount": {
-    "min": 1255.5,
-    "max": 1813.5
+    "min": 717,
+    "max": 836.5
   },
   "tax": {
     "min": 0,
     "max": 0
   },
   "totalPrice": {
-    "min": 1255.5,
-    "max": 1813.5
+    "min": 717,
+    "max": 836.5
   },
   "reservationPrice": 100,
   "fuel": {
@@ -136,33 +136,33 @@
     "title": "Released Value Protection (included)",
     "valuationId": 1625164200573
   },
-  "timeWindowStart": 1717070400,
-  "timeWindowEnd": 1717070400,
+  "timeWindowStart": null,
+  "timeWindowEnd": null,
   "parklotStartTime": null,
   "parklotDuration": 0,
-  "isCalculatorDisabled": 1,
+  "isCalculatorDisabled": 0,
   "volumeType": 0,
-  "moveDate": 1717041600,
+  "moveDate": 1719633600,
   "extraStops": [],
-  "crewSize": 4,
+  "crewSize": 3,
   "cachedFieldsForCalculator": {
     "parkingState": {
-      "cacheKey": "[\"01854\",\"01854\"]",
+      "cacheKey": "[\"01581\",\"01581\"]",
       "value": "MA"
     },
     "minTrucksCount": {
-      "cacheKey": "[1737]",
-      "value": 2
+      "cacheKey": "[900]",
+      "value": 1
     },
     "volumeWithDispersion": {
-      "cacheKey": "[1737]",
+      "cacheKey": "[900]",
       "value": {
-        "min": 1215.9,
-        "max": 2258.1
+        "min": 765,
+        "max": 1035
       }
     },
     "floorNames": {
-      "cacheKey": "[6,6]",
+      "cacheKey": "[null,1]",
       "value": [
         "1st Floor",
         "2nd Floor",
@@ -174,33 +174,33 @@
       ]
     },
     "crewSize": {
-      "cacheKey": "[1737,6,6,0]",
-      "value": 5
+      "cacheKey": "[900,0,1,0]",
+      "value": 3
     },
     "moversSpeedOrigin": {
-      "cacheKey": "[4,6]",
-      "value": 285
+      "cacheKey": "[3,0]",
+      "value": 225
     },
     "moversSpeedDestination": {
-      "cacheKey": "[4,6]",
-      "value": 285
+      "cacheKey": "[3,1]",
+      "value": 213.75
     },
     "parkingZip": {
-      "cacheKey": "[\"01854\",\"01854\"]",
+      "cacheKey": "[\"01581\",\"01581\"]",
       "value": "02132"
     },
     "parkingLatLng": {
-      "cacheKey": "[\"01854\",\"01854\"]"
+      "cacheKey": "[\"01581\",\"01581\"]"
     },
     "ldRateSettings": {
       "cacheKey": "[\"MA\",\"MA\"]"
     },
     "trucksCountWithMin": {
-      "cacheKey": "[1737,1,0,0,0]",
-      "value": 2
+      "cacheKey": "[900,0,5,0,0]",
+      "value": 1
     },
     "deliveryDays": {
-      "cacheKey": "[\"01854\",\"01854\"]",
+      "cacheKey": "[\"01581\",\"01581\"]",
       "value": 1
     },
     "minCubicFeet": {
@@ -208,42 +208,42 @@
       "value": 0
     },
     "workTime": {
-      "cacheKey": "[\"01854\",\"01854\",{\"min\":255,\"max\":465},0]",
+      "cacheKey": "[\"01581\",\"01581\",{\"min\":90,\"max\":120},5]",
       "value": {
-        "min": 270,
-        "max": 480
+        "min": 90,
+        "max": 120
       }
     },
     "travelTime": {
-      "cacheKey": "[0,\"01854\",\"01854\",0.1]",
+      "cacheKey": "[5,\"01581\",\"01581\",0]",
       "value": 90
     },
     "rate": {
-      "cacheKey": "[1717214400,5,2,0,1737,0,0]",
-      "value": 369
+      "cacheKey": "[1719633600,3,1,5,900,0,0]",
+      "value": 239
     },
     "extraDropoffService": {
-      "cacheKey": "[0,\"01854\"]",
+      "cacheKey": "[5,\"01581\"]",
       "value": {
         "rate": 0,
         "visibleName": "Extra Dropoff fee"
       }
     },
     "extraPickupService": {
-      "cacheKey": "[0,\"01854\"]",
+      "cacheKey": "[5,\"01581\"]",
       "value": {
         "rate": 0,
         "visibleName": "Extra pickup fee"
       }
     },
     "equipmentFeeService": {
-      "cacheKey": "[\"01854\",\"01854\",0,279]",
+      "cacheKey": "[\"01581\",\"01581\",5,239]",
       "value": {
         "rate": 0
       }
     },
     "storageService": {
-      "cacheKey": "[false,false,0,1737]",
+      "cacheKey": "[false,false,5,900]",
       "value": {
         "rate": 0,
         "visibleName": "Storage service",
@@ -253,7 +253,7 @@
       }
     },
     "fuel": {
-      "cacheKey": "[1813.5,0,2]",
+      "cacheKey": "[836.5,5,1]",
       "value": {
         "percent": 0,
         "value": 0,
@@ -265,7 +265,7 @@
       "value": 0
     },
     "tax": {
-      "cacheKey": "[\"MA\",\"MA\",0,0,1255.5,1813.5]",
+      "cacheKey": "[\"MA\",\"MA\",5,0,717,836.5]",
       "value": {
         "min": 0,
         "max": 0
@@ -273,11 +273,11 @@
     }
   },
   "reservationPriceExtraValue": 0,
-  "reservationPriceTotal": 200,
-  "totalDistance": 66.8,
+  "reservationPriceTotal": 100,
+  "totalDistance": 61,
   "valuationType": 1,
-  "reservationType": 3,
-  "isReservationAccepted": 1,
+  "reservationType": 0,
+  "isReservationAccepted": 0,
   "rateType": 0,
   "uploadedImages": [],
   "details": {
@@ -300,7 +300,7 @@
     "isTouched": false
   },
   "hasNewDetails": 0,
-  "drivingDistance": 0.4,
+  "drivingDistance": 1,
   "truckDiscount": 0,
   "totalDiscount": 0,
   "deliveryWindowStart": null,
@@ -326,7 +326,7 @@
     "minimumCubicFeet": null,
     "rateAutomations": []
   },
-  "originDestinationDistance": 0.4,
+  "originDestinationDistance": 30.3,
   "deliveryTimeWindowStart": null,
   "deliveryTimeWindowEnd": null,
   "pickUpOnly": 0,
@@ -334,9 +334,9 @@
   "flatRateSubmitted": 0,
   "pairedRequest": null,
   "isMovingFromStorage": 0,
-  "trucksCountWithMin": 2,
+  "trucksCountWithMin": 1,
   "minCubicFeet": 0,
-  "sourceLead": "Google",
+  "sourceLead": "",
   "hasNewImages": 0,
   "deliveryCrewSize": 2,
   "note": "",
@@ -457,42 +457,28 @@
   "reviewFeedback": null,
   "direction": {
     "PO": {
-      "totalDistance": 33.4,
+      "totalDistance": 30.3,
       "totalTime": 40,
       "address": [
         {
           "from": "02132",
-          "to": "01854",
+          "to": "01581",
           "time": 40,
-          "distance": 33.4
+          "distance": 30.3
         }
       ],
       "flatTravelTimeZone": null,
       "flatTravelTime": 0
     },
-    "OD": {
-      "totalDistance": 0.4,
-      "totalTime": 15,
+    "OP": {
+      "totalDistance": 30.7,
+      "totalTime": 39,
       "address": [
         {
-          "from": "01854",
-          "to": "01854",
-          "time": 15,
-          "distance": 0.4
-        }
-      ],
-      "flatTravelTimeZone": null,
-      "flatTravelTime": 0
-    },
-    "DP": {
-      "totalDistance": 33,
-      "totalTime": 43,
-      "address": [
-        {
-          "from": "01854",
+          "from": "01581",
           "to": "02132",
-          "time": 43,
-          "distance": 33
+          "time": 39,
+          "distance": 30.7
         }
       ],
       "flatTravelTimeZone": null,
@@ -525,20 +511,20 @@
   "contractPickupSubmittedDeposit": 0,
   "contractPickupPaymentPercent": 0,
   "client": {
-    "id": 696,
+    "id": 926,
     "tmpID": null,
-    "updatedAt": 1713201407,
-    "createdAt": 1713201407,
-    "firstName": "Debbie",
-    "lastName": "Oneil",
-    "email": "deboneil41@verizon.net",
-    "additionalEmail": null,
+    "updatedAt": 1717285727,
+    "createdAt": 1717285727,
+    "firstName": "Baomin",
+    "lastName": "Wang",
+    "email": "wbmpitt@gmail.com",
+    "additionalEmail": "",
     "password": null,
-    "phone": "+1 508 395 3779",
+    "phone": "+1 412 980 9881",
     "phoneAdditional": "",
     "phoneSms": "",
     "companyName": "",
-    "hashLogin": "4a410d9af2aa1e8ebc7828a4620f6c93688a03739fc38b5b9b145d92dbecfead",
+    "hashLogin": "4f7d0755a4c65fcc3a04b40afec9f773c13a9b2a541bf61b76f122fc10d9b501",
     "avatar": "",
     "active": 1,
     "inHomeEstimator": 0,
@@ -550,7 +536,7 @@
     "ssn": "",
     "address": "",
     "permissions": "{\"canSeeSettingsPage\":false,\"canSeeInvoicesPage\":false,\"canSeeStatisticsPage\":false,\"canAssignUnassignedLeads\":false,\"canEditOtherSalesLeads\":false,\"canEditUnassignedLeads\":false,\"canSeeOtherSalesLeads\":false,\"canSeeUnassignedLeads\":false,\"canSeeOtherSalesNewMessageNotifications\":false}",
-    "settings": "{\"inventoryViewMode\":0,\"requestAlternativeView\":false,\"requestViewMode\":2,\"hideInventoryStartDialogForRequests\":[],\"dailyParklotHorizontalView\":false,\"customTabs\":[],\"lastSeenNewsVersion\":\"\"}",
+    "settings": "{\"inventoryViewMode\":0,\"requestAlternativeView\":false,\"requestViewMode\":2,\"hideInventoryStartDialogForRequests\":[],\"dailyParklotHorizontalView\":false,\"customTabs\":[],\"lastSeenNewsVersion\":\"\",\"locale\":\"\"}",
     "salesGreetingsSettings": "{}",
     "emailSignature": "",
     "smtp": "{\"auth\":{\"user\":\"\",\"pass\":\"\"},\"from\":\"\",\"host\":\"\",\"port\":\"\",\"secure\":false}",
@@ -597,53 +583,23 @@
   "FlagsEntity": [],
   "flags": [],
   "payments": {
-    "rows": [
-      {
-        "id": 419,
-        "entityId": 859,
-        "entityType": "Request",
-        "userId": 696,
-        "type": 1,
-        "amount": 200,
-        "transactionId": "ch_3P5tHYJeHZULduEK13SsnkwE",
-        "paymentProvider": 2,
-        "email": "deboneil41@verizon.net",
-        "invoiceId": null,
-        "data": {
-          "note": null,
-          "cardInfo": {
-            "numberSuffix": "0851",
-            "cardType": "MasterCard"
-          },
-          "autopayment": false
-        },
-        "refunds": [],
-        "refund": false,
-        "isContract": false,
-        "receiptId": null,
-        "isReservation": 1,
-        "updatedAt": 1713201929,
-        "createdAt": 1713201929
-      }
-    ],
+    "rows": [],
     "invoices": [],
-    "total": 200,
+    "total": 0,
     "totalContract": 0
   },
   "parklot": [
     {
-      "status": 2,
+      "status": 0,
       "type": 0,
-      "startTime": 1717070400,
-      "endTime": 1717093800,
-      "entityId": 859,
+      "startTime": 0,
+      "endTime": 12600,
+      "entityId": 1137,
       "listWeight": 0,
       "foreman": null,
-      "id": 981,
-      "ELID": 201408722071,
-      "trucks": [
-        3
-      ],
+      "id": 1294,
+      "ELID": 285728721042,
+      "trucks": [],
       "helpers": []
     }
   ],
@@ -673,16 +629,43 @@
   },
   "movesize": {
     "movesize": {
-      "name": "4 Bedroom House ",
-      "description": "2000+ sq. ft. ",
-      "image": "/files/public/RomaTest/uploadFile/2-bedroo-house.svg",
+      "name": "Large 2 Bedroom  apartment",
+      "description": "1200 - 1900 sq ft",
+      "image": "/files/public/lexelbook/uploadFile/large-2-bedroom.png",
       "crewSizeSettings": [
         [
+          3,
+          3,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        [
+          3,
+          3,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        [
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        [
           5,
           5,
           5,
-          6,
-          6,
+          5,
+          5,
           5,
           5
         ],
@@ -690,92 +673,63 @@
           5,
           5,
           5,
-          6,
-          6,
+          5,
+          5,
           5,
           5
         ],
         [
-          5,
-          5,
-          5,
-          6,
-          6,
-          5,
-          5
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3
         ],
         [
-          6,
-          6,
-          6,
-          6,
-          6,
-          6,
-          6
-        ],
-        [
-          6,
-          6,
-          6,
-          6,
-          6,
-          6,
-          6
-        ],
-        [
-          5,
-          5,
-          5,
-          6,
-          6,
-          5,
-          5
-        ],
-        [
-          5,
-          5,
-          5,
-          6,
-          6,
-          5,
-          5
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3
         ]
       ],
-      "dispersion": 30,
-      "trucksCount": 2,
-      "weight": 12159,
-      "volume": 1737,
+      "dispersion": 15,
+      "trucksCount": 1,
+      "weight": 6300,
+      "volume": 900,
       "volumeWithDispersion": {
-        "min": 1216,
-        "max": 2258
+        "min": 765,
+        "max": 1035
       },
-      "itemsCount": 171,
-      "boxesCount": 72,
-      "orderWeight": 11,
-      "id": 242,
-      "ELID": 2335987691810584,
+      "itemsCount": 98,
+      "boxesCount": 38,
+      "orderWeight": 6,
+      "id": 237,
+      "ELID": 3204808426322366,
       "defaultRooms": [
-        394,
-        409,
-        410,
-        428,
-        452,
-        456,
-        505,
-        515,
-        518
+        291,
+        425,
+        437,
+        442,
+        501,
+        507
       ],
       "suggestedRooms": [
-        399,
-        400,
-        401,
-        446
+        298,
+        348,
+        434,
+        436,
+        521
       ]
     },
     "selectedSuggestedRooms": [],
-    "totalItems": 171,
-    "totalBoxes": 72,
-    "totalVolume": 1737
+    "totalItems": 98,
+    "totalBoxes": 38,
+    "totalVolume": 900
   },
   "contractMovesize": {}
 }

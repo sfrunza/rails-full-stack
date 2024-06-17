@@ -66,19 +66,23 @@ class Request < ApplicationRecord
   # end
   #
   def calculate_total_time
+    min_total_time = self.min_total_time.to_i
     travel_time_minutes = travel_time.to_i
     work_time_min_minutes = work_time["min"].to_i
     work_time_max_minutes = work_time["max"].to_i
 
     # Calculate total time in minutes
-    total_minutes_min = [120, travel_time_minutes + work_time_min_minutes].max
+    total_minutes_min = [
+      min_total_time,
+      travel_time_minutes + work_time_min_minutes
+    ].max
     total_minutes_max = travel_time_minutes + work_time_max_minutes
 
     # If work_time['max'] is 0, set total_time['max'] to 0
-    total_minutes_max = 0 if total_minutes_max <= 120
+    total_minutes_max = 0 if total_minutes_max <= min_total_time
 
-    # Ensure total_minutes_max is at least 120 minutes
-    # total_minutes_max = [total_minutes_max, 120].max
+    # Ensure total_minutes_max is at least min_total_time minutes
+    # total_minutes_max = [total_minutes_max, min_total_time].max
 
     self.total_time = { min: total_minutes_min, max: total_minutes_max }
   end

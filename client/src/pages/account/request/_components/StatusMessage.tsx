@@ -23,11 +23,17 @@ export default function StatusMessage() {
             <p className="text-sm text-muted-foreground">Moving Assistant</p>
             <p className="text-sm text-muted-foreground">(617) 991-3552</p>
           </div>
-          <Button
+          {/* <Button
             asChild
             size="icon"
             variant="outline"
             className="size-12 rounded-full text-green-600 hover:text-green-700"
+          > */}
+          <Button
+            asChild
+            size="icon"
+            variant="ghost"
+            className="shadow-icon size-12 rounded-full border-none bg-background text-green-600 hover:bg-background hover:text-green-700"
           >
             <a href="tel:(617)9913552">
               <PhoneCallIcon className="size-6" />

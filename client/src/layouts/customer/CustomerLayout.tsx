@@ -1,23 +1,17 @@
-import useSWR from "swr";
+import logo from "@/assets/logos/mono-logo.png";
+import FormSubmitButton from "@/components/FormSubmitButton";
+import useAuth from "@/hooks/useAuth";
 import { LogOutIcon } from "lucide-react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { logoutUser } from "@/slices/auth";
-import { useDispatch, useSelector } from "@/store";
-import { Button } from "@/components/ui/button";
+import useSWR from "swr";
 import SideBar from "./_components/SideBar";
 import { SideBarMobile } from "./_components/SideBarMobile";
-import logo from "@/assets/logos/mono-logo.png";
 
 export default function CustomerLayout() {
   let location = useLocation();
-  const dispatch = useDispatch();
-  const { isLoggingOut, user } = useSelector((state) => state.auth);
+  const { user, isLoading, logout } = useAuth();
 
   const { data } = useSWR(user ? `/client_requests` : null);
-
-  function logOutUser() {
-    dispatch(logoutUser());
-  }
 
   if (!localStorage.token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -46,16 +40,21 @@ export default function CustomerLayout() {
                 </a>
               </li>
               <li>
-                <Button
-                  onClick={logOutUser}
-                  className="flex cursor-pointer items-center text-muted"
-                  disabled={isLoggingOut}
-                  size="sm"
+                <FormSubmitButton
                   variant="ghost"
-                >
-                  <LogOutIcon className="mr-2 h-4 w-4" />
-                  Log out
-                </Button>
+                  type="button"
+                  size="sm"
+                  className="flex cursor-pointer items-center text-muted"
+                  onClick={logout}
+                  disabled={isLoading}
+                  isPending={isLoading}
+                  label={
+                    <>
+                      {!isLoading && <LogOutIcon className="mr-2 size-4" />}
+                      Log out
+                    </>
+                  }
+                />
               </li>
             </div>
           </ul>

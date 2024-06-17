@@ -21,6 +21,7 @@ export type TFullRequest = {
     min: number,
     max: number,
   },
+  min_total_time: number;
   details: {
     delicate_items_question_answer: string,
     bulky_items_question_answer: string,
@@ -62,14 +63,14 @@ export type TAddress = {
   city: string;
   state: string;
   zip: string;
-  apt: string;
+  apt?: string;
   floor: string;
   location: google.maps.LatLng | google.maps.LatLngLiteral
 }
 
 export type TStop = TAddress & {
-  isPickup: boolean;
-  isDropoff: boolean;
+  isPickup?: boolean;
+  isDropoff?: boolean;
 };
 
 export type TCustomer = {

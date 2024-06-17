@@ -12,7 +12,4 @@ class User < ApplicationRecord
             email: true
 
   has_many :requests, foreign_key: "customer_id"
-
-  audited
-  has_associated_audits
 end

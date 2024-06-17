@@ -53,8 +53,19 @@ export default function Request() {
           dispatch(setRequest(data));
           dispatch(setOriginalRequest(data));
         },
+        ensureActiveConnection() {
+          console.log("sukaaaa");
+        },
       },
     );
+
+    // toast.error("Error fetching request");
+
+    // cable.ensureActiveConnection(() => {
+    //   console.log("Reconnecting to RequestChannel");
+    //   channel.perform("subscribe");
+
+    // });
 
     return () => {
       // Unsubscribe from the channel when component unmounts
@@ -82,13 +93,16 @@ export default function Request() {
   return (
     <div>
       <div className="flex items-baseline justify-between p-4 pr-2 md:items-center md:p-6 md:pr-4">
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-8">
           <h1 className="text-lg font-semibold">{fullName}</h1>
-          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+          <a
+            href={`tel:${request?.customer?.phone || "#"}`}
+            className="flex items-center gap-4 text-sm text-primary"
+          >
             <PhoneCallIcon className="size-4" />
             {request?.customer?.phone ?? "---------"}
-          </p>
-          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+          </a>
+          <p className="flex items-center gap-4 text-sm text-muted-foreground">
             <MailIcon className="size-4" />
             {request?.customer?.email ?? "---------"}
           </p>

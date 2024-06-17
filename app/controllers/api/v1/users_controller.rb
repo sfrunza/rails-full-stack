@@ -1,20 +1,18 @@
 # User Constroller
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: %i[show update destroy]
+  before_action :set_user, only: %i[show update update_password destroy]
 
   # GET /users
   def index
-    @users = User.where(role: "customer")
-
+    @users = User.all
     render json: @users
   end
 
   # GET /users/1
   def show
-    user = User.find(params[:id])
-    if user
-      render json: user
+    if @user.present?
+      render json: @user
     else
       render json: { error: "User could not be found." }
     end
@@ -46,8 +44,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update_password
-    user = User.find(params[:user_id])
-    if user.update(password: params[:password])
+    if @user.update(password: params[:password])
       render json: { message: "Password updated successfully" }, status: :ok
     else
       render json: {

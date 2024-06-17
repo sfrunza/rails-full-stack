@@ -1,3 +1,4 @@
+import FormSubmitButton from "@/components/FormSubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -20,8 +21,8 @@ import { useDispatch, useSelector } from "@/store";
 import { TStatus } from "@/types/request";
 import {
   BookCopyIcon,
-  LoaderCircleIcon,
   MailsIcon,
+  PrinterIcon,
   UserRoundIcon,
 } from "lucide-react";
 
@@ -128,20 +129,33 @@ export default function StatusServiceSection() {
                 <TooltipContent>Clone request</TooltipContent>
               </Tooltip>
             </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="size-11 rounded-full hover:bg-background hover:text-primary"
+                  >
+                    <PrinterIcon className="size-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>View PDF</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
         {isChanged && (
-          <Button
+          <FormSubmitButton
             size="lg"
-            className="absolute -left-1/2 -right-1/2 bottom-0 z-50 h-14 w-auto md:static md:bottom-0 md:right-0 md:ml-auto md:mt-0"
+            type="button"
             onClick={() => handleUpdateRequest()}
             disabled={isSaving}
-          >
-            {isSaving && (
-              <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Update request
-          </Button>
+            isPending={isSaving}
+            label="Update request"
+            className="absolute -left-1/2 -right-1/2 bottom-0 z-50 h-14 w-auto md:static md:bottom-0 md:right-0 md:ml-auto md:mt-0 md:h-11"
+          />
         )}
       </div>
     </div>

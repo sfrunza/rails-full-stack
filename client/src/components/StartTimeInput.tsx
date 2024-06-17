@@ -4,10 +4,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from './ui/separator';
-import { XIcon } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/select";
+import { Separator } from "./ui/separator";
+import { XIcon } from "lucide-react";
+import { useState } from "react";
 
 function generateTimeOptions() {
   const options = [];
@@ -20,8 +20,8 @@ function generateTimeOptions() {
   for (let i = 0; i < 16 * 2; i++) {
     const time = new Date(startTime.getTime() + i * 30 * 60 * 1000);
     const formattedTime = time.toLocaleTimeString([], {
-      hour: 'numeric',
-      minute: '2-digit',
+      hour: "numeric",
+      minute: "2-digit",
     });
     options.push({ value: formattedTime, label: formattedTime });
   }
@@ -29,7 +29,7 @@ function generateTimeOptions() {
 }
 
 export default function StartTimeInput() {
-  const [startTime, setStartTime] = useState({ start: '', end: '' });
+  const [startTime, setStartTime] = useState({ start: "", end: "" });
 
   // function handleStartTimeChange(val: string) {
   //   setStartTime({ ...startTime, start: val });
@@ -43,9 +43,9 @@ export default function StartTimeInput() {
   return (
     <div className="flex w-full gap-[1px] rounded-md border shadow-sm">
       <Select
-        defaultValue={startTime.start}
+        value={startTime.start}
         onValueChange={(val: string) => {
-          console.log(startTime.end);
+          // console.log(startTime.end);
           if (!startTime.end.length) {
             setStartTime((prev) => ({ ...prev, start: val, end: val }));
           } else {
@@ -55,7 +55,7 @@ export default function StartTimeInput() {
       >
         <SelectTrigger
           id="startTime"
-          className="rounded-r-none border-none shadow-none"
+          className="min-w-24 rounded-r-none border-none shadow-none"
         >
           <SelectValue />
         </SelectTrigger>
@@ -69,24 +69,22 @@ export default function StartTimeInput() {
       </Select>
       <Separator className="h-9" orientation="vertical" />
       <Select
-        // defaultValue={startTime.end}
-        onValueChange={() => {
-          handleEndTimeChange('');
-          return undefined;
-          // setStartTime({ ...startTime, end: "" });
+        value={startTime.end}
+        onValueChange={(val: string) => {
+          setStartTime((prev) => ({ ...prev, end: val }));
         }}
       >
         <div className="relative flex w-full items-center">
-          <SelectTrigger className="rounded-l-none border-none shadow-none">
-            <SelectValue placeholder="sad" />
+          <SelectTrigger className="min-w-24 rounded-l-none border-none shadow-none">
+            <SelectValue />
           </SelectTrigger>
 
           <XIcon
             onClick={(e) => {
               e.stopPropagation();
-              handleEndTimeChange('');
+              handleEndTimeChange("");
               setStartTime((prev) => {
-                return { ...prev, end: '' };
+                return { ...prev, end: "" };
               });
             }}
             className="absolute right-0 size-4 cursor-pointer opacity-50 hover:opacity-100"
@@ -94,7 +92,7 @@ export default function StartTimeInput() {
         </div>
         <SelectContent>
           {generateTimeOptions().map((option, i) => (
-            <SelectItem key={i} value={option.value ?? ''}>
+            <SelectItem key={i} value={option.value ?? ""}>
               {option.label}
             </SelectItem>
           ))}

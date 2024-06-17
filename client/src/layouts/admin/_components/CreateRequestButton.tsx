@@ -1,4 +1,4 @@
-import { createRequest } from "@/actions/requests";
+import { createRequestAction } from "@/actions/requests";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +22,7 @@ export function CreateRequestButton() {
   function handleCreateRequest(serviceId: number) {
     if (!serviceId) return;
     setIsCreating(true);
-    createRequest(serviceId)
+    createRequestAction(serviceId)
       .then((res) => {
         if (res?.error) {
           toast.error(res.error);

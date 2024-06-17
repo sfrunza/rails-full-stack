@@ -1,4 +1,4 @@
-import { updateRequest } from "@/actions/requests";
+import { updateRequestAction } from "@/actions/requests";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -74,7 +74,7 @@ export default function CustomerTab() {
         toast.error(JSON.stringify(data.error));
       } else {
         toast.success("Customer saved");
-        updateRequest(request?.id, { customer_id: data.user.id });
+        updateRequestAction(request?.id, { customer_id: data.user.id });
         dispatch(setRequest({ customer: data.user }));
         dispatch(setOriginalRequest({ ...request, customer: data.user }));
       }

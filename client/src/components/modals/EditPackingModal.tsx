@@ -20,7 +20,7 @@ import useUpdateRequest from "@/hooks/useUpdateRequest";
 import { cn } from "@/lib/utils";
 import { useSelector } from "@/store";
 import { useEffect, useRef } from "react";
-import { LoaderCircleIcon } from "lucide-react";
+import FormSubmitButton from "../FormSubmitButton";
 
 const FormDataSchema = z.object({
   packing_id: z.string(),
@@ -136,12 +136,11 @@ export function EditPackingModal() {
               />
             </ScrollArea>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving || !form.formState.isDirty}>
-                {isSaving && (
-                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Save changes
-              </Button>
+              <FormSubmitButton
+                disabled={isSaving || !form.formState.isDirty}
+                isPending={isSaving}
+                label="Save changes"
+              />
             </DialogFooter>
           </form>
         </Form>

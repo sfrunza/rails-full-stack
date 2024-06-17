@@ -1,12 +1,12 @@
-import { deleteService, updateServicesOrder } from '@/actions/services';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { GripVerticalIcon, Trash2Icon } from 'lucide-react';
-import { useState } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
-import toast from 'react-hot-toast';
-import { setServices } from '@/slices/globalSetting';
-import { useDispatch } from '@/store';
+import { deleteService, updateServicesOrder } from "@/actions/services";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { GripVerticalIcon, LoaderCircleIcon, Trash2Icon } from "lucide-react";
+import { useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
+import toast from "react-hot-toast";
+import { setServices } from "@/slices/globalSetting";
+import { useDispatch } from "@/store";
 
 export default function ListItem({
   draggableId,
@@ -30,18 +30,18 @@ export default function ListItem({
     if (!id) return;
     setIsDeleting(true);
     deleteService(id)
-      .then((res) => {
-        if (res?.error) {
-          toast.error(res.error);
+      .then((response) => {
+        if (response?.error) {
+          toast.error(response.error);
           return;
         }
-        toast.success(res?.success);
         const newItems = items?.filter((item) => item.id !== id);
+        setItems(newItems);
+        toast.success(response?.success);
         updateServicesOrder(newItems!).then((res) => {
           if (res?.error) {
             return;
           }
-          setItems(newItems);
           dispatch(setServices(newItems));
         });
       })
@@ -75,7 +75,10 @@ export default function ListItem({
               }}
               disabled={isDeleting}
             >
-              <Trash2Icon className="size-4 md:mr-2" />
+              {isDeleting && (
+                <LoaderCircleIcon className="size-4 animate-spin md:mr-2" />
+              )}
+              {!isDeleting && <Trash2Icon className="size-4 md:mr-2" />}
               <span className="hidden md:flex">Remove</span>
             </Button>
           </div>

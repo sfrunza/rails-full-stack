@@ -6,6 +6,7 @@ import { z } from "zod";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -13,27 +14,25 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// import { useSelector, useDispatch } from 'store';
 import FormSubmitButton from "@/components/FormSubmitButton";
-import { loginUser } from "@/slices/auth";
-import { useDispatch, useSelector } from "@/store";
+import useAuth from "@/hooks/useAuth";
 
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
-export default function AdminLogin() {
-  let { isLoggingIn } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+type Inputs = z.infer<typeof formSchema>;
 
-  const form = useForm<z.infer<typeof formSchema>>({
+export default function AdminLogin() {
+  const { isLoading, login } = useAuth();
+
+  const form = useForm<Inputs>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -41,30 +40,23 @@ export default function AdminLogin() {
     },
   });
 
-  function onSubmit(values: any) {
-    const { email, password } = values;
-    const data = { email, password };
-    dispatch(loginUser(data));
+  function onSubmit(values: Inputs) {
+    login(values);
   }
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <Card className="mx-auto w-full max-w-96">
+      <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle>Log in</CardTitle>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
+          </CardDescription>
         </CardHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <CardContent className="space-y-4">
-              {/* {error && (
-                <FormItem>
-                  <FormLabel></FormLabel>
-                  <FormControl>
-                    <FormMessage type="error">{error}</FormMessage>
-                  </FormControl>
-                </FormItem>
-              )} */}
               <FormField
                 control={form.control}
                 name="email"
@@ -82,19 +74,29 @@ export default function AdminLogin() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <div className="flex items-center">
+                      <FormLabel>Password</FormLabel>
+                      <Link
+                        to="#"
+                        className="ml-auto inline-block text-sm underline"
+                      >
+                        Forgot your password?
+                      </Link>
+                    </div>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
               />
-              <FormDescription>
-                <Link to="/forgot-password">Forgot password?</Link>
-              </FormDescription>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <FormSubmitButton isPending={isLoggingIn} label="Log in" />
+              <FormSubmitButton
+                disabled={isLoading}
+                isPending={isLoading}
+                label="Log in"
+                className="w-full"
+              />
             </CardFooter>
           </form>
         </Form>

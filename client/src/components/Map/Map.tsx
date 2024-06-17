@@ -1,34 +1,31 @@
-import {
-  DirectionsRenderer,
-  GoogleMap,
-  LoadScriptProps,
-  Marker,
-  useLoadScript,
-} from "@react-google-maps/api";
-import { memo, useEffect, useState } from "react";
-import markerRed from "@/assets/marker-red-2.jpeg";
-import markerGreen from "@/assets/marker-green-2.jpeg";
 import markerBlue from "@/assets/marker-blue-2.jpeg";
+import markerGreen from "@/assets/marker-green-2.jpeg";
+import markerRed from "@/assets/marker-red-2.jpeg";
+import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
+import { memo, useEffect, useState } from "react";
 
-import mapStyles from "./mapStyles";
+import { cn } from "@/lib/utils";
 import { useSelector } from "@/store";
 import { TAddress } from "@/types/request";
+import mapStyles from "./mapStyles";
 
-const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
+// const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
 
 function calculateMapCenter(
   origin: TAddress,
   destination: TAddress,
 ): google.maps.LatLng | google.maps.LatLngLiteral | undefined {
-  if (origin.city) {
+  if (!origin || !destination) return undefined;
+  if (!origin.city && !destination.city) return undefined;
+  if (origin.city && !destination.city) {
     return origin.location;
-  } else if (destination.city) {
+  } else if (destination.city && !origin.city) {
     return destination.location;
   }
   return undefined;
 }
 
-const libraries = ["places"];
+// const libraries = ["places"];
 
 const convertTime = (value: number) => {
   value = Number(value);
@@ -40,14 +37,16 @@ const convertTime = (value: number) => {
   return hDisplay + mDisplay;
 };
 
-const Map = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: API_KEY,
-    libraries: libraries as LoadScriptProps["libraries"],
-  });
+const Map = ({ className }: { className?: string }) => {
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: API_KEY,
+  //   libraries: libraries as LoadScriptProps["libraries"],
+  // });
   const { request } = useSelector((state) => state.request);
 
   const { origin, destination, stops } = request!;
+
+  const isLoaded = google.maps.DirectionsService ? true : false;
 
   const [directionsResult, setDirectionsResult] =
     useState<google.maps.DirectionsResult | null>(null);
@@ -91,7 +90,12 @@ const Map = () => {
   }
 
   return (
-    <div className="relative flex h-52 w-full flex-col items-center justify-center gap-1 lg:h-full">
+    <div
+      className={cn(
+        "relative flex h-52 w-full flex-col items-center justify-center gap-1 lg:h-full",
+        className,
+      )}
+    >
       {isLoaded && (
         <GoogleMap
           center={calculateMapCenter(origin, destination)}

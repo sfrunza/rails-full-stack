@@ -1,7 +1,7 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { addPacking, updatePacking } from '@/actions/packings';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { addPacking, updatePacking } from "@/actions/packings";
 // import TrumbowygEditor from '@/components/TrumbowygEditor';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -17,16 +17,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { PencilLineIcon, PlusIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { setPackings } from '@/slices/globalSetting';
-import { useDispatch, useSelector } from '@/store';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { PencilLineIcon, PlusIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { setPackings } from "@/slices/globalSetting";
+import { useDispatch, useSelector } from "@/store";
+import { z } from "zod";
+import FormSubmitButton from "@/components/FormSubmitButton";
 
 const formSchema = z.object({
   name: z.string().min(10),
@@ -55,19 +56,19 @@ export default function PackingForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    reValidateMode: 'onBlur',
+    reValidateMode: "onBlur",
     defaultValues: {
-      name: data?.name || '',
-      description: data?.description || '',
-      laborIcrease: data?.labor_increase.toString() || '',
+      name: data?.name || "",
+      description: data?.description || "",
+      laborIcrease: data?.labor_increase.toString() || "",
     },
   });
 
   useEffect(() => {
     if (data) {
-      form.setValue('name', data.name);
-      form.setValue('description', data.description);
-      form.setValue('laborIcrease', data.labor_increase.toString());
+      form.setValue("name", data.name);
+      form.setValue("description", data.description);
+      form.setValue("laborIcrease", data.labor_increase.toString());
     }
   }, [data]);
 
@@ -106,7 +107,7 @@ export default function PackingForm({
                 description: newPacking.description,
                 labor_increase: newPacking.labor_increase,
               }
-            : item
+            : item,
         );
         // setItems(newPackingList);
         dispatch(setPackings(newPackingList));
@@ -165,7 +166,7 @@ export default function PackingForm({
       </DialogTrigger>
       <DialogContent className="flex h-full flex-col overflow-hidden p-0 sm:h-[90vh]">
         <DialogHeader className="p-6 pb-0">
-          <DialogTitle>{data ? 'Edit' : 'Add'} packing service</DialogTitle>
+          <DialogTitle>{data ? "Edit" : "Add"} packing service</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -225,13 +226,18 @@ export default function PackingForm({
               </div>
             </ScrollArea>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button
+              {/* <Button
                 type="submit"
                 disabled={isLoading}
                 className="lg:w-[10rem]"
               >
                 Save changes
-              </Button>
+              </Button> */}
+              <FormSubmitButton
+                disabled={isLoading || !form.formState.isDirty}
+                isPending={isLoading}
+                label="Save changes"
+              />
             </DialogFooter>
           </form>
         </Form>

@@ -1,9 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Clock8Icon, LoaderCircleIcon } from "lucide-react";
+import { Clock8Icon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useModal } from "@/hooks/useModal";
 import useUpdateRequest from "@/hooks/useUpdateRequest";
 import { cn } from "@/lib/utils";
+import FormSubmitButton from "../FormSubmitButton";
 // import { start } from "repl";
 
 // const timeWindows = ["Any time", "8AM", "11AM-2PM", "1PM-4PM", "3PM-6PM"];
@@ -149,12 +149,11 @@ export const EditTimeModal = () => {
               />
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving || !form.formState.isDirty}>
-                {isSaving && (
-                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Save changes
-              </Button>
+              <FormSubmitButton
+                disabled={isSaving || !form.formState.isDirty}
+                isPending={isSaving}
+                label="Save changes"
+              />
             </DialogFooter>
           </form>
         </Form>

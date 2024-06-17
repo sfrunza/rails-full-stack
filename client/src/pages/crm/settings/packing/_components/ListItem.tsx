@@ -1,13 +1,13 @@
-import { deletePacking, updatePackingsOrder } from '@/actions/packings';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { GripVerticalIcon, Trash2Icon } from 'lucide-react';
-import { forwardRef, useState } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
-import toast from 'react-hot-toast';
-import { setPackings } from '@/slices/globalSetting';
-import { useDispatch } from '@/store';
-import PackingForm from './PackingForm';
+import { deletePacking, updatePackingsOrder } from "@/actions/packings";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { GripVerticalIcon, LoaderCircleIcon, Trash2Icon } from "lucide-react";
+import { forwardRef, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
+import toast from "react-hot-toast";
+import { setPackings } from "@/slices/globalSetting";
+import { useDispatch } from "@/store";
+import PackingForm from "./PackingForm";
 
 export default function ListItem({
   draggableId,
@@ -38,13 +38,13 @@ export default function ListItem({
         }
         const newItems = items?.filter((item) => item.id !== id);
         setItems(newItems);
+        toast.success(res?.success);
         updatePackingsOrder(newItems!).then((res) => {
           if (res?.error) {
             return;
           }
           dispatch(setPackings(newItems));
         });
-        toast.success(res?.success);
       })
       .finally(() => setIsDeleting(false));
   }
@@ -107,9 +107,9 @@ const RednderData = forwardRef<Ref, Props>(
       setItems,
       items,
     },
-    ref
+    ref,
   ) => {
-    const deleteButtonLabel = isDefalut ? 'Default' : 'Remove';
+    const deleteButtonLabel = isDefalut ? "Default" : "Remove";
 
     return (
       <div
@@ -132,19 +132,24 @@ const RednderData = forwardRef<Ref, Props>(
                 handleDeletePacking(item.id);
               }}
               disabled={isDeleting || isDefalut}
-              className={cn(isDefalut && 'hover:bg-transparent')}
+              className={cn(isDefalut && "hover:bg-transparent")}
             >
-              <Trash2Icon
-                className={cn(
-                  'size-4 md:mr-2',
-                  isDefalut && 'opacity-0 md:mr-3'
-                )}
-              />
+              {isDeleting && (
+                <LoaderCircleIcon className="size-4 animate-spin md:mr-2" />
+              )}
+              {!isDeleting && (
+                <Trash2Icon
+                  className={cn(
+                    "size-4 md:mr-2",
+                    isDefalut && "opacity-0 md:mr-3",
+                  )}
+                />
+              )}
               <span className="hidden md:flex">{deleteButtonLabel}</span>
             </Button>
           </div>
         </div>
       </div>
     );
-  }
+  },
 );

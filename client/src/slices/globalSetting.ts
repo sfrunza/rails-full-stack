@@ -4,10 +4,16 @@ import { getServices } from '@/actions/services';
 import { TPacking } from '@/types/packing';
 import { TService } from '@/types/service';
 
+type TInilitialState = {
+  services: TService[] | [],
+  packings: TPacking[] | [],
+}
+
+
 const initialState = {
   services: [] as TService[],
   packings: [] as TPacking[],
-};
+} as TInilitialState;
 
 const slice = createSlice({
   name: 'globalSettings',

@@ -1,3 +1,4 @@
+import FormSubmitButton from "@/components/FormSubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import useUpdateRequest from "@/hooks/useUpdateRequest";
 import { useSelector } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircleIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -174,7 +174,7 @@ export default function DetailsTab() {
               />
             </div>
           </div>
-          <div className="flex justify-end gap-4 pt-6">
+          <div className="flex justify-end gap-4 py-6">
             <Button
               type="button"
               onClick={() => {
@@ -184,13 +184,11 @@ export default function DetailsTab() {
             >
               Cancel
             </Button>
-            <Button disabled={isSaving || !form.formState.isDirty}>
-              {isSaving && (
-                <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Save changes
-            </Button>
-            {/* <Button disabled={isSaving}>Save changes</Button> */}
+            <FormSubmitButton
+              disabled={isSaving || !form.formState.isDirty}
+              isPending={isSaving}
+              label="Save changes"
+            />
           </div>
         </form>
       </Form>

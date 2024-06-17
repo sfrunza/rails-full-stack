@@ -1,10 +1,9 @@
-import { LoaderCircleIcon, MapPinIcon } from "lucide-react";
+import { MapPinIcon } from "lucide-react";
 
 import {
   AutoCompleteInput,
   TAutocompleteData,
 } from "@/components/AutoCompleteInput";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Dialog,
@@ -35,8 +34,9 @@ import { useSelector } from "@/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import FormSubmitButton from "../FormSubmitButton";
 
-export const FormDataSchema = z.object({
+export const formSchema = z.object({
   street: z.string().min(1),
   city: z.string().min(1),
   state: z.string().min(1),
@@ -47,20 +47,17 @@ export const FormDataSchema = z.object({
   isDropoff: z.boolean(),
   type: z.string().min(1),
   fullAddress: z.string().min(1),
-  location: z
-    .object({
-      lat: z.number().optional(),
-      lng: z.number().optional(),
-    })
-    .optional(),
+  location: z.custom<google.maps.LatLng | google.maps.LatLngLiteral>(),
 });
 
-export type Inputs = z.infer<typeof FormDataSchema>;
+export type Inputs = z.infer<typeof formSchema>;
 
 export function EditStopModal() {
   const { request } = useSelector((state) => state.request);
   const { isModalOpen, closeModal, getModalData } = useModal();
   const { isSaving, updateRequestHandler } = useUpdateRequest();
+
+  const isLoaded = google.maps.places.AutocompleteService ? true : false;
 
   const { stops } = request!;
   const { stop } = getModalData("editStop");
@@ -73,7 +70,7 @@ export function EditStopModal() {
   ];
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(FormDataSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       street: stop?.street || "",
       city: stop?.city || "",
@@ -93,16 +90,18 @@ export function EditStopModal() {
     },
   });
 
-  function getNewAddress(newData: TAutocompleteData) {
-    form.setValue("street", newData.street!);
-    form.setValue("city", newData.city!);
-    form.setValue("state", newData.state!);
-    form.setValue("zip", newData.zip!);
-    form.setValue("location", newData.location!);
-    form.setValue("fullAddress", newData.fullAddress!);
+  function getNewAddress(d: TAutocompleteData) {
+    form.setValue("street", d.street);
+    form.setValue("city", d.city);
+    form.setValue("state", d.state);
+    form.setValue("zip", d.zip);
+    form.setValue("location", d.location);
+    form.setValue("fullAddress", d.fullAddress);
   }
 
-  function _onSubmit(newData: any) {
+  function _onSubmit(newData: Inputs) {
+    if (!newData) return;
+
     const newStop = {
       street: newData.street,
       city: newData.city,
@@ -137,6 +136,8 @@ export function EditStopModal() {
     closeModal("editStop");
   };
 
+  console.log("stop", form.formState.isDirty);
+
   return (
     <Dialog open={isModalOpen("editStop")} onOpenChange={handleClose}>
       <DialogContent
@@ -163,13 +164,56 @@ export function EditStopModal() {
             className="flex flex-1 flex-col justify-between overflow-hidden"
           >
             <div className="px-4 pb-6 sm:px-6">
-              <Card className="border shadow-none">
+              <Card className="space-y-4 overflow-hidden border shadow-none">
                 <CardHeader className="bg-slate-100 p-4">
                   <div className="grid grid-cols-5 items-start text-sm">
                     <div className="col-span-2 flex items-center gap-3">
                       <MapPinIcon className="size-5 text-blue-600" />
-                      <Select
+                      <FormField
+                        control={form.control}
+                        name="type"
+                        render={({ field }) => (
+                          <FormItem>
+                            <Select
+                              value={field.value}
+                              onValueChange={(val) => {
+                                field.onChange(val);
+                                if (val === "Pick up") {
+                                  form.setValue("isPickup", true);
+                                  form.setValue("isDropoff", false);
+                                } else {
+                                  form.setValue("isPickup", false);
+                                  form.setValue("isDropoff", true);
+                                }
+                              }}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="bg-white">
+                                  <SelectValue placeholder="Select..." />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem
+                                  value="Pick up"
+                                  className="hover:cursor-pointer"
+                                >
+                                  Pick up
+                                </SelectItem>
+                                <SelectItem
+                                  value="Drop off"
+                                  className="hover:cursor-pointer"
+                                >
+                                  Drop off
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                      {/* <Select
                         onValueChange={(val) => {
+                          console.log(val);
+                          form.setValue("type", val);
                           if (val === "Pick up") {
                             form.setValue("isPickup", true);
                             form.setValue("isDropoff", false);
@@ -178,10 +222,10 @@ export function EditStopModal() {
                             form.setValue("isDropoff", true);
                           }
                         }}
-                        defaultValue={form.getValues("type")}
+                        value={form.getValues("type")}
                       >
                         <SelectTrigger className="bg-white">
-                          <SelectValue placeholder="Select floor" />
+                          <SelectValue placeholder="Select..." />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem
@@ -197,7 +241,7 @@ export function EditStopModal() {
                             Drop off
                           </SelectItem>
                         </SelectContent>
-                      </Select>
+                      </Select> */}
                     </div>
                     <p className="col-span-3 text-right">
                       <span className="font-semibold">{st}</span>
@@ -206,84 +250,155 @@ export function EditStopModal() {
                     </p>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4 py-6">
-                  <FormField
-                    control={form.control}
-                    name="fullAddress"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Address</FormLabel>
-                        <FormControl>
-                          <AutoCompleteInput
-                            {...field}
-                            value={field.value}
-                            getAddress={getNewAddress}
-                            placeholder="Full Address"
-                            title="Please enter your Full Address"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="apt"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Apartment</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Apt. (optional)"
-                            title="Please enter your Apartment"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="floor"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Floor</FormLabel>
-                        <Select
-                          onValueChange={(val) => {
-                            field.onChange(val);
-                          }}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select floor" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {floorOptions.map((item, i) => (
-                              <SelectItem
-                                key={i}
-                                value={item.value}
-                                className="hover:cursor-pointer"
-                                disabled={item.value === "5th floor"}
-                              >
-                                {item.value}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
-                  />
+                <CardContent>
+                  <div className="grid grid-cols-6 gap-4">
+                    <div className="col-span-4">
+                      <FormField
+                        control={form.control}
+                        name="street"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Address</FormLabel>
+                            <FormControl>
+                              {isLoaded ? (
+                                <AutoCompleteInput
+                                  {...field}
+                                  value={field.value ?? ""}
+                                  getAddress={getNewAddress}
+                                  placeholder="Full Address"
+                                  title="Please enter your Full Address"
+                                />
+                              ) : (
+                                <Input
+                                  {...field}
+                                  value={field.value || ""}
+                                  placeholder="Address"
+                                  title="Please enter your Full Address"
+                                />
+                              )}
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="apt"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Apartment</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                value={field.value || ""}
+                                placeholder="Apt. (optional)"
+                                title="Please enter your Apartment"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>City</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="City"
+                                title="Please enter your City"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="state"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>State</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="State"
+                                title="Please enter your State"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <FormField
+                        control={form.control}
+                        name="zip"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>ZIP</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                placeholder="ZIP"
+                                title="Please enter your Zip"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="col-span-3">
+                      <FormField
+                        control={form.control}
+                        name="floor"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Floor</FormLabel>
+                            <Select
+                              value={field.value}
+                              onValueChange={(val) => {
+                                field.onChange(val);
+                              }}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select floor" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {floorOptions.map((item, i) => (
+                                  <SelectItem
+                                    key={i}
+                                    value={item.value}
+                                    className="hover:cursor-pointer"
+                                    disabled={item.value === "5th floor"}
+                                  >
+                                    {item.value}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
             <DialogFooter className="flex justify-end bg-muted p-6">
-              <Button disabled={isSaving}>
-                {isSaving && (
-                  <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Save changes
-              </Button>
+              <FormSubmitButton
+                disabled={isSaving || !form.formState.isDirty}
+                isPending={isSaving}
+                label="Save changes"
+              />
             </DialogFooter>
           </form>
         </Form>

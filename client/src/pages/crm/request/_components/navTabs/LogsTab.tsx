@@ -4,9 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { formatDate, formatMoney } from "@/lib/utils";
 // import { Card, CardContent } from "@/components/ui/card";
 // import { TStop } from "@/types/request";
 import { format } from "date-fns";
+import { CircleCheckBigIcon } from "lucide-react";
 import useSWR from "swr";
 
 // function isArrayOfStrings(obj: { [key: string]: string[] }, key: string) {
@@ -43,6 +45,8 @@ type TLog = {
 export default function LogsTab({ requestId }: { requestId: number }) {
   const { data, error } = useSWR<TLog[]>(`/requests/${requestId}/versions`);
 
+  console.log(data);
+
   return (
     <div className="space-y-4 p-4 md:p-6">
       {error && <div>{error.message}</div>}
@@ -62,10 +66,11 @@ export default function LogsTab({ requestId }: { requestId: number }) {
                     </span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="p-2">
-                  <pre className="text-xs">
-                    {JSON.stringify(version.audited_changes, null, 2)}
-                  </pre>
+                <AccordionContent>
+                  {/* <pre className="text-xs"> */}
+                  {JSON.stringify(version.audited_changes, null, 2)}
+                  <DisplayChanges data={version.audited_changes} />
+                  {/* </pre> */}
                   {/* <div className="text-xs">
                      {Object.entries(version.audited_changes).map(
                       ([key, value], i) => {
@@ -94,57 +99,284 @@ export default function LogsTab({ requestId }: { requestId: number }) {
   );
 }
 
-// function StopList({ stops }: { stops: TStop[][] }) {
-//   // console.log(stops);
-//   return (
-//     <Card className="border shadow">
-//       <CardContent className="p-6">
-//         <p className="font-semibold capitalize">Stops:</p>
-//         <div>
-//           {stops.map((stopGroup, index) => {
-//             let text = index === 0 ? "From" : "To";
+interface MinMax {
+  max: number;
+  min: number;
+}
 
-//             return (
-//               <div key={`${index}-stop-list`} className="flex gap-1">
-//                 <p className="text-muted-foreground">{text}:</p>
-//                 <div className="flex flex-col overflow-hidden text-green-600">
-//                   {stopGroup.map((stop, innerIndex) => {
-//                     let type = stop.isPickup ? "Pickup" : "Dropoff";
-//                     return (
-//                       <p key={`${innerIndex}-stop-group`} className="truncate">
-//                         <span className="mr-2 font-semibold">{type}</span>
-//                         {stop.street} {stop.city} {stop.state} {stop.zip}
-//                       </p>
-//                     );
-//                   })}
-//                 </div>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       </CardContent>
-//     </Card>
-//   );
-// }
+interface Details {
+  delicate_items_question_answer: string;
+  bulky_items_question_answer: string;
+  disassemble_items_question_answer: string;
+  comments: string;
+}
+interface Origin {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  apt?: string;
+  floor: string;
+  location: google.maps.LatLng | google.maps.LatLngLiteral;
+}
 
-// function ArrayWithStringValues({
-//   name,
-//   values,
-// }: {
-//   name: string;
-//   values: string[];
-// }) {
-//   return (
-//     <Card className="border shadow">
-//       <CardContent className="p-6">
-//         <p className="font-semibold capitalize">{name}:</p>
-//         <p className="text-muted-foreground">
-//           From: <span className="text-green-600">{values[0]}</span>
-//         </p>
-//         <p className="text-muted-foreground">
-//           To: <span className="text-green-600">{values[1]}</span>
-//         </p>
-//       </CardContent>
-//     </Card>
-//   );
-// }
+interface Data {
+  status?: string[];
+  moving_date?: Date[];
+  service_id?: number[];
+  packing_id?: number[];
+  work_time?: MinMax[];
+  total_time?: MinMax[];
+  total_price?: MinMax[];
+  min_total_time?: number[];
+  details?: Details[];
+  size?: string[];
+  travel_time?: number[];
+  crew_size?: number[];
+  rate?: number[];
+  origin?: Origin[];
+  destination?: Origin[];
+  deposit?: number[];
+}
+
+interface DisplayChangesProps {
+  data: Data;
+}
+
+// const formatCurrency = (value: number): string => {
+//   return `$${(value / 100).toFixed(2)}`;
+// };
+
+function getFullAddress(address: Origin) {
+  if (!address || !address.city) return "--";
+  return `${address?.street}, ${address?.city}, ${address?.state}, ${address?.zip}`;
+}
+
+function getDetails(details: Details) {
+  if (!details) return "--";
+
+  // const d = Object.entries(details).map(([key, value]) => {
+  //   return `${key}: ${value}`;
+  // });
+
+  return (
+    <span className="flex flex-col">
+      <span>bulky items: {details.bulky_items_question_answer}</span>
+      <span>delicate items: {details.delicate_items_question_answer} </span>
+      <span>
+        disassembly items: {details.disassemble_items_question_answer}
+      </span>
+      <span>comments: {details.comments}</span>
+    </span>
+  );
+}
+
+function DisplayChanges({ data }: DisplayChangesProps) {
+  // const { rate, service_id, move total_price, size } = data;
+  const {
+    status,
+    moving_date,
+    // service_id,
+    // packing_id,
+    // work_time,
+    // total_time,
+    // total_price,
+    // min_total_time,
+    details,
+    size,
+    // travel_time,
+    crew_size,
+    rate,
+    origin,
+    destination,
+    deposit,
+  } = data;
+
+  return (
+    <div className="space-y-2">
+      {status && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Status:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">{status[0]}</span>
+            </p>
+            <p>
+              To: <span className="ml-1 text-green-600">{status[1]}</span>
+            </p>
+          </div>
+        </div>
+      )}
+      {moving_date && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Moving date:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {formatDate(moving_date[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {formatDate(moving_date[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+      {rate && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Rate:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {formatMoney(rate[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {formatMoney(rate[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+      {size && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Move size:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">{size[0]}</span>
+            </p>
+            <p>
+              To: <span className="ml-1 text-green-600">{size[1]}</span>
+            </p>
+          </div>
+        </div>
+      )}
+      {origin && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Origin:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {getFullAddress(origin[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {getFullAddress(origin[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+      {destination && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Destination:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {getFullAddress(destination[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {getFullAddress(destination[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+      {crew_size && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Crew size:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">{crew_size[0]}</span>
+            </p>
+            <p>
+              To: <span className="ml-1 text-green-600">{crew_size[1]}</span>
+            </p>
+          </div>
+        </div>
+      )}
+      {details && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Details:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {getDetails(details[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {getDetails(details[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+      {deposit && (
+        <div>
+          <div className="flex items-center gap-2">
+            <CircleCheckBigIcon className="size-3 text-green-600" />
+            <p className="font-semibold">Deposit:</p>
+          </div>
+          <div className="pl-5 text-muted-foreground">
+            <p>
+              From:
+              <span className="ml-1 text-green-600">
+                {formatMoney(deposit[0])}
+              </span>
+            </p>
+            <p>
+              To:{" "}
+              <span className="ml-1 text-green-600">
+                {formatMoney(deposit[1])}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

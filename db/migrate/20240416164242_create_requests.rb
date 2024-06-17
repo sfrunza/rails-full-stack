@@ -11,6 +11,7 @@ class CreateRequests < ActiveRecord::Migration[7.1]
       t.jsonb :total_time, default: { min: 0, max: 0 }
       t.jsonb :total_price, default: { min: 0, max: 0 }
       t.integer :travel_time, default: 0
+      t.integer :min_total_time, default: 120
       t.integer :crew_size
       t.boolean :can_edit_request, default: true
       t.integer :rate

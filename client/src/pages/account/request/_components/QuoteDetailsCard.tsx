@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
   convertMinutesToHoursAndMinutes,
@@ -172,7 +172,7 @@ export default function QuoteDetailsCard() {
             <Button variant="edit">Learn More</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <ScrollArea className="h-[90vh]">
+            <ScrollArea className="h-[80vh]">
               <div className="mx-auto mb-10 max-w-2xl space-y-4 p-6 text-sm">
                 <p className="font-semibold uppercase">
                   How quote is calculated?
@@ -207,6 +207,7 @@ export default function QuoteDetailsCard() {
                   items packed neatly into moving boxes of correct sizes.
                 </p>
               </div>
+              <ScrollBar orientation="vertical" />
             </ScrollArea>
           </DrawerContent>
         </Drawer>

@@ -1,11 +1,8 @@
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import ListItem from "./ListItem";
+import { TService } from "@/types/service";
 
-function reorder(
-  list: { id: string; name: string; droppable_index: number }[],
-  startIndex: number,
-  endIndex: number,
-) {
+function reorder(list: TService[], startIndex: number, endIndex: number) {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -18,7 +15,7 @@ export default function ServiceList({
   setItems,
   setOrderChanged,
 }: {
-  items: { id: string; name: string; droppable_index: number }[];
+  items: TService[];
   setItems: (value: any[]) => void;
   setOrderChanged: (value: boolean) => void;
 }) {

@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { formatDate, formatMoney } from "@/lib/utils";
 import { CheckCircleIcon, ChevronRightIcon } from "lucide-react";
@@ -103,12 +103,6 @@ export default function QuoteDetailsCardFlatRate() {
                   Moving blankets, dollies, tools and fuel are FREE of charge.
                 </p>
 
-                <p>
-                  All wrapping/packing supplies would be charged only by the
-                  actual usage (i.e. boxes, packing paper, tape, shrink wrap,
-                  mattress plastic covers etc.)
-                </p>
-
                 <p className="font-semibold uppercase">How do we work?</p>
 
                 <p>
@@ -186,6 +180,7 @@ export default function QuoteDetailsCardFlatRate() {
                   confirmed move.
                 </p>
               </div>
+              <ScrollBar orientation="vertical" />
             </ScrollArea>
           </DrawerContent>
         </Drawer>

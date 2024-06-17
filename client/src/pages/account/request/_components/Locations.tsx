@@ -1,4 +1,6 @@
 import { memo } from "react";
+
+import FormSubmitButton from "@/components/FormSubmitButton";
 import Map from "@/components/Map/Map";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/useModal";
@@ -7,14 +9,7 @@ import { cn } from "@/lib/utils";
 import { ModalType } from "@/slices/modal";
 import { useSelector } from "@/store";
 import { TStop } from "@/types/request";
-import {
-  LoaderCircleIcon,
-  MapPinIcon,
-  PlusIcon,
-  SquarePenIcon,
-  Trash2Icon,
-} from "lucide-react";
-// import { EditStop } from "./EditStop";
+import { MapPinIcon, PlusIcon, SquarePenIcon, Trash2Icon } from "lucide-react";
 
 function Locations() {
   const { request } = useSelector((state) => state.request);
@@ -43,6 +38,7 @@ function Locations() {
               origin: origin,
               destination: destination,
             },
+            tab: "origin",
           }}
         />
 
@@ -88,6 +84,7 @@ function Locations() {
               origin: origin,
               destination: destination,
             },
+            tab: "destination",
           }}
         />
       </div>
@@ -188,19 +185,22 @@ function AddressItem({
                       Edit
                     </Button>
                     {canRemove && (
-                      <Button
+                      <FormSubmitButton
                         className="w-fit text-red-600"
                         variant="edit"
                         size="sm"
                         onClick={() => onRemoveStop(address)}
+                        isPending={isSaving}
                         disabled={isSaving}
-                      >
-                        {isSaving && (
-                          <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                        )}
-                        {!isSaving && <Trash2Icon className="mr-2 size-3" />}
-                        Remove
-                      </Button>
+                        label={
+                          <>
+                            {!isSaving && (
+                              <Trash2Icon className="mr-2 size-3" />
+                            )}
+                            Remove
+                          </>
+                        }
+                      />
                     )}
                   </div>
                 )}

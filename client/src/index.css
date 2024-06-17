@@ -2,20 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: "GeistSans";
-  src:
-    local("GeistSans"),
-    url(./assets/fonts/variable/GeistVF.ttf) format("truetype"),
-    url(./assets/fonts/variable/GeistVF.woff) format("woff"),
-    url(./assets/fonts/variable/GeistVF.woff2) format("woff2");
-} */
-
-/* body,
-html {
-  height: 100%;
-} */
-
 .bg-radial-gradient {
   background-image: radial-gradient(
     circle closest-corner,
@@ -26,26 +12,18 @@ html {
   background-repeat: repeat-y;
   background-position: left top;
 }
+
 .pac-container {
-  border-radius: 8px;
-  box-shadow:
-    0 1px 3px 0 rgb(0 0 0 / 0.1),
-    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  @apply rounded border-border shadow;
 }
+
 .pac-item:hover {
-  cursor: pointer;
-  background-color: #f1f5f9;
+  @apply cursor-pointer bg-muted;
 }
 
 .trumbowyg-box {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  overflow: hidden;
+  @apply overflow-hidden rounded border border-border;
 }
-
-/* [data-radix-scroll-area-viewport] > div[style] {
-  display: block !important;
-} */
 
 @layer base {
   :root {
@@ -68,7 +46,7 @@ html {
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {

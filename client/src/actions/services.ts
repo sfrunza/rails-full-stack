@@ -1,7 +1,7 @@
 import { TService } from "@/types/service";
 
 export async function getServices(): Promise<TService[]> {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch("/api/v1/services",
     {
       method: "GET",

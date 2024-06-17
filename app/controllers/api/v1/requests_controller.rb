@@ -1,9 +1,9 @@
 class Api::V1::RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_request, only: %i[show update destroy show]
+  before_action :set_request, only: %i[show update destroy show versions]
   before_action :check_permission, only: %i[destroy]
 
-  # GET /requests
+  # GET /requests?filter=all&page=1
   def index
     filter = params[:filter]
     per_page = 20
@@ -11,10 +11,10 @@ class Api::V1::RequestsController < ApplicationController
     offset = (page - 1) * per_page
 
     if params[:filter] === "all"
-      @requests = Request.limit(per_page).offset(offset).order("id desc")
+      requests = Request.limit(per_page).offset(offset).order("id desc")
       total_pages = (Request.count.to_f / per_page).ceil
     elsif filter == "Pending" || filter == "Pending-info"
-      @requests =
+      requests =
         Request
           .where(status: %w[Pending Pending-info])
           .limit(per_page)
@@ -25,7 +25,7 @@ class Api::V1::RequestsController < ApplicationController
           Request.where(status: %w[Pending Pending-info]).count.to_f / per_page
         ).ceil
     elsif filter.present?
-      @requests =
+      requests =
         Request
           .where(status: filter)
           .limit(per_page)
@@ -37,13 +37,14 @@ class Api::V1::RequestsController < ApplicationController
     render json: {
              requests:
                ActiveModelSerializers::SerializableResource.new(
-                 @requests,
+                 requests,
                  each_serializer: RequestTableSerializer
                ),
              total_pages: total_pages
            }
   end
 
+  # GET /requests/status_counts
   def status_counts
     status_counts =
       Request.group(
@@ -71,9 +72,13 @@ class Api::V1::RequestsController < ApplicationController
     render json: { error: "Request not found" }, status: :not_found
   end
 
-  def show_versions
-    request = Request.find(params[:request_id])
-    versions = request.audits.order(id: :desc)
+  # GET /requests/1/versions
+  def versions
+    # request = Request.find(params[:id])
+    # versions = @request.audits.order("id desc")
+
+    versions =
+      Audited.audit_class.where(auditable_id: params[:id]).order("id desc")
 
     render json: versions, each_serializer: AuditLogSerializer
   end
@@ -159,6 +164,7 @@ class Api::V1::RequestsController < ApplicationController
       :dispatch_notes,
       :deposit,
       :travel_time,
+      :min_total_time,
       :can_edit_request,
       work_time: %i[min max],
       total_time: %i[min max],

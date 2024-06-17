@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
     t.jsonb "total_time", default: {"max"=>0, "min"=>0}
     t.jsonb "total_price", default: {"max"=>0, "min"=>0}
     t.integer "travel_time", default: 0
+    t.integer "min_total_time", default: 120
     t.integer "crew_size"
     t.boolean "can_edit_request", default: true
     t.integer "rate"

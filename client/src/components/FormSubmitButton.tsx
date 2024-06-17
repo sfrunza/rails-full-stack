@@ -1,30 +1,30 @@
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { PulseLoader } from 'react-spinners';
+import { Button, buttonVariants } from "@/components/ui/button";
+import { VariantProps } from "class-variance-authority";
+import { LoaderCircleIcon } from "lucide-react";
 
-type FormSubmitButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export interface FormSubmitButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   isPending?: boolean;
-  clasName?: string;
-  label: string;
-  disabled?: boolean;
-};
+  label: React.ReactNode | string;
+}
 
 export default function FormSubmitButton({
-  type = 'submit',
+  type = "submit",
   isPending,
   label,
-  clasName,
   disabled,
   ...props
 }: FormSubmitButtonProps) {
   return (
     <Button
+      className={props.className}
       type={type}
-      disabled={isPending || disabled}
-      className={cn('', clasName)}
+      disabled={disabled || isPending}
       {...props}
     >
-      {isPending ? <PulseLoader color="#fff" size={6} /> : label}
+      {isPending && <LoaderCircleIcon className="mr-2 size-4 animate-spin" />}
+      {label}
     </Button>
   );
 }

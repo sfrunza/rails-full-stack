@@ -30,14 +30,23 @@ import {
   TruckIcon,
   UserRoundIcon,
 } from "lucide-react";
+import StartTimeInput from "@/components/StartTimeInput";
 
 export default function DateTimeSection() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const { request } = useSelector((state) => state.request);
   const dispatch = useDispatch();
   return (
-    <div className="grid w-full grid-cols-1 gap-4 bg-background p-4 shadow md:auto-cols-max md:grid-flow-col md:grid-cols-none md:gap-6 md:p-6">
-      <div>
+    <div
+      // className="grid w-full grid-cols-1 gap-4 bg-background p-4 shadow md:auto-cols-max md:grid-flow-col md:grid-cols-none md:gap-6 md:p-6"
+      // className={cn(
+      //   "bg-background p-4 shadow md:p-6",
+      //   "grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:auto-cols-max xl:grid-flow-col xl:grid-cols-none",
+      // )}
+      // className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7"
+      className="grid gap-4 bg-background p-4 shadow sm:grid-cols-2 md:grid-cols-3 lg:flex lg:flex-nowrap"
+    >
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="movingDate">
           Move date
         </Label>
@@ -48,7 +57,7 @@ export default function DateTimeSection() {
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-full border border-input text-left font-normal shadow-sm",
+                  "w-full border border-input font-normal shadow-sm",
                   !request?.moving_date && "text-muted-foreground",
                 )}
                 id="movingDate"
@@ -58,7 +67,6 @@ export default function DateTimeSection() {
                 ) : (
                   <span>Pick a date</span>
                 )}
-                <CalendarIcon className="ml-auto size-4 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -71,7 +79,6 @@ export default function DateTimeSection() {
                       moving_date: new Date(selectedDay!).toISOString(),
                     }),
                   );
-                  // setRequest({ ...request, moving_date: date });
                   setIsCalendarOpen(false);
                 }}
                 initialFocus
@@ -80,16 +87,16 @@ export default function DateTimeSection() {
           </Popover>
         </div>
       </div>
-      <div>
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="workTime">
           Start time window
         </Label>
         <div className="flex items-center gap-2">
           <Clock4Icon className="ml-auto size-5 text-muted-foreground" />
-          <WorkTimeInput />
+          <StartTimeInput />
         </div>
       </div>
-      <div>
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="workTime">
           Work time
         </Label>
@@ -98,14 +105,14 @@ export default function DateTimeSection() {
           <WorkTimeInput />
         </div>
       </div>
-      <div>
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="travelTime">
           Travel time
         </Label>
         <div className="flex items-center gap-2">
           <MapIcon className="ml-auto size-5 text-muted-foreground" />
           <Select
-            defaultValue={request?.travel_time.toString()}
+            value={request?.travel_time.toString()}
             onValueChange={(val: string) => {
               console.log(val);
               dispatch(setRequest({ travel_time: parseInt(val) }));
@@ -114,7 +121,7 @@ export default function DateTimeSection() {
             <SelectTrigger id="travelTime">
               <SelectValue placeholder="" className="w-full" />
             </SelectTrigger>
-            <SelectContent className="max-h-60">
+            <SelectContent>
               {generateWorkTimeOptions().map((option) => (
                 <SelectItem key={option.value} value={option.value.toString()}>
                   {option.label}
@@ -125,7 +132,7 @@ export default function DateTimeSection() {
         </div>
       </div>
       {/* <div className="flex justify-between gap-4"> */}
-      <div>
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="crewSize">
           Crew size
         </Label>
@@ -138,15 +145,14 @@ export default function DateTimeSection() {
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*$/.test(value)) {
-                // setRate(Number(value));
                 dispatch(setRequest({ crew_size: parseInt(value) }));
               }
             }}
-            className="md:w-20"
+            // className="md:w-20"
           />
         </div>
       </div>
-      <div>
+      <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="rate">
           Rate
         </Label>
@@ -159,7 +165,6 @@ export default function DateTimeSection() {
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*$/.test(value)) {
-                // setRate(Number(value));
                 dispatch(
                   setRequest({
                     rate: Math.round(parseFloat(value) * 100),
@@ -167,8 +172,33 @@ export default function DateTimeSection() {
                 );
               }
             }}
-            className="md:w-20"
           />
+        </div>
+      </div>
+      <div className="flex-1 lg:w-auto">
+        <Label className="ml-8" htmlFor="min_total_time">
+          Min. hours
+        </Label>
+        <div className="flex items-center gap-2">
+          <Clock4Icon className="ml-auto size-5 text-muted-foreground" />
+          <Select
+            value={request?.min_total_time.toString()}
+            onValueChange={(val: string) => {
+              console.log(val);
+              dispatch(setRequest({ min_total_time: parseInt(val) }));
+            }}
+          >
+            <SelectTrigger id="min_total_time">
+              <SelectValue placeholder="" className="w-full" />
+            </SelectTrigger>
+            <SelectContent>
+              {generateWorkTimeOptions().map((option) => (
+                <SelectItem key={option.value} value={option.value.toString()}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
     </div>

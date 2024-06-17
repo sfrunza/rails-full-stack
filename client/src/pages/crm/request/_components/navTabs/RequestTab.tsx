@@ -7,16 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { floorOptions } from "@/constants/request";
 import { useModal } from "@/hooks/useModal";
 import {
   convertMinutesToHoursAndMinutes,
@@ -25,7 +16,8 @@ import {
 } from "@/lib/utils";
 import { ModalType } from "@/slices/modal";
 import { useSelector } from "@/store";
-import { HomeIcon, MapPinIcon, PlusIcon, SquarePenIcon } from "lucide-react";
+import { HomeIcon, SquarePenIcon } from "lucide-react";
+import AddressesSection from "../AddressesSection";
 import DateTimeSection from "../DateTimeSection";
 import Notes from "../Notes";
 import PageFooter from "../PageFooter";
@@ -76,146 +68,7 @@ export default function RequestTab() {
         <div className="md:col-span-2">
           <Card>
             <CardContent className="space-y-6 p-4 md:p-6">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
-                    <MapPinIcon className="size-5" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <p>Origin</p>
-                      <p className="text-primary">View Map</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-12 gap-2 md:pl-6">
-                    <div className="col-span-8">
-                      <Input
-                        defaultValue={request?.origin.street}
-                        placeholder="Street"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <Input
-                        defaultValue={request?.origin.apt}
-                        placeholder="Apt."
-                      />
-                    </div>
-                    <div className="col-span-6">
-                      <Input
-                        defaultValue={request?.origin.city}
-                        placeholder="City"
-                      />
-                    </div>
-                    <div className="col-span-3">
-                      <Input
-                        defaultValue={request?.origin.state}
-                        placeholder="State"
-                      />
-                    </div>
-                    <div className="col-span-3">
-                      <Input
-                        defaultValue={request?.origin.zip}
-                        placeholder="Zip"
-                      />
-                    </div>
-                    <div className="col-span-12">
-                      <Select defaultValue={request?.origin.floor}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select floor" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {floorOptions.map((item, i) => (
-                            <SelectItem
-                              key={i}
-                              value={item.value}
-                              className="hover:cursor-pointer"
-                              disabled={item.value === "5th floor"}
-                            >
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="col-span-12 mt-2">
-                      <Button
-                        variant="outline"
-                        className="w-full border-dashed shadow-none"
-                      >
-                        <PlusIcon className="mr-2 size-5" />
-                        Add extra pickup
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
-                    <MapPinIcon className="size-5" />
-                    <div className="flex flex-1 items-center justify-between">
-                      <p>Destination</p>
-                      <p className="text-primary">Total distance 2.7 miles</p>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-12 gap-2 md:pl-6">
-                    <div className="col-span-8">
-                      <Input
-                        defaultValue={request?.destination.street}
-                        placeholder="Street"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <Input
-                        defaultValue={request?.destination.apt}
-                        placeholder="Apt."
-                      />
-                    </div>
-                    <div className="col-span-6">
-                      <Input
-                        defaultValue={request?.destination.city}
-                        placeholder="City"
-                      />
-                    </div>
-                    <div className="col-span-3">
-                      <Input
-                        defaultValue={request?.destination.state}
-                        placeholder="State"
-                      />
-                    </div>
-                    <div className="col-span-3">
-                      <Input
-                        defaultValue={request?.destination.zip}
-                        placeholder="Zip"
-                      />
-                    </div>
-                    <div className="col-span-12">
-                      <Select defaultValue={request?.destination.floor}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select floor" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {floorOptions.map((item, i) => (
-                            <SelectItem
-                              key={i}
-                              value={item.value}
-                              className="hover:cursor-pointer"
-                              disabled={item.value === "5th floor"}
-                            >
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="col-span-12 mt-2">
-                      <Button
-                        variant="outline"
-                        className="w-full border-dashed shadow-none"
-                      >
-                        <PlusIcon className="mr-2 size-5" />
-                        Add extra dropoff
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <AddressesSection />
               <Separator />
               <Notes />
               <Separator />
@@ -320,6 +173,23 @@ export default function RequestTab() {
                       </p>
                     </div>
                   </div>
+                  {request?.stops.map((stop, i) => (
+                    <div key={i}>
+                      <p>
+                        <span className="mr-2 font-bold">
+                          {stop.isPickup && "Extra pickup"}
+                          {stop.isDropoff && "Extra dropoff"}
+                        </span>
+                        ({stop.floor})
+                      </p>
+                      <div>
+                        <p>{stop.street}</p>
+                        <p>
+                          {stop.city}, {stop.state} {stop.zip}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 <Separator />
                 <div className="flex justify-between text-sm">
@@ -344,10 +214,8 @@ export default function RequestTab() {
                 <div className="flex size-10 items-center justify-center rounded-full bg-muted p-2">
                   <HomeIcon className="size-5" />
                 </div>
-                <div>
-                  <CardTitle className="flex items-center gap-4">
-                    {request?.size}
-                  </CardTitle>
+                <div className="flex flex-col gap-1">
+                  <CardTitle>{request?.size}</CardTitle>
                   <CardDescription>676 cbf, 50 items, 8 boxes</CardDescription>
                 </div>
               </div>

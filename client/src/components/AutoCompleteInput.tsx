@@ -8,30 +8,13 @@ export type TAutocompleteData = {
   city: string;
   state: string;
   zip: string;
-  fullAddress: string | undefined;
-  location?:
-    | {
-        lat?: number | undefined;
-        lng?: number | undefined;
-      }
-    | undefined;
+  fullAddress: string;
+  location: google.maps.LatLng | google.maps.LatLngLiteral;
 };
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  getAddress: (data: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    fullAddress: string | undefined;
-    location?:
-      | {
-          lat?: number | undefined;
-          lng?: number | undefined;
-        }
-      | undefined;
-  }) => void;
+  getAddress: (data: TAutocompleteData) => void;
   updateValue?: (val: string) => void;
 }
 
@@ -82,7 +65,7 @@ export const AutoCompleteInput = forwardRef<HTMLInputElement, InputProps>(
           city: city!,
           state: state!,
           zip: zip!,
-          fullAddress: place?.formatted_address,
+          fullAddress: place?.formatted_address!,
           location: {
             lat: place?.geometry?.location?.lat()!,
             lng: place?.geometry?.location?.lng()!,

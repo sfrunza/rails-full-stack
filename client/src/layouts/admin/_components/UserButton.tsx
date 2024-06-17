@@ -1,21 +1,15 @@
+import FormSubmitButton from "@/components/FormSubmitButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useAuth from "@/hooks/useAuth";
 import { LogOutIcon } from "lucide-react";
-import { logoutUser } from "@/slices/auth";
-import { useDispatch, useSelector } from "@/store";
 
 export default function UserButton() {
-  const dispatch = useDispatch();
-  const { isLoggingOut, user } = useSelector((state) => state.auth);
-
-  function logOutUser() {
-    dispatch(logoutUser());
-  }
+  const { user, isLoading, logout } = useAuth();
 
   function getInitials(
     firstName: string | undefined,
@@ -41,15 +35,20 @@ export default function UserButton() {
           </p>
           <p className="text-sm text-muted-foreground">{user?.email}</p>
         </div>
-        <Button
-          onClick={logOutUser}
-          className="flex w-full cursor-pointer items-center"
-          disabled={isLoggingOut}
+        <FormSubmitButton
           variant="outline"
-        >
-          <LogOutIcon className="mr-2 h-4 w-4" />
-          Log out
-        </Button>
+          type="button"
+          className="flex w-full cursor-pointer items-center"
+          onClick={logout}
+          disabled={isLoading}
+          isPending={isLoading}
+          label={
+            <>
+              {!isLoading && <LogOutIcon className="mr-2 size-4" />}
+              Log out
+            </>
+          }
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );

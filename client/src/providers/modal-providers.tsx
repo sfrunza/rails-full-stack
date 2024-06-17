@@ -10,6 +10,7 @@ import { EditPhotosModal } from "@/components/modals/EditPhotosModal";
 import { EditLocationsModal } from "@/components/modals/EditLocationsModal";
 import { EditStopModal } from "@/components/modals/EditStopModal";
 import { EditDepositModal } from "@/components/modals/EditDepositModal";
+import MapModal from "@/components/modals/MapModal";
 
 // import { EditTimeModal } from "@/components/modals/edit-time-modal";
 // import { EditDateModal } from "@/components/modals/edit-date-modal";
@@ -42,6 +43,7 @@ export const ModalProvider = () => {
       {isModalOpen("editLocations") && <EditLocationsModal />}
       {isModalOpen("editStop") && <EditStopModal />}
       {isModalOpen("editDeposit") && <EditDepositModal />}
+      {isModalOpen("openMapModal") && <MapModal />}
       {/* <EditTimeModal /> */}
       {/* <EditDateModal /> */}
       {/* <EditMoveSizeModal /> */}
