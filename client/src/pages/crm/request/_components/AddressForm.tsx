@@ -127,6 +127,7 @@ export default function AddressForm({
             title="Please enter your Zip"
             name="zip"
             pattern="[0-9]{5}"
+            inputMode="numeric"
             maxLength={5}
             onChange={handleZipCodeChange}
           />

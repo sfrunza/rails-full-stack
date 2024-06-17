@@ -141,6 +141,7 @@ export default function DateTimeSection() {
           <Input
             id="crewSize"
             pattern="[0-9]+"
+            inputMode="numeric"
             value={request?.crew_size || ""}
             onChange={(e) => {
               const value = e.target.value;
@@ -161,6 +162,7 @@ export default function DateTimeSection() {
           <Input
             id="rate"
             pattern="[0-9]+"
+            inputMode="numeric"
             value={centsToDollars(request?.rate!) || ""}
             onChange={(e) => {
               const value = e.target.value;

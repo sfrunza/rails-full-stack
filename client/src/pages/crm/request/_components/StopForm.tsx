@@ -161,6 +161,7 @@ export default function StopForm({ type, data, actionButton }: StopFormProps) {
             title="Please enter your Zip"
             name="zip"
             pattern="[0-9]{5}"
+            inputMode="numeric"
             maxLength={5}
             onChange={handleZipCodeChange}
           />
