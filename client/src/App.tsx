@@ -19,6 +19,7 @@ import Profile from "@/pages/account/Profile";
 import AccountMain from "@/pages/account/AccountMain";
 import AccountRequest from "@/pages/account/request/AccountRequest";
 import BookPage from "@/pages/BookPage";
+import Messages from "@/pages/crm/Messages";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
       <Route element={<AdminLayout />}>
         <Route path="/crm/requests" element={<Requests />} />
         <Route path="/crm/calendar" element={<Calendar />} />
+        <Route path="/crm/messages" element={<Messages />} />
         <Route element={<SettingsMain />}>
           <Route path="/crm/settings" element={<div className="hidden" />} />
           <Route path="/crm/settings/services" element={<ServicesSettings />} />

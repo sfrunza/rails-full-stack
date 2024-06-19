@@ -31,7 +31,7 @@ export default function AddressesSection() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:pr-6">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:pr-6">
       <div className="flex flex-col gap-6">
         <AddressForm
           type="origin"
@@ -75,8 +75,8 @@ export default function AddressesSection() {
           />
         </div>
       ))}
-      <div className="grid grid-cols-2 gap-6 md:col-span-2 md:px-6">
-        <div className="col-span-2 md:col-span-1">
+      <div className="grid grid-cols-2 gap-6 lg:col-span-2 lg:px-6">
+        <div className="col-span-2 lg:col-span-1">
           <Button
             className="w-full"
             variant="edit"

@@ -88,7 +88,7 @@ export default function DateTimeSection() {
         </div>
       </div>
       <div className="flex-1 lg:w-auto">
-        <Label className="ml-8" htmlFor="workTime">
+        <Label className="ml-8" htmlFor="startTime">
           Start time window
         </Label>
         <div className="flex items-center gap-2">

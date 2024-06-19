@@ -72,7 +72,7 @@ export default function DateTimeAddressesCard() {
             {service?.name}
           </CardDescription>
         </div>
-        <p className="flex-1 text-right text-xl font-semibold tracking-wide text-white lg:text-center lg:text-2xl">
+        <p className="flex-1 text-right text-xl font-extrabold tracking-wide text-white lg:text-center lg:text-2xl">
           {status}
         </p>
       </CardHeader>

@@ -93,7 +93,7 @@ export const EditMoveSizeModal = () => {
                           <SelectValue placeholder="Select move size" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="h-72">
+                      <SelectContent>
                         {sizes.map((item, i) => (
                           <SelectItem
                             key={i}

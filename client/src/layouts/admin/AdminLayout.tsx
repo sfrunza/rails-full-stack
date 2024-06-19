@@ -1,20 +1,24 @@
-import logo from '@/assets/logos/mono-logo.png';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useSelector } from '@/store';
-import { CreateRequestButton } from './_components/CreateRequestButton';
-import { MobileMenu } from './_components/MobileMenu';
-import SideBar from './_components/SideBar';
-import UserButton from './_components/UserButton';
+import logo from "@/assets/logos/mono-logo.png";
+import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
+import { useSelector } from "@/store";
+import { CreateRequestButton } from "./_components/CreateRequestButton";
+import { MobileMenu } from "./_components/MobileMenu";
+import SideBar from "./_components/SideBar";
+import UserButton from "./_components/UserButton";
+import { Button } from "@/components/ui/button";
+import { MessageCircleMore } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function AdminLayout() {
-  let location = useLocation();
+  const location = useLocation();
   const { user } = useSelector((state) => state.auth);
+  const isMessagesPage = "/crm/messages" === location.pathname;
 
   if (!localStorage.token) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (user && user.role !== 'admin') {
+  if (user && user.role !== "admin") {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -29,7 +33,23 @@ export default function AdminLayout() {
             <MobileMenu />
             <CreateRequestButton />
           </div>
-          <div className="flex items-center gap-x-8">
+          <div className="flex items-center gap-4 md:gap-6">
+            <Button
+              asChild
+              size="icon"
+              variant={isMessagesPage ? "outline" : "ghost"}
+              className={cn(
+                "size-10 rounded-[36%]",
+                !isMessagesPage && "text-white",
+              )}
+            >
+              <Link to="/crm/messages" className="relative">
+                <MessageCircleMore className="size-8" aria-hidden="true" />
+                <span className="absolute right-0 top-0 flex size-4 items-center justify-center rounded-full bg-red-600 p-2 text-xs text-white">
+                  2
+                </span>
+              </Link>
+            </Button>
             <UserButton />
           </div>
         </div>
