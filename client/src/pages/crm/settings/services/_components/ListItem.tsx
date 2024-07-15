@@ -1,12 +1,17 @@
 import { deleteService, updateServicesOrder } from "@/actions/services";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GripVerticalIcon, LoaderCircleIcon, Trash2Icon } from "lucide-react";
+import { setServices } from "@/slices/globalSetting";
+import { useDispatch } from "@/store";
+import {
+  GripVerticalIcon,
+  LoaderCircleIcon,
+  OctagonXIcon,
+  Trash2Icon,
+} from "lucide-react";
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import toast from "react-hot-toast";
-import { setServices } from "@/slices/globalSetting";
-import { useDispatch } from "@/store";
 
 export default function ListItem({
   draggableId,
@@ -25,6 +30,7 @@ export default function ListItem({
 }) {
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
+  const isDefault = item.is_default;
 
   function handleDeleteService(id: string) {
     if (!id) return;
@@ -67,20 +73,28 @@ export default function ListItem({
                 handleServiceEdit(index, value);
               }}
               name={item.name}
+              disabled={isDefault}
             />
-            <Button
-              variant="ghost"
-              onClick={() => {
-                handleDeleteService(item.id);
-              }}
-              disabled={isDeleting}
-            >
-              {isDeleting && (
-                <LoaderCircleIcon className="size-4 animate-spin md:mr-2" />
-              )}
-              {!isDeleting && <Trash2Icon className="size-4 md:mr-2" />}
-              <span className="hidden md:flex">Remove</span>
-            </Button>
+            {isDefault ? (
+              <Button variant="ghost" disabled>
+                <OctagonXIcon className="size-4 md:mr-2" />
+                <span className="hidden md:flex">Default</span>
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  handleDeleteService(item.id);
+                }}
+                disabled={isDeleting || isDefault}
+              >
+                {isDeleting && (
+                  <LoaderCircleIcon className="size-4 animate-spin md:mr-2" />
+                )}
+                {!isDeleting && <Trash2Icon className="size-4 md:mr-2" />}
+                <span className="hidden md:flex">Remove</span>
+              </Button>
+            )}
           </div>
         </div>
       )}

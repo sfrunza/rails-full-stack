@@ -27,15 +27,70 @@ export async function createRequestAction(serviceId: number) {
   }
 }
 
+export async function createDeliveryRequestAction(values: any) {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const response = await fetch("/api/v1/requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({ request: values }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      return { success: data.success, request: data.request };
+    } else {
+      return { error: data.error };
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+  }
+}
 
-export async function updateRequestAction(id: number, newData: TNewRequestData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+export async function pairRequestAction({ requestId, pairedRequestId }: { requestId: number, pairedRequestId: number }) {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const response = await fetch(`/api/v1/requests/${requestId}/pair`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({ paired_request_id: pairedRequestId }),
+    });
+    const data = await response.json();
 
-  // console.log("updateRequest", id, newData);
+    // console.log("actionData", data)
 
+    if (data.success) {
+      return { success: data.success };
+    } else {
+      return { error: data.error };
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+  }
+}
+
+
+
+type UpdateRequestActionResult =
+  | { success: string }
+  | { error: string };
+
+
+export async function updateRequestAction(id: number, newData: TNewRequestData): Promise<UpdateRequestActionResult> {
   try {
     const response = await fetch(`/api/v1/requests/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -56,6 +111,7 @@ export async function updateRequestAction(id: number, newData: TNewRequestData) 
     if (error instanceof Error) {
       return { error: error.message };
     }
+    return { error: "An unknown error occurred" };
   }
 }
 

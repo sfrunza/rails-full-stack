@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_202304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
     t.datetime "moving_date"
     t.string "status", default: "Pending", null: false
     t.string "size"
+    t.integer "start_time_window"
+    t.integer "end_time_window"
     t.integer "customer_id"
     t.jsonb "work_time", default: {"max"=>0, "min"=>0}
     t.jsonb "total_time", default: {"max"=>0, "min"=>0}
@@ -67,6 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
     t.text "customer_notes"
     t.text "dispatch_notes"
     t.integer "deposit", default: 10000
+    t.boolean "is_moving_from_storage", default: false
+    t.integer "paired_request_id"
     t.jsonb "details", default: {"comments"=>"", "bulky_items_question_answer"=>"", "delicate_items_question_answer"=>"", "disassemble_items_question_answer"=>""}
     t.jsonb "origin", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>"", "location"=>{"lat"=>0, "lng"=>0}}
     t.jsonb "destination", default: {"apt"=>"", "zip"=>"", "city"=>"", "floor"=>"", "state"=>"", "street"=>"", "location"=>{"lat"=>0, "lng"=>0}}
@@ -76,10 +80,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_08_000908) do
     t.index ["service_id"], name: "index_requests_on_service_id"
   end
 
+  create_table "requests_trucks", id: false, force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.bigint "truck_id", null: false
+    t.index ["request_id", "truck_id"], name: "index_requests_trucks_on_request_id_and_truck_id"
+    t.index ["truck_id", "request_id"], name: "index_requests_trucks_on_truck_id_and_request_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.integer "droppable_index"
     t.boolean "is_default", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trucks", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

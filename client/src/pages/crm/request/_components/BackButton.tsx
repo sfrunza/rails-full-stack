@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { selectIsRequestChanged } from "@/slices/request";
 import { useSelector } from "@/store";
 import { AlertTriangleIcon, XIcon } from "lucide-react";
@@ -26,17 +33,15 @@ export default function BackButton() {
       />
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[425px]">
-          <div>
-            <div className="flex items-center justify-center">
-              <AlertTriangleIcon className="size-12 text-orange-400" />
-            </div>
-            <div className="space-y-4 px-10 py-6 text-center">
-              <p className="font-semibold">Warning</p>
-              <p className="text-sm text-muted-foreground">
-                Request was not saved. Are you sure you want to leave?
-              </p>
-            </div>
+          <div className="flex items-center justify-center">
+            <AlertTriangleIcon className="size-12 text-orange-400" />
           </div>
+          <DialogHeader className="items-center space-y-4 px-10 py-4">
+            <DialogTitle>Warning</DialogTitle>
+            <DialogDescription className="text-center">
+              Request was not saved. Are you sure you want to leave?
+            </DialogDescription>
+          </DialogHeader>
           <DialogFooter className="flex flex-row justify-between gap-4">
             <Button
               type="button"

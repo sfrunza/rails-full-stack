@@ -17,11 +17,12 @@ import {
 import { ModalType } from "@/slices/modal";
 import { useSelector } from "@/store";
 import { HomeIcon, SquarePenIcon } from "lucide-react";
-import AddressesSection from "../AddressesSection";
-import DateTimeSection from "../DateTimeSection";
-import Notes from "../Notes";
-import PageFooter from "../PageFooter";
-import StatusServiceSection from "../StatusServiceSection";
+import AddressesSection from "./_components/AddressesSection";
+import DateTimeSection from "./_components/DateTimeSection";
+import Notes from "./_components/Notes";
+import PageFooter from "./_components/PageFooter";
+import StatusServiceSection from "./_components/StatusServiceSection";
+import Parklot from "./_components/Parklot";
 
 const packingIcons = {
   1: "",
@@ -62,6 +63,7 @@ export default function RequestTab() {
 
   return (
     <div className="bg-muted">
+      <Parklot />
       <DateTimeSection />
       <StatusServiceSection />
       <div className="grid grid-cols-1 gap-6 px-2 md:grid-cols-3 md:px-4">

@@ -1,20 +1,41 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { TFullRequest } from '@/types/request';
 import { RootState } from '@/store';
+import { TFullRequest } from '@/types/request';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 
-type TInilitialState = {
+interface TInilitialState {
   request: TFullRequest | null
   originalRequest: TFullRequest | null
   isLoading: boolean,
-  error: string | null
+  error: string | null,
+  parklotRequests: TFullRequest[] | null
+  parklotStatus: 'idle' | 'loading' | 'succeeded' | 'failed'
+  parklotError: string | null
+  parklotDate: Date | null
 }
 
 const initialState = {
   request: null,
   originalRequest: null,
   isLoading: false,
-  error: null
+  error: null,
+  parklotRequests: null,
+  parklotStatus: 'idle',
+  parklotError: null,
+  parklotDate: null
 } as TInilitialState
+
+
+export const fetchRequestsByDate = createAsyncThunk(
+  'requests/fetchRequestsByDate',
+  async (date: Date | undefined) => {
+    if (!date) return []
+    // await new Promise((resolve) => setTimeout(resolve, 500));
+    const response = await fetch(`/api/v1/trucks/requests/${date}`);
+    const data = await response.json();
+    return data;
+  }
+);
+
 
 const slice = createSlice({
   name: 'request',
@@ -34,7 +55,21 @@ const slice = createSlice({
       state.error = action.payload;
     },
     setRequest(state, action) {
-      state.request = { ...state.request, ...action.payload }
+      const newRequest = { ...state.request, ...action.payload }
+      state.request = newRequest
+
+      const requestExists = state.parklotRequests?.find(req => req.id === newRequest.id);
+
+      if (requestExists && state.parklotRequests) {
+        state.parklotRequests = state.parklotRequests?.map(req => {
+          if (req.id === newRequest.id) {
+            return newRequest
+          }
+          return req
+        })
+      } else {
+        state.parklotRequests?.push(newRequest)
+      }
     },
     setOriginalRequest(state, action) {
       state.originalRequest = { ...state.originalRequest, ...action.payload }
@@ -42,7 +77,33 @@ const slice = createSlice({
     clearRequest(state) {
       state.request = null
       state.originalRequest = null
+      state.parklotRequests = null
     },
+    setParklot(state, action) {
+      state.parklotRequests = action.payload
+    },
+    parklotFailure(state, action) {
+      state.parklotStatus = 'failed';
+      state.parklotError = action.payload;
+    },
+    setParklotDate(state, action) {
+      state.parklotDate = action.payload
+    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchRequestsByDate.pending, (state) => {
+        state.parklotStatus = 'loading';
+      })
+      .addCase(fetchRequestsByDate.fulfilled, (state, action) => {
+        state.parklotStatus = 'succeeded';
+        state.parklotRequests = [...action.payload, state.request];
+      })
+      .addCase(fetchRequestsByDate.rejected, (state, action) => {
+        state.parklotStatus = 'failed';
+        state.parklotError = action.error.message || null;
+      })
+
   },
 });
 
@@ -64,6 +125,8 @@ export const {
   setRequest,
   setOriginalRequest,
   clearRequest,
+  setParklotDate,
+  setParklot
 } = slice.actions
 
 
@@ -125,9 +188,22 @@ export const fetchAdminRequest = (requestId: string) => async (dispatch: any) =>
       dispatch(slice.actions.requestFailure(requestData.error));
       throw new Error(requestData.error);
     } else {
-
       dispatch(slice.actions.requestSuccess(requestData));
       dispatch(slice.actions.setOriginalRequest(requestData));
+      dispatch(slice.actions.setParklotDate(requestData.moving_date));
+      // dispatch(fetchRequestsByDate(requestData.moving_date));
+
+
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      // const parklotResponse = await fetch(`/api/v1/trucks/requests/${requestData.moving_date}`);
+      // const parklotData = await parklotResponse.json();
+      // if (parklotData.error) {
+      //   dispatch(slice.actions.parklotFailure(parklotData.error));
+      //   throw new Error(parklotData.error);
+      // } else {
+      //   dispatch(slice.actions.setParklot(parklotData));
+      // }
+
     }
   } catch (error) {
     if (error instanceof Error) {

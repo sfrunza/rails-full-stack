@@ -62,7 +62,7 @@ export default function DateTimeAddressesCard() {
       <CardHeader
         className={`${
           statusColors[status as TStatus]
-        } relative m-2 flex flex-row items-center justify-between space-y-0 rounded-lg p-4 py-[1.3rem]`}
+        } relative m-2 flex flex-row items-center justify-between space-y-0 rounded-xl p-4 py-[1.3rem]`}
       >
         <div className="absolute left-4">
           <CardTitle className="font-semibold tracking-wide text-white">

@@ -4,12 +4,12 @@ class Request < ApplicationRecord
   belongs_to :service
   belongs_to :packing
   belongs_to :customer, class_name: "User", optional: true
+  belongs_to :paired_request, class_name: "Request", optional: true
+  has_and_belongs_to_many :trucks
 
   before_save :calculate_total_time
   before_save :calculate_total_price
   before_save :update_can_edit_request
-  # before_update :update_status_if_needed
-  before_update :track_changes
 
   def editable_by?(user)
     return true if user.role == "admin"
@@ -17,11 +17,16 @@ class Request < ApplicationRecord
 
   public
 
+  def update_trucks(new_truck_ids)
+    self.truck_ids = new_truck_ids
+  end
+
   def updated_fields
     changed_fields = {}
-    @previous_changes.each do |field, values|
-      changed_fields[field] = values.last # Get the latest value
+    previous_changes.each do |field, values|
+      changed_fields[field] = values.last
     end
+
     changed_fields
   end
 
@@ -32,15 +37,13 @@ class Request < ApplicationRecord
     end
   end
 
-  private
+  # Ensure bidirectional pairing
+  def pair_with(other_request)
+    self.update!(paired_request: other_request, is_moving_from_storage: true)
+    other_request.update!(paired_request: self, is_moving_from_storage: false)
+  end
 
-  # def update_status_if_needed
-  #   if current_user.role == "customer"
-  #     if status_was == "Not Confirmed" && status != "Confirmed"
-  #       self.status = "Pending-info"
-  #     end
-  #   end
-  # end
+  private
 
   def update_can_edit_request
     self.can_edit_request =
@@ -50,21 +53,6 @@ class Request < ApplicationRecord
       )
   end
 
-  def track_changes
-    @previous_changes = changes.dup
-  end
-
-  # def calculate_total_time
-  #   if work_time.present? && work_time.is_a?(Hash)
-  #     min_time = work_time["min"].to_i + travel_time.to_i
-  #     max_time = work_time["max"].to_i + travel_time.to_i
-
-  #     self.total_time = { min: min_time, max: max_time }
-  #   else
-  #     self.total_time = { min: travel_time.to_i, max: travel_time.to_i }
-  #   end
-  # end
-  #
   def calculate_total_time
     min_total_time = self.min_total_time.to_i
     travel_time_minutes = travel_time.to_i
@@ -87,21 +75,6 @@ class Request < ApplicationRecord
     self.total_time = { min: total_minutes_min, max: total_minutes_max }
   end
 
-  # def calculate_total_price
-  #   if total_time.present? && total_time.is_a?(Hash) && rate.present?
-  #     # Convert total_time from minutes to hours (divide by 60)
-  #     total_time_hours_min = total_time["min"] / 60.0
-  #     total_time_hours_max = total_time["max"] / 60.0
-
-  #     # Calculate total_price based on total_time in hours and rate per hour
-  #     min_price = total_time_hours_min * rate
-  #     max_price = total_time_hours_max * rate
-
-  #     self.total_price = { min: min_price, max: max_price }
-  #   else
-  #     self.total_price = { min: 0, max: 0 }
-  #   end
-  # end
   def calculate_total_price
     if self.service.name == "Flat Rate"
       # For requests with a Flat Price type, set total_price directly to the rate

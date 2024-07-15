@@ -28,7 +28,7 @@ export default function SideBar({ requests }: { requests: any[] }) {
   return (
     <Card className="relative">
       <CardHeader className="border-b p-4">
-        <CardTitle className="rounded-md bg-muted p-6">
+        <CardTitle className="rounded-xl bg-muted p-6">
           Welcome, {user?.first_name}
         </CardTitle>
       </CardHeader>

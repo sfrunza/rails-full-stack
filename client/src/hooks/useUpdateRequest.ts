@@ -15,13 +15,14 @@ export default function useUpdateRequest() {
     setIsSaving(true)
 
     updateRequestAction(request.id, newData).then((res) => {
-      if (res?.error) {
+      if ('error' in res) {
         setError(res.error)
         toast.error(res.error)
         return
+      } else if ('success' in res) {
+        setError(null)
+        toast.success(res.success)
       }
-      toast.success("Request saved!")
-      setIsSaving(false)
       if (callbackFunction) {
         callbackFunction()
       }

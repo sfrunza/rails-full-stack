@@ -23,7 +23,16 @@ Rails.application.routes.draw do
         post "update_order", on: :collection
       end
 
+      resources :trucks do
+        post "bulk_update", on: :collection
+      end
+
+      get "trucks/requests/:date", to: "trucks#requests_by_date"
+      get "parklots/trucks", to: "parklots#trucks"
+      get "parklots/requests", to: "parklots#requests_by_date"
+
       resources :requests do
+        post "pair", on: :member
         get "versions", on: :member
         get "status_counts", on: :collection
       end

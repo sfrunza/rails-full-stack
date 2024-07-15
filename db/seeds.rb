@@ -30,10 +30,11 @@ Service.create!(name: "Flat Rate", droppable_index: 1, is_default: true)
 Service.create!(name: "Loading help", droppable_index: 2, is_default: true)
 Service.create!(name: "Unloading help", droppable_index: 3, is_default: true)
 Service.create!(name: "Inside move", droppable_index: 4, is_default: true)
-Service.create!(name: "Moving & Storage", droppable_index: 5, is_default: true)
+Service.create!(name: "Packing only", droppable_index: 5, is_default: true)
+Service.create!(name: "Moving & Storage", droppable_index: 6, is_default: true)
 Service.create!(
   name: "Overnight Truck Storage",
-  droppable_index: 6,
+  droppable_index: 7,
   is_default: true
 )
 

@@ -16,8 +16,8 @@ export const statusOptions = [
 export const statusColors = {
   Pending: "bg-amber-500",
   "Pending-info": "bg-amber-500",
-  Confirmed: "bg-green-600",
-  "Not Confirmed": "bg-indigo-600",
+  Confirmed: "bg-green-500",
+  "Not Confirmed": "bg-indigo-500",
   Canceled: "bg-red-500",
   Completed: "bg-[deepskyblue]",
   "Not Available": "bg-slate-800",

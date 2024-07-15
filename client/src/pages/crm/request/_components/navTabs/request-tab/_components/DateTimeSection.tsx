@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import StartTimeInput from "@/components/StartTimeInput";
 import WorkTimeInput, {
   generateWorkTimeOptions,
 } from "@/components/WorkTimeInput";
@@ -19,8 +20,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { centsToDollars, cn, formatDate } from "@/lib/utils";
-import { setRequest } from "@/slices/request";
+import {
+  centsToDollars,
+  cn,
+  formatDate,
+  updateDateKeepingTime,
+} from "@/lib/utils";
+import { setParklotDate, setRequest } from "@/slices/request";
 import { useDispatch, useSelector } from "@/store";
 import {
   CalendarIcon,
@@ -30,22 +36,13 @@ import {
   TruckIcon,
   UserRoundIcon,
 } from "lucide-react";
-import StartTimeInput from "@/components/StartTimeInput";
 
 export default function DateTimeSection() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const { request } = useSelector((state) => state.request);
   const dispatch = useDispatch();
   return (
-    <div
-      // className="grid w-full grid-cols-1 gap-4 bg-background p-4 shadow md:auto-cols-max md:grid-flow-col md:grid-cols-none md:gap-6 md:p-6"
-      // className={cn(
-      //   "bg-background p-4 shadow md:p-6",
-      //   "grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:auto-cols-max xl:grid-flow-col xl:grid-cols-none",
-      // )}
-      // className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7"
-      className="grid gap-4 bg-background p-4 shadow sm:grid-cols-2 md:grid-cols-3 lg:flex lg:flex-nowrap"
-    >
+    <div className="grid gap-4 bg-background p-4 shadow sm:grid-cols-2 md:grid-cols-3 lg:flex lg:flex-nowrap">
       <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="movingDate">
           Move date
@@ -74,10 +71,27 @@ export default function DateTimeSection() {
                 mode="single"
                 selected={new Date(request?.moving_date!)}
                 onSelect={(selectedDay) => {
+                  // dispatch(fetchRequestsByDate(selectedDay));
+
+                  const newStartTime = updateDateKeepingTime(
+                    request?.start_time_window,
+                    selectedDay!,
+                  );
+
+                  const newEndTime = updateDateKeepingTime(
+                    request?.end_time_window,
+                    selectedDay!,
+                  );
+
                   dispatch(
                     setRequest({
                       moving_date: new Date(selectedDay!).toISOString(),
+                      start_time_window: newStartTime,
+                      end_time_window: newEndTime,
                     }),
+                  );
+                  dispatch(
+                    setParklotDate(new Date(selectedDay!).toISOString()),
                   );
                   setIsCalendarOpen(false);
                 }}
@@ -131,7 +145,6 @@ export default function DateTimeSection() {
           </Select>
         </div>
       </div>
-      {/* <div className="flex justify-between gap-4"> */}
       <div className="flex-1 lg:w-auto">
         <Label className="ml-8" htmlFor="crewSize">
           Crew size
@@ -145,11 +158,17 @@ export default function DateTimeSection() {
             value={request?.crew_size || ""}
             onChange={(e) => {
               const value = e.target.value;
+              console.log(typeof value);
+
+              if (value === "") {
+                dispatch(setRequest({ crew_size: 0 }));
+                return;
+              }
+
               if (/^\d*$/.test(value)) {
                 dispatch(setRequest({ crew_size: parseInt(value) }));
               }
             }}
-            // className="md:w-20"
           />
         </div>
       </div>

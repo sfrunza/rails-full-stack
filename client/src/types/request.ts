@@ -29,9 +29,14 @@ export type TFullRequest = {
     comments: string,
   },
   size: string;
+  start_time_window: number;
+  end_time_window: number;
   travel_time: number;
   crew_size: number;
   rate: number;
+  paired_request_id: number;
+  paired_request: TFullRequest;
+  is_moving_from_storage: boolean;
   customer?: TCustomer | undefined;
   customer_id: number;
   origin: TAddress;
@@ -43,6 +48,7 @@ export type TFullRequest = {
   dispatch_notes: string;
   deposit: number;
   can_edit_request: boolean;
+  truck_ids: number[];
   created_at: Date;
   updated_at: Date;
 }

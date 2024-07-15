@@ -58,6 +58,16 @@ export function formatDate(date: string | Date | null | undefined) {
   return format(dtDateOnly, 'PPP')
 }
 
+export function formatTimeWindow(timestamp: number) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+};
+
+
 export async function fakeDelay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -149,3 +159,21 @@ export function hasNonEmptyValues(obj: Record<string, any>) {
   }
   return false; // All values are empty strings or non-strings
 }
+
+
+export function updateDateKeepingTime(currentTimestamp: number | undefined, newDate: Date): number | null {
+  if (!currentTimestamp) {
+    return null
+  }
+  const currentDate = new Date(currentTimestamp * 1000); // Convert UNIX timestamp to Date object
+  const newDateWithTime = new Date(
+    newDate.getFullYear(),
+    newDate.getMonth(),
+    newDate.getDate(),
+    currentDate.getHours(),
+    currentDate.getMinutes(),
+    currentDate.getSeconds()
+  );
+
+  return Math.floor(newDateWithTime.getTime() / 1000); // Convert back to UNIX timestamp
+};

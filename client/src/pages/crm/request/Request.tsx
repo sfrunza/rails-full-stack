@@ -17,7 +17,7 @@ import BackButton from "./_components/BackButton";
 import CustomerTab from "./_components/navTabs/CustomerTab";
 import DetailsTab from "./_components/navTabs/DetailsTab";
 import LogsTab from "./_components/navTabs/LogsTab";
-import RequestTab from "./_components/navTabs/RequestTab";
+import RequestTab from "./_components/navTabs/request-tab/RequestTab";
 
 export default function Request() {
   const { id } = useParams<{ id: string }>();
@@ -109,7 +109,7 @@ export default function Request() {
         </div>
         <BackButton />
       </div>
-      <div className="border-b px-4 pb-4 pt-2 md:px-6">
+      <div className="border-b px-4 py-2 md:px-6">
         <Tabs
           defaultValue={value}
           onValueChange={(val) => {

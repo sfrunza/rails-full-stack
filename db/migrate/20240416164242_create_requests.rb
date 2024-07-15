@@ -6,6 +6,8 @@ class CreateRequests < ActiveRecord::Migration[7.1]
       t.datetime :moving_date
       t.string :status, null: false, default: "Pending"
       t.string :size
+      t.integer :start_time_window
+      t.integer :end_time_window
       t.integer :customer_id
       t.jsonb :work_time, default: { min: 0, max: 0 }
       t.jsonb :total_time, default: { min: 0, max: 0 }
@@ -21,6 +23,8 @@ class CreateRequests < ActiveRecord::Migration[7.1]
       t.text :customer_notes
       t.text :dispatch_notes
       t.integer :deposit, default: 10_000
+      t.boolean :is_moving_from_storage, default: false
+      t.integer :paired_request_id
       t.jsonb :details,
               default: {
                 delicate_items_question_answer: "",

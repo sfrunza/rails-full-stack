@@ -43,11 +43,13 @@ export default function AdminLayout() {
                 !isMessagesPage && "text-white",
               )}
             >
-              <Link to="/crm/messages" className="relative">
-                <MessageCircleMore className="size-8" aria-hidden="true" />
-                <span className="absolute right-0 top-0 flex size-4 items-center justify-center rounded-full bg-red-600 p-2 text-xs text-white">
-                  2
-                </span>
+              <Link to="/crm/messages">
+                <div className="relative">
+                  <MessageCircleMore className="size-8" aria-hidden="true" />
+                  <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-red-600 p-2 text-xs text-white">
+                    2
+                  </span>
+                </div>
               </Link>
             </Button>
             <UserButton />

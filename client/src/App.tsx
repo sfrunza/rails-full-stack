@@ -14,6 +14,7 @@ import Calendar from "@/pages/crm/Calendar";
 import SettingsMain from "@/pages/crm/settings/SettingsMain";
 import ServicesSettings from "@/pages/crm/settings/services/ServicesSettings";
 import PackingSettings from "@/pages/crm/settings/packing/PackingSettings";
+import TruckSettings from "@/pages/crm/settings/trucks/TruckSettings";
 
 import Profile from "@/pages/account/Profile";
 import AccountMain from "@/pages/account/AccountMain";
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/crm/settings" element={<div className="hidden" />} />
           <Route path="/crm/settings/services" element={<ServicesSettings />} />
           <Route path="/crm/settings/packing" element={<PackingSettings />} />
+          <Route path="/crm/settings/trucks" element={<TruckSettings />} />
         </Route>
         <Route path="/crm" element={<Navigate to="/crm/requests" />} />
       </Route>

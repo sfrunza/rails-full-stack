@@ -15,7 +15,9 @@ class RequestTableSerializer < ActiveModel::Serializer
              :rate,
              :created_at,
              :updated_at,
-             :total_price
+             :total_price,
+             :is_moving_from_storage,
+             :paired_request
   #  def customer
   #    {
   #      first_name: object.customer&.first_name,

@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "@/store";
 
 export function CreateRequestButton() {
-  // const { data: services, isLoading } = useSWR("/services");
   const { services } = useSelector((state) => state.globalSettings);
   const [isCreating, setIsCreating] = useState(false);
   const navigate = useNavigate();
@@ -47,11 +46,6 @@ export function CreateRequestButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 p-0">
         <DropdownMenuGroup>
-          {/* {isLoading && (
-            <div className="flex h-40 items-center justify-center">
-              <Spinner />
-            </div>
-          )} */}
           {services?.map(
             (service: {
               id: number;

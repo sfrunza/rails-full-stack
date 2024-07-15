@@ -5,52 +5,70 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "./ui/separator";
+import { setRequest } from "@/slices/request";
+import { useDispatch, useSelector } from "@/store";
 import { XIcon } from "lucide-react";
-import { useState } from "react";
+import { Separator } from "./ui/separator";
 
-function generateTimeOptions() {
-  const options = [];
-  // const options = [{ value: "", label: "" }];
+// function generateTimeOptions() {
+//   const options = [];
+//   // const options = [{ value: "", label: "" }];
 
-  const startTime = new Date();
-  startTime.setHours(5, 0, 0); // Set start time to 8:00 AM
+//   const startTime = new Date();
+//   startTime.setHours(5, 0, 0); // Set start time to 8:00 AM
 
-  // Generate options every 30 minutes
-  for (let i = 0; i < 16 * 2; i++) {
-    const time = new Date(startTime.getTime() + i * 30 * 60 * 1000);
-    const formattedTime = time.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-    });
-    options.push({ value: formattedTime, label: formattedTime });
-  }
-  return options;
-}
+//   // Generate options every 30 minutes
+//   for (let i = 0; i < 16 * 2; i++) {
+//     const time = new Date(startTime.getTime() + i * 30 * 60 * 1000);
+//     const formattedTime = time.toLocaleTimeString([], {
+//       hour: "numeric",
+//       minute: "2-digit",
+//     });
+//     options.push({ value: formattedTime, label: formattedTime });
+//   }
+//   return options;
+// }
 
 export default function StartTimeInput() {
-  const [startTime, setStartTime] = useState({ start: "", end: "" });
+  const { request } = useSelector((state) => state.request);
+  const dispatch = useDispatch();
 
-  // function handleStartTimeChange(val: string) {
-  //   setStartTime({ ...startTime, start: val });
-  // }
+  const generateTimeOptions = (
+    movingDate?: Date,
+  ): { label: string; value: number }[] => {
+    const options = [];
+    let startOfDay = new Date().setHours(0, 0, 0, 0);
 
-  function handleEndTimeChange(val: string) {
-    setStartTime({ ...startTime, end: val });
-  }
+    if (movingDate) {
+      startOfDay = new Date(movingDate).setHours(0, 0, 0, 0);
+    }
 
-  // console.log(startTime);
+    for (let i = 0; i < 48; i++) {
+      // 48 intervals in a day (24 hours * 2)
+      const time = new Date(startOfDay + i * 30 * 60 * 1000); // Add 30 minutes
+      const label = time.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+      });
+      const value = Math.floor(time.getTime() / 1000);
+      options.push({ label, value });
+    }
+
+    return options;
+  };
+
+  const timeOptions = generateTimeOptions(request?.moving_date);
+
   return (
     <div className="flex w-full gap-[1px] rounded-md border shadow-sm">
       <Select
-        value={startTime.start}
+        value={
+          request?.start_time_window
+            ? request?.start_time_window.toString()
+            : ""
+        }
         onValueChange={(val: string) => {
-          // console.log(startTime.end);
-          if (!startTime.end.length) {
-            setStartTime((prev) => ({ ...prev, start: val, end: val }));
-          } else {
-            setStartTime((prev) => ({ ...prev, start: val }));
-          }
+          dispatch(setRequest({ start_time_window: parseInt(val, 10) }));
         }}
       >
         <SelectTrigger
@@ -60,8 +78,8 @@ export default function StartTimeInput() {
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {generateTimeOptions().map((option) => (
-            <SelectItem key={option.value} value={option.value}>
+          {timeOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value.toString()}>
               {option.label}
             </SelectItem>
           ))}
@@ -69,9 +87,11 @@ export default function StartTimeInput() {
       </Select>
       <Separator className="h-9" orientation="vertical" />
       <Select
-        value={startTime.end}
+        value={
+          request?.end_time_window ? request?.end_time_window.toString() : ""
+        }
         onValueChange={(val: string) => {
-          setStartTime((prev) => ({ ...prev, end: val }));
+          dispatch(setRequest({ end_time_window: parseInt(val, 10) }));
         }}
       >
         <div className="relative flex w-full items-center">
@@ -82,17 +102,14 @@ export default function StartTimeInput() {
           <XIcon
             onClick={(e) => {
               e.stopPropagation();
-              handleEndTimeChange("");
-              setStartTime((prev) => {
-                return { ...prev, end: "" };
-              });
+              dispatch(setRequest({ end_time_window: null }));
             }}
             className="absolute right-0 size-4 cursor-pointer opacity-50 hover:opacity-100"
           />
         </div>
         <SelectContent>
-          {generateTimeOptions().map((option, i) => (
-            <SelectItem key={i} value={option.value ?? ""}>
+          {timeOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value.toString()}>
               {option.label}
             </SelectItem>
           ))}

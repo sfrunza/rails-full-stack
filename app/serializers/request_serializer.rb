@@ -3,8 +3,11 @@ class RequestSerializer < ActiveModel::Serializer
              :moving_date,
              :status,
              :size,
+             :start_time_window,
+             :end_time_window,
              :service_id,
              :packing_id,
+             :customer_id,
              :customer,
              :origin,
              :destination,
@@ -23,8 +26,15 @@ class RequestSerializer < ActiveModel::Serializer
              :dispatch_notes,
              :deposit,
              :can_edit_request,
+             :paired_request_id,
+             :paired_request,
+             :is_moving_from_storage,
+             :truck_ids,
              :created_at,
              :updated_at
+
+  has_one :paired_request
+
   def customer
     {
       id: object.customer&.id,

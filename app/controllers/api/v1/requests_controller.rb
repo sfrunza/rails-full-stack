@@ -1,6 +1,6 @@
 class Api::V1::RequestsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_request, only: %i[show update destroy show versions]
+  # before_action :authenticate_user!
+  before_action :set_request, only: %i[show update destroy show versions pair]
   before_action :check_permission, only: %i[destroy]
 
   # GET /requests?filter=all&page=1
@@ -85,12 +85,19 @@ class Api::V1::RequestsController < ApplicationController
 
   # POST /requests
   def create
-    request = Request.new(request_params)
+    # request = Request.new(request_params)
+    request = Request.new(request_params.except(:id))
 
     if request.save
+      if request.paired_request_id.present?
+        paired_request = Request.find(request.paired_request_id)
+        unless paired_request.paired_request_id == request.id
+          paired_request.update(paired_request_id: request.id)
+        end
+      end
       serialized_request = RequestSerializer.new(request)
       ActionCable.server.broadcast("request_#{params[:id]}", serialized_request)
-      render json: { success: "Request created.", request: request }
+      render json: { success: "Request created", request: request }
     elsif request.errors.messages
       render json: { error: request.errors.messages }
     else
@@ -100,17 +107,29 @@ class Api::V1::RequestsController < ApplicationController
 
   # PATCH/PUT /requests/1
   def update
-    @request = Request.joins(:service).find(params[:id])
-    serialized_request = RequestSerializer.new(@request)
-
-    previous_changes = @request.previous_changes
+    old_truck_ids = @request.truck_ids
 
     if @request.update(request_params)
       @request.update_status_if_needed(current_user.role)
+      new_truck_ids = params[:request][:truck_ids]
+      @request.update_trucks(new_truck_ids) if new_truck_ids.present?
+
       updated_fields = @request.updated_fields
+      updated_fields =
+        @request.updated_fields.merge(
+          truck_ids: new_truck_ids
+        ) if new_truck_ids.present?
 
       ActionCable.server.broadcast("request_#{params[:id]}", updated_fields)
-      render json: @request, serializer: RequestSerializer
+      # render json: @request, serializer: RequestSerializer
+      render json: {
+               success: "Request saved",
+               request:
+                 ActiveModelSerializers::SerializableResource.new(
+                   @request,
+                   serializer: RequestSerializer
+                 )
+             }
     else
       render json: @request.errors, status: :unprocessable_entity
     end
@@ -120,6 +139,19 @@ class Api::V1::RequestsController < ApplicationController
   def destroy
     @request.destroy!
     render json: { success: "Request successfully deleted." }, status: :accepted
+  end
+
+  # POST /api/v1/requests/:id/pair
+  def pair
+    paired_request = Request.find(params[:paired_request_id])
+    if @request.pair_with(paired_request)
+      updated_fields = @request.updated_fields
+
+      ActionCable.server.broadcast("request_#{params[:id]}", updated_fields)
+      render json: @request, serializer: RequestSerializer
+    else
+      render json: @request.errors, status: :unprocessable_entity
+    end
   end
 
   private
@@ -153,9 +185,12 @@ class Api::V1::RequestsController < ApplicationController
       :service_id,
       :packing_id,
       :customer_id,
+      :customer,
       :moving_date,
       :status,
       :size,
+      :start_time_window,
+      :end_time_window,
       :crew_size,
       :rate,
       :sales_notes,
@@ -166,6 +201,8 @@ class Api::V1::RequestsController < ApplicationController
       :travel_time,
       :min_total_time,
       :can_edit_request,
+      :paired_request_id,
+      :is_moving_from_storage,
       work_time: %i[min max],
       total_time: %i[min max],
       total_price: %i[min max],
@@ -187,7 +224,8 @@ class Api::V1::RequestsController < ApplicationController
         :isPickup,
         :isDropoff,
         location: %i[lat lng] # Permit nested location attributes
-      ]
+      ],
+      truck_ids: []
     )
   end
 

@@ -10,8 +10,16 @@ import { format } from "date-fns";
 import { cn, formatDate, formatMoney } from "@/lib/utils";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useSelector } from '@/store';
 import { TFullRequest } from "@/types/request";
+
+type TStorageIcons = {
+  [key: string]: string;
+};
+
+const storageIcons = {
+  "Moving & Storage": "/svg-icons/warehouse.svg",
+  "Overnight Truck Storage": "/svg-icons/truck.svg",
+} as TStorageIcons;
 
 const statusColors = {
   Confirmed: "text-green-600 bg-green-100",
@@ -61,6 +69,16 @@ export function RequestsTable({ requests }: { requests: TFullRequest[] }) {
             const fullName = request.customer
               ? `${request.customer?.first_name} ${request.customer?.last_name}`
               : "";
+            const withStorage =
+              request.service.name === "Moving & Storage" ||
+              request.service.name === "Overnight Truck Storage";
+            const isMovingFromStorage = request.is_moving_from_storage;
+            const hasPairedRequest = request?.paired_request;
+            const showStorageOrigin =
+              withStorage && isMovingFromStorage && hasPairedRequest;
+
+            const showStorageDestination =
+              withStorage && !isMovingFromStorage && hasPairedRequest;
             return (
               <TableRow
                 key={request.id}
@@ -71,19 +89,16 @@ export function RequestsTable({ requests }: { requests: TFullRequest[] }) {
                 onClick={() => handleRowClick(request?.id!)}
                 onSelect={() => handleRowClick(request?.id!)}
               >
-                <TableCell className="px-2 text-sm font-semibold">
-                  {request.id}
-                </TableCell>
+                <TableCell>{request.id}</TableCell>
                 <TableCell>
-                  <p
+                  <div
                     className={cn(
-                      `w-fit rounded px-2 py-1 text-xs font-medium tracking-wider ${
-                        statusColors[request.status]
-                      } `,
+                      "w-fit rounded-md px-3 py-1 text-xs font-medium tracking-wider",
+                      statusColors[request.status],
                     )}
                   >
                     {request.status}
-                  </p>
+                  </div>
                 </TableCell>
                 <TableCell>{request.service.name}</TableCell>
                 <TableCell>
@@ -97,16 +112,40 @@ export function RequestsTable({ requests }: { requests: TFullRequest[] }) {
                   {request.customer?.phone ?? ""}
                 </TableCell>
                 <TableCell>
-                  {request.origin.city}
-                  <br />
-                  {request.origin.state}, {request.origin.zip}
+                  {showStorageOrigin ? (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={storageIcons[request.service.name]}
+                        className="size-6"
+                      />
+                      From storage
+                    </div>
+                  ) : (
+                    <>
+                      {request.origin.city}
+                      <br />
+                      {request.origin.state} {request.origin.zip}
+                    </>
+                  )}
                 </TableCell>
                 <TableCell>
-                  {request.destination.city}
-                  <br />
-                  {request.destination.state}, {request.destination.zip}
+                  {showStorageDestination ? (
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={storageIcons[request.service.name]}
+                        className="size-6"
+                      />
+                      To storage
+                    </div>
+                  ) : (
+                    <>
+                      {request.destination.city}
+                      <br />
+                      {request.destination.state} {request.destination.zip}
+                    </>
+                  )}
                 </TableCell>
-                <TableCell width={110}>{request.size ?? ""}</TableCell>
+                <TableCell>{request.size ?? ""}</TableCell>
                 <TableCell>{request.crew_size ?? ""}</TableCell>
                 <TableCell>{format(request.created_at, "Pp")}</TableCell>
                 <TableCell>{format(request.updated_at, "Pp")}</TableCell>

@@ -16,7 +16,7 @@ class Api::V1::PackingsController < ApplicationController
     if packing
       render json: packing
     else
-      render json: { error: "Packing could not be found." }
+      render json: { error: "Packing could not be found" }
     end
   end
 
@@ -28,7 +28,7 @@ class Api::V1::PackingsController < ApplicationController
       s.droppable_index = packing["droppable_index"].to_i
       s.save
     end
-    render json: { success: "Changes saved." }, status: :accepted
+    render json: { success: "Changes saved" }, status: :accepted
   end
 
   # POST /packings
@@ -36,7 +36,7 @@ class Api::V1::PackingsController < ApplicationController
     packing = Packing.new(packing_params)
 
     if packing.save
-      render json: { success: "Packing added.", packing: packing }
+      render json: { success: "Packing added", packing: packing }
     elsif packing.errors.messages
       render json: { error: packing.errors.messages }
     else
@@ -47,7 +47,7 @@ class Api::V1::PackingsController < ApplicationController
   # PATCH/PUT /packings/1
   def update
     if @packing.update(packing_params)
-      render json: { success: "Packing updated.", packing: @packing }
+      render json: { success: "Packing updated", packing: @packing }
     else
       render json: @packing.errors, status: :unprocessable_entity
     end
@@ -56,7 +56,7 @@ class Api::V1::PackingsController < ApplicationController
   # DELETE /packings/1
   def destroy
     @packing.destroy!
-    render json: { success: "Packing successfully deleted." }, status: :accepted
+    render json: { success: "Packing successfully deleted" }, status: :accepted
   end
 
   private
@@ -64,6 +64,7 @@ class Api::V1::PackingsController < ApplicationController
   def set_packing
     @packing = Packing.find(params[:id])
   end
+
   def authenticate_user!
     @token = request.headers["Authorization"]&.split(" ")&.last
 
