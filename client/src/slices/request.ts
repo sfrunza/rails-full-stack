@@ -190,7 +190,7 @@ export const fetchAdminRequest = (requestId: string) => async (dispatch: any) =>
     } else {
       dispatch(slice.actions.requestSuccess(requestData));
       dispatch(slice.actions.setOriginalRequest(requestData));
-      dispatch(slice.actions.setParklotDate(requestData.moving_date));
+      dispatch(slice.actions.setParklotDate(requestData.moving_date ?? new Date().toISOString()));
       // dispatch(fetchRequestsByDate(requestData.moving_date));
 
 

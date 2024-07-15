@@ -86,7 +86,7 @@ export default function Parklot() {
 
   console.log("parklotRequests", parklotRequests);
 
-  console.log("Data", data);
+  console.log("parklotDate", parklotDate);
 
   return (
     <>
